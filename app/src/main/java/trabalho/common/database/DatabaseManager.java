@@ -8,6 +8,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// TODO: Implement:
+// 1. Proper parsing
+// 2.
+
+
 /**
  * Gerencia a conexão com o banco de dados SQLite para toda a aplicação.
  * Utiliza o padrão Singleton para garantir uma única instância da conexão.

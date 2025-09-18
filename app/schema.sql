@@ -2,12 +2,15 @@
 -- Todos os membros da equipe devem adicionar suas tabelas aqui.
 
 -- Módulo: Administração (Aluno 1)
+-- TODO: Não deixar que role seja alterada facilmente, limpar entradas
+-- antes de inserir.
 CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
-    role TEXT NOT NULL CHECK(role IN ('ADMIN', 'GESTOR', 'RECRUTADOR', 'FINANCEIRO'))
-);
+    role TEXT NOT NULL CHECK(role IN ('ADMIN', 'GESTOR', 'RECRUTADOR', 'FUNCIONARIO', 'CANDIDATO', 'PRESTADOR'))
+); 
+
 
 -- Módulo: Candidatura (Aluno 2)
 CREATE TABLE IF NOT EXISTS candidatos (
