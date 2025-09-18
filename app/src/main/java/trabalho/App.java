@@ -1,41 +1,70 @@
 package trabalho;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import trabalho.common.database.DatabaseManager;
+
+import java.io.IOException;
+
 /**
- * This is the main entry point for your JavaFX application.
+ * The main entry point for the HR Management application.
+ * This class is responsible for launching the JavaFX application and displaying
+ * the initial login screen.
  */
 public class App extends Application {
 
-    // The start() method is the main entry point for all JavaFX applications.
+    /**
+     * The main entry point for all JavaFX applications.
+     * 
+     * @param primaryStage The primary window for this application, onto which the
+     *                     application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage) {
-        // A Label is a simple text control.
-        Label helloLabel = new Label("Hello, JavaFX! Your HR Management App is running.");
+        try {
+            // 1. Create an FXMLLoader. This object is responsible for loading the FXML
+            // file.
+            // The path starts with "/" which means it looks in the root of the 'resources'
+            // folder.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/login.fxml"));
+            // 2. Load the FXML file. This creates the entire scene graph (all the UI
+            // elements) in memory.
+            Parent root = loader.load();
 
-        // A StackPane is a simple layout pane that stacks nodes on top of each other.
-        StackPane root = new StackPane();
-        root.getChildren().add(helloLabel);
+            // 3. Create a new Scene to hold the loaded UI.
+            Scene scene = new Scene(root);
 
-        // A Scene represents the content inside a window.
-        // We set the root layout and the size of the window (640x480).
-        Scene scene = new Scene(root, 640, 480);
+            // 4. Configure the main window (the Stage).
+            primaryStage.setTitle("HR Management System - Login");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true); // Optional: makes the window size fixed.
 
-        // The Stage is the main window of the application.
-        primaryStage.setTitle("HR Management System");
-        primaryStage.setScene(scene);
+            // 5. Show the window to the user.
+            primaryStage.show();
 
-        // Show the window to the user.
-        primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load the login screen FXML.");
+            e.printStackTrace();
+        }
     }
 
-    // The main() method is not strictly required for JavaFX apps but is good
-    // practice.
-    // It's used to launch the JavaFX application.
+    /**
+     * This method is called when the application is closed.
+     * It's a good place to close the database connection.
+     */
+    @Override
+    public void stop() {
+        System.out.println("Closing application and database connection.");
+        DatabaseManager.closeConnection();
+    }
+
+    /**
+     * The main method, used to launch the JavaFX application.
+     */
     public static void main(String[] args) {
         launch(args);
     }
