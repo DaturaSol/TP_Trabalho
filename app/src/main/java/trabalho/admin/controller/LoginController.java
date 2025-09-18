@@ -13,6 +13,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*
+ * Senhas devem respeitar políticas mínimas (por exemplo: 8 caracteres, letras e números).
+ * 
+*/
+
+
 /**
  * Controller for the Login screen (login.fxml).
  * Handles user input and authentication logic.

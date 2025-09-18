@@ -10,6 +10,9 @@ import trabalho.common.database.DatabaseManager;
 
 import java.io.IOException;
 
+
+// TODO: Start database before running anything else
+
 /**
  * The main entry point for the HR Management application.
  * This class is responsible for launching the JavaFX application and displaying
