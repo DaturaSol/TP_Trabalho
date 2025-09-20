@@ -188,7 +188,7 @@ O projeto é organizado usando o padrão "package-by-feature" para minimizar con
 ```
 trabalho/
 ├── app/                      <-- Módulo principal da aplicação.
-│   ├── build.gradle.kts      <-- Script de build do projeto raiz.
+│   └── build.gradle.kts      <-- Script de build do projeto raiz.
 ├── gradle/                   <-- Arquivos do Gradle Wrapper.
 │   └── libs.versions.toml    <-- Catálogo central de dependências.
 ├── gradlew                   <-- Executável do Gradle para Linux/macOS.
