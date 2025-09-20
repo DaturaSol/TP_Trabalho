@@ -6,18 +6,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import trabalho.common.database.DatabaseManager;
+import trabalho.admin.model.Usuario;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Optional;
 
 /*
  * Senhas devem respeitar políticas mínimas (por exemplo: 8 caracteres, letras e números).
  * 
 */
-
 
 /**
  * Controller for the Login screen (login.fxml).
@@ -64,31 +62,22 @@ public class LoginController {
      * @param password The password entered by the user.
      */
     private void authenticateUser(String username, String password) {
-        // NOTE: This is a basic example. In a real application, you would hash the
-        // password!
-        String sql = "SELECT role FROM usuarios WHERE username = ? AND password_hash = ?";
+        // 1. Get the data manager instance
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
 
-        try (Connection conn = DatabaseManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        // 2. Search the list of users in memory using Java Streams
+        Optional<Usuario> userOptional = appData.getUsuarios().stream()
+                .filter(user -> user.getUsername().equals(username) && user.getPasswordHash().equals(password))
+                .findFirst();
 
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String role = rs.getString("role");
-                showFeedback("Login successful! Role: " + role, Color.GREEN);
-                // TODO: Here you would navigate to the main application screen based on the
-                // user's role.
-
-            } else {
-                showFeedback("Invalid username or password.", Color.RED);
-            }
-
-        } catch (SQLException e) {
-            showFeedback("Database error. Please try again later.", Color.RED);
-            e.printStackTrace();
+        // 3. Check if a user was found
+        if (userOptional.isPresent()) {
+            Usuario user = userOptional.get();
+            showFeedback("Login successful! Role: " + user.getRole(), Color.GREEN);
+            // TODO: Navigate to the main application screen
+        } else {
+            showFeedback("Invalid username or password.", Color.RED);
         }
     }
 

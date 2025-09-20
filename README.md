@@ -189,7 +189,6 @@ O projeto é organizado usando o padrão "package-by-feature" para minimizar con
 trabalho/
 ├── app/                      <-- Módulo principal da aplicação.
 │   ├── build.gradle.kts      <-- Script de build do projeto raiz.
-│   └── schema.sql            <-- Script de criação das tabelas do banco de dados.
 ├── gradle/                   <-- Arquivos do Gradle Wrapper.
 │   └── libs.versions.toml    <-- Catálogo central de dependências.
 ├── gradlew                   <-- Executável do Gradle para Linux/macOS.
@@ -212,7 +211,6 @@ trabalho/
 │
 ├── common/                     // Código compartilhado por todos os módulos.
 │   ├── database/
-│   │   └── DatabaseManager.java  // Gerencia a conexão com o banco de dados SQLite.
 │   └── model/
 │       └── Pessoa.java         // Classe base para Candidato, Funcionário, etc.
 │

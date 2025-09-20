@@ -4,7 +4,7 @@
 [versions]
 junit-jupiter = "5.12.1"
 javafx = "21.0.1"
-sqliteJdbc = "3.43.2.2" 
+gson = "2.10.1"
 
 
 [libraries]
@@ -13,7 +13,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 javafx-controls = { module = "org.openjfx:javafx-controls", version.ref = "javafx" }
 javafx-fxml = { module = "org.openjfx:javafx-fxml", version.ref = "javafx" }
 # DataBase
-sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqliteJdbc" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 [bundles]
 # Bundles are a convenient way to group libraries that are always used together.

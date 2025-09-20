@@ -24,7 +24,7 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    implementation(libs.sqlite.jdbc)
+    implementation(libs.gson)
     // Add all the JavaFX libraries using the "bundle" we created.
     implementation(libs.bundles.javafx)
 }
