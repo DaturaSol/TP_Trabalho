@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import trabalho.common.database.DatabaseManager;
+import trabalho.common.database.JsonDataManager;
 
 import java.io.IOException;
 
@@ -61,8 +61,8 @@ public class App extends Application {
      */
     @Override
     public void stop() {
-        System.out.println("Closing application and database connection.");
-        DatabaseManager.closeConnection();
+        System.out.println("Closing application and saving data...");
+        JsonDataManager.getInstance().saveData();
     }
 
     /**
