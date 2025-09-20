@@ -1,8 +1,9 @@
 package trabalho.admin.model;
 
 import trabalho.common.model.Role;
+
 public class Usuario {
-    
+
     // We will need a way to generate unique IDs
     private long id;
     private String username;

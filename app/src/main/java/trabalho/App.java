@@ -10,7 +10,6 @@ import trabalho.common.database.JsonDataManager;
 
 import java.io.IOException;
 
-
 // TODO: Start database before running anything else
 
 /**

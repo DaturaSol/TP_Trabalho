@@ -27,6 +27,6 @@ public class AppData {
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
-    
+
     // Add getters for other lists
 }
