@@ -7,3 +7,4 @@ build
 hr_management.sqlite
 hr_data.json
 .vscode
+.idea
