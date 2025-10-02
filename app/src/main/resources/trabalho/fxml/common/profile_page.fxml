@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="106.0" layoutY="14.0" text="Bem vindo(a)! Selecione um perfil para começar.">
@@ -17,12 +16,12 @@
       </Label>
       <VBox alignment="CENTER" layoutX="250.0" layoutY="42.0" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" text="Adminstrador" />
-            <Button mnemonicParsing="false" text="Gestor" />
-            <Button mnemonicParsing="false" text="Recrutador" />
+            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="100.0" text="Adminstrador" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Gestor" />
+            <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" text="Recrutador" />
          </children>
       </VBox>
-      <Button layoutX="274.0" layoutY="242.0" mnemonicParsing="false" text="Logout" />
+      <Button layoutX="249.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Sair" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
