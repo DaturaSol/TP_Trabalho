@@ -1,55 +1,58 @@
 package trabalho.admin.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import trabalho.common.model.Role;
+import trabalho.candidatura.model.Pessoa;
 
-public class Usuario {
+public class Usuario extends Pessoa {
 
-    // We will need a way to generate unique IDs
-    private long id;
-    private String username;
-    private String passwordHash; // In a real app, this would be a hash, not plain text
-    private List<Role> roles = new ArrayList<>();
+    protected String login;
+    protected String passHash;
+    // Good idea to use Sets here to keep the uniquines of a role.
+    protected Set<Role> roles = new HashSet<>(); 
 
     // A no-argument constructor is often needed by JSON libraries
     public Usuario() {
     }
 
-    public Usuario(long id, String username, String passwordHash, Role role) {
-        this.id = id;
-        this.username = username;
-        this.passwordHash = passwordHash;
-        this.roles.add(role);
+    public Usuario(
+        String nome,
+        String cpfCnpj,
+        String email,
+        String endereco,
+        long telefone,
+        String login,
+        String passHash,
+        Role role) {
+        super(nome,
+                cpfCnpj,
+                email,
+                endereco,
+                telefone);
+        this.login = login;
+        this.passHash = passHash;
+        roles.add(role);
     }
 
-    // Getters and Setters are crucial for the JSON library to access the fields
-    public long getId() {
-        return id;
+    public String getLogin() {
+        return login;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPassHash() {
+        return passHash;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPassHash(String passHash) {
+        this.passHash = passHash;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
@@ -57,11 +60,16 @@ public class Usuario {
         roles.add(role);
     }
 
+    public void dellRole(Role role) {
+        roles.remove(role);
+    }
+
+    // TODO: Verify if roles parses properly
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "cpfCnpj='" + super.cpfCnpj + '\'' +
+                ", login='" + login + '\'' +
                 ", role=" + roles +
                 '}';
     }

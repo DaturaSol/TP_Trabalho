@@ -325,4 +325,4 @@ git push origin feature/admin-login-screen
 
 ## Diagrama 
 
-![test](./relatorio/resources/diagram.svg)
+![test](./relatorio/resources/fluxograma.svg)
