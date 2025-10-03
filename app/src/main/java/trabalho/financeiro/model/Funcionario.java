@@ -79,8 +79,22 @@ public class Funcionario extends Usuario {
         throw new UnsupportedOperationException("Not Implemented");
     }
 
-    // Made this little funciton to make it easier to pipe this information 
-    // in other classes such Administrador, Gestor, Recrutador...
+    /**
+     * Made this little funciton to make it easier to pipe this information
+     * in other classes such Administrador, Gestor, Recrutador...
+     * 
+     * @return
+     * 
+     *         <pre>
+     *         {@code 
+     * "cpfCnpj='" + cpfCnpj + '\'' +
+                  ", cargo='" + cargo + "\'" +
+                  ", status='" + status + "\'" +
+                  ", departamento='" + departamento + "\'" +
+                  ", salarioBase='" + salarioBase + '\'' 
+    }
+     * 
+     */
     protected String dataString() {
         return "cpfCnpj='" + cpfCnpj + '\'' +
                 ", cargo='" + cargo + "\'" +

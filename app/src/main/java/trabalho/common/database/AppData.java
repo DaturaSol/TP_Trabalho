@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A container class that holds all the data for the application.
- * 
- * This entire object will be serialized to and from a single JSON file.
+ * <p>A container class that holds all the data for the application.</p>
+ * <p>This entire object will be serialized to and from a single JSON file.</p>
+ * <p>You should look inside this when checking information, update here frist
+ * then write the changes.</p>
  */
 public class AppData {
     private List<Administrador> administradores;
