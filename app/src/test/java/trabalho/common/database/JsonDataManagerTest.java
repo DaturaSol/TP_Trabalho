@@ -3,7 +3,7 @@ package trabalho.common.database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import trabalho.candidatura.model.Pessoa; // Assuming this is the correct package
+import trabalho.candidatura.model.Pessoa;
 
 import java.io.IOException;
 import java.nio.file.Files;
