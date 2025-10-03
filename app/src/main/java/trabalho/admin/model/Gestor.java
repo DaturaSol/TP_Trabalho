@@ -53,17 +53,14 @@ public class Gestor extends Funcionario {
 
     public void excluirUsuario(Usuario usuario) {
         throw new UnsupportedOperationException("Funcion not Implemented");
-
     }
 
     public void autorizarContratacao(Contratacao contratacao) {
         throw new UnsupportedOperationException("Funcion not Implemented");
-
     }
 
     public List<Candidatura> visualizarCandidaturas() {
         throw new UnsupportedOperationException("Funcion not Implemented");
-
     }
 
     @Override
