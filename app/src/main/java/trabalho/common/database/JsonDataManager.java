@@ -10,8 +10,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import trabalho.common.model.Role;
-import trabalho.admin.model.Usuario;
 
 /**
  * Manages data persistence using a single JSON file.
