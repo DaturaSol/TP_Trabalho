@@ -10,7 +10,7 @@ import trabalho.common.database.JsonDataManager;
 
 import java.io.IOException;
 
-// TODO: Start database before running anything else
+// TODO: Initialize JsonDataManager 
 
 /**
  * The main entry point for the HR Management application.
@@ -62,6 +62,13 @@ public class App extends Application {
     public void stop() {
         System.out.println("Closing application and saving data...");
         JsonDataManager.getInstance().saveData();
+    }
+
+    /**
+     * <b>DEBUG</b> function
+    */
+    public String getGreeting(){
+        return "The app is working";
     }
 
     /**

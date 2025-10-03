@@ -16,22 +16,39 @@ import java.nio.file.Paths;
  * This class is a Singleton.
  */
 public class JsonDataManager {
-    private static final String JSON_FILE = "hr_data.json";
+    private static final String DEFAULT_JSON_FILE = "hr_data.json";
     private static JsonDataManager instance;
+
+    private final String jsonFile; // In case we want to change the file name
     private AppData data;
     private final Gson gson;
 
-    private JsonDataManager() {
+    private JsonDataManager(String fileName) {
+        this.jsonFile = fileName;
         // Use GsonBuilder to make the JSON output human-readable
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         loadData();
     }
 
+    // By default it calls with the DEFAULT_JSON_FILE
     public static synchronized JsonDataManager getInstance() {
+        return getInstance(DEFAULT_JSON_FILE);
+    }
+
+    public static synchronized JsonDataManager getInstance(String filename) {
         if (instance == null) {
-            instance = new JsonDataManager();
+            instance = new JsonDataManager(filename);
         }
         return instance;
+    }
+
+    /**
+     * <p>
+     * <b>DEBUG</b>: Resets the singleton instance. CRITICAL for test isolation.
+     * </p>
+     */
+    public static synchronized void resetInstance() {
+        instance = null;
     }
 
     public AppData getData() {
@@ -45,10 +62,10 @@ public class JsonDataManager {
      * </p>
      */
     private void loadData() {
-        if (Files.exists(Paths.get(JSON_FILE))) {
-            try (Reader reader = new FileReader(JSON_FILE)) {
+        if (Files.exists(Paths.get(this.jsonFile))) {
+            try (Reader reader = new FileReader(this.jsonFile)) {
                 this.data = gson.fromJson(reader, AppData.class);
-                System.out.println("Data loaded from " + JSON_FILE);
+                System.out.println("Data loaded from " + this.jsonFile);
             } catch (IOException e) {
                 System.err.println("Error reading JSON file: " + e.getMessage());
                 // If reading fails, start with a fresh data object
@@ -62,9 +79,9 @@ public class JsonDataManager {
     }
 
     public void saveData() {
-        try (Writer writer = new FileWriter(JSON_FILE)) {
+        try (Writer writer = new FileWriter(this.jsonFile)) {
             gson.toJson(this.data, writer);
-            System.out.println("Data saved to " + JSON_FILE);
+            System.out.println("Data saved to " + this.jsonFile);
         } catch (IOException e) {
             System.err.println("Error writing to JSON file: " + e.getMessage());
         }
