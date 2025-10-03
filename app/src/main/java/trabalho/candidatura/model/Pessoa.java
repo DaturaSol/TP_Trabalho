@@ -68,7 +68,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" +
+        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
                 "cpfCnpj='" + cpfCnpj + "\'" +
                 ", nome='" + nome + "\'" +
                 ", email='" + email + "\'" +

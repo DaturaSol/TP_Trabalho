@@ -67,7 +67,7 @@ public class Usuario extends Pessoa {
     // TODO: Verify if roles parses properly
     @Override
     public String toString() {
-        return "Usuario{" +
+        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
                 "cpfCnpj='" + super.cpfCnpj + '\'' +
                 ", login='" + login + '\'' +
                 ", role=" + roles +

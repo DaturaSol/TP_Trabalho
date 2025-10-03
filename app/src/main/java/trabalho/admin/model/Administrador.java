@@ -60,6 +60,7 @@ public class Administrador extends Funcionario {
 
     @Override
     public String toString() {
-        return "Administrador{" + super.dataString() +"}";
+        return this.getClass().getSimpleName() // This ensures the class name matches!
+            + "{" + super.dataString() +"}";
     }
 }

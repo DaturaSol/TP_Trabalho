@@ -21,6 +21,9 @@ public class AppData {
     private List<Usuario> usuarios;
     private List<Funcionario> funcionarios;
     private List<Candidato> candidatos;
+    private List<Pessoa> pessoas;
+
+    
 
     public AppData() {
         administradores = new ArrayList<>();
@@ -28,6 +31,7 @@ public class AppData {
         usuarios = new ArrayList<>();
         funcionarios = new ArrayList<>();
         candidatos = new ArrayList<>();
+        pessoas = new ArrayList<>();
     }
 
     // Gson Needs a getter to parse these
@@ -49,5 +53,9 @@ public class AppData {
 
     public List<Usuario> getUsuarios() {
         return usuarios;
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 }

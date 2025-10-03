@@ -105,6 +105,7 @@ public class Funcionario extends Usuario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + dataString() + "}";
+        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
+            dataString() + "}";
     }
 }

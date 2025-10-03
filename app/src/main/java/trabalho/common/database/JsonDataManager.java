@@ -40,6 +40,12 @@ public class JsonDataManager {
         return data;
     }
 
+    /**
+     * <p>
+     * <b>NOTE</b>: Only run this function once and access data through:
+     * {@code this.data}
+     * </p>
+     */
     private void loadData() {
         if (Files.exists(Paths.get(JSON_FILE))) {
             try (Reader reader = new FileReader(JSON_FILE)) {
@@ -51,9 +57,9 @@ public class JsonDataManager {
                 initializeEmptyData();
             }
         } else {
-            System.out.println("JSON file not found. Initializing with default data.");
+            System.out.println("JSON file not found. Initializing a new file with default data.");
             initializeEmptyData();
-            saveData(); // Save the new empty file immediately
+            saveData();
         }
     }
 
@@ -68,9 +74,5 @@ public class JsonDataManager {
 
     private void initializeEmptyData() {
         this.data = new AppData();
-        // Add a default admin user for the first run
-        if (this.data.getUsuarios().isEmpty()) {
-            this.data.getUsuarios().add(new Usuario(1, "admin", "admin123", Role.ADMIN));
-        }
     }
 }

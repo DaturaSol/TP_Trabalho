@@ -65,7 +65,8 @@ public class Gestor extends Funcionario {
 
     @Override
     public String toString() {
-        return "Gestor{" + super.dataString() + "}";
+        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
+            super.dataString() + "}";
     }
 
 }
