@@ -74,7 +74,7 @@ public class LoginController {
         // 3. Check if a user was found
         if (userOptional.isPresent()) {
             Usuario user = userOptional.get();
-            showFeedback("Login successful! Role: " + user.getRole(), Color.GREEN);
+            showFeedback("Login successful! Role: " + user.getRoles(), Color.GREEN);
             // TODO: Navigate to the main application screen
         } else {
             showFeedback("Invalid username or password.", Color.RED);

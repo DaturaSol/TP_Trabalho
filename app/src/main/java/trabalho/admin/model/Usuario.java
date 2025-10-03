@@ -1,5 +1,8 @@
 package trabalho.admin.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import trabalho.common.model.Role;
 
 public class Usuario {
@@ -8,7 +11,7 @@ public class Usuario {
     private long id;
     private String username;
     private String passwordHash; // In a real app, this would be a hash, not plain text
-    private Role role;
+    private List<Role> roles = new ArrayList<>();
 
     // A no-argument constructor is often needed by JSON libraries
     public Usuario() {
@@ -18,7 +21,7 @@ public class Usuario {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
-        this.role = role;
+        this.roles.add(role);
     }
 
     // Getters and Setters are crucial for the JSON library to access the fields
@@ -46,12 +49,12 @@ public class Usuario {
         this.passwordHash = passwordHash;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void addRole(Role role) {
+        roles.add(role);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class Usuario {
         return "Usuario{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", role=" + role +
+                ", role=" + roles +
                 '}';
     }
 }

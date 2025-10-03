@@ -136,16 +136,56 @@ O sistema deve conter os seguintes requisitos não funcionais:
 ## Divisão das tarefas
 
 - Aluno 1 - Administração e Gestão: 
-    gestão de contas de usuário, supervisão de recrutadores e contratações, e criação de relatórios de gestão. Classes: Usuario, Administrador, Gestor. Telas: Login, Administrar Usuários, Relatórios Gestão.
+    gestão de contas de usuário, supervisão de recrutadores e contratações, e criação de relatórios de gestão.  
+    1. **Classes**: 
+        * Usuario, 
+        * Administrador, 
+        * Gestor. 
+    2. **Telas:** 
+        * Login, 
+        * Administrar Usuários, 
+        * Relatórios Gestão.
 
 - Aluno 2 - Candidatura: 
-    gestão de candidaturas. Classes: Pessoa, Candidato, Candidatura. Telas: Cadastro de Candidato, Candidatura à Vaga, Status da Candidatura.
+    gestão de candidaturas. 
+    1. Classes: 
+        * Pessoa, 
+        * Candidato, 
+        * Candidatura. 
+    2. Telas: 
+        * Cadastro de Candidato, 
+        * Candidatura à Vaga, 
+        * Status da Candidatura.
+        
 - Aluno 3 - Recrutamento: 
-    gestão de vagas e contratações. Classes: Recrutador, Vaga, Entrevista, Contratação. Telas: Menu do Recrutamento, Cadastro de Candidatos, Realizar Candidaturas, Marcar Entrevista, Solicitar Contratações, Consultar Contratações.
+    gestão de vagas e contratações. 
+    1. Classes: 
+        * Recrutador, 
+        * Vaga, 
+        * Entrevista, 
+        * Contratação. 
+    2. Telas: 
+        * Menu do Recrutamento,
+        *  Cadastro de Candidatos, 
+        *  Realizar Candidaturas, 
+        *  Marcar Entrevista, 
+        *  Solicitar Contratações, 
+        *  Consultar Contratações.
+
 - Aluno 4 - Financeiro: 
-    controle de regras salariais, folha de pagamento e relatórios financeiros. Classes: Funcionario, RegraSalario, FolhaPagamento. Telas: Menu do Financeiro, Cadastro de Funcionário, Configurar Regras Salariais, Gerar Folha de Pagamento, Relatório Financeiro, Contracheques.
-- Aluno 5 - Prestação de Serviço: 
-    gestão de prestadores de serviço e contratos. Classes: PrestadorServico, ContratoServico. Telas: Menu da Prestação de Serviço, Cadastro de Prestadores de Serviço, Gestão de Contratos, Relatório de Prestadores.
+    controle de regras salariais, folha de pagamento e relatórios financeiros. 
+    1. Classes: 
+        * Funcionario, 
+        * RegraSalario, 
+        * FolhaPagamento. 
+    2. Telas: 
+        * Menu do Financeiro, 
+        * Cadastro de Funcionário, 
+        * Configurar Regras Salariais, 
+        * Gerar Folha de Pagamento, 
+        * Relatório Financeiro, 
+        * Contracheques.
+
 
 ---
 
@@ -281,3 +321,8 @@ git push origin feature/admin-login-screen
 ```
 6. Abra um Pull Request (PR) no GitHub/GitLab para mesclar sua branch na main.
 7. Pelo menos um outro membro da equipe deve revisar o PR antes de aprová-lo.
+
+
+## Diagrama 
+
+![test](./relatorio/resources/diagram.svg)
