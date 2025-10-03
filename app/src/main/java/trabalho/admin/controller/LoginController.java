@@ -58,17 +58,17 @@ public class LoginController {
     /**
      * Checks the user's credentials against the database.
      * 
-     * @param username The username entered by the user.
-     * @param password The password entered by the user.
+     * @param login The username entered by the user.
+     * @param passHash The password entered by the user.
      */
-    private void authenticateUser(String username, String password) {
+    private void authenticateUser(String login, String passHash) {
         // 1. Get the data manager instance
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
         // 2. Search the list of users in memory using Java Streams
         Optional<Usuario> userOptional = appData.getUsuarios().stream()
-                .filter(user -> user.getUsername().equals(username) && user.getPasswordHash().equals(password))
+                .filter(user -> user.getLogin().equals(login) && user.getPassHash().equals(passHash))
                 .findFirst();
 
         // 3. Check if a user was found
