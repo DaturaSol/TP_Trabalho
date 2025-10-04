@@ -23,7 +23,7 @@ public class JsonDataManagerTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        Files.deleteIfExists(Paths.get(TEST_JSON_FILE));
+        // Files.deleteIfExists(Paths.get(TEST_JSON_FILE));
         JsonDataManager.resetInstance();
     }
 

@@ -75,7 +75,7 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Placeholder method for registering a new user in the system.
+     * TODO: method for registering a new user in the system.
      *
      * @param usuario The {@code Usuario} object containing the new user's details.
      * @throws UnsupportedOperationException always, as this feature is not yet
@@ -86,7 +86,7 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Placeholder method for modifying the details of an existing user.
+     * TODO: method for modifying the details of an existing user.
      *
      * @param usuario The {@code Usuario} object with updated information. The user
      *                to be modified is typically identified by a unique field
@@ -99,7 +99,7 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Placeholder method for deleting a user account from the system.
+     * TODO: method for deleting a user account from the system.
      *
      * @param usuario The user account to be deleted.
      * @throws UnsupportedOperationException always, as this feature is not yet
@@ -110,7 +110,7 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Placeholder method for retrieving a list of all users in the system.
+     * TODO: method for retrieving a list of all users in the system.
      *
      * @return This method is intended to return a list of all {@code Usuario}
      *         objects.
@@ -122,7 +122,7 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Placeholder method for generating a system-wide management report.
+     * TODO: method for generating a system-wide management report.
      *
      * @throws UnsupportedOperationException always, as this feature is not yet
      *                                       implemented.

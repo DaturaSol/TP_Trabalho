@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 public class AppData {
     private Map<String, Pessoa> pessoas;
 
-    // This is overkill, all for a fast login screen,
+    // This is overkill, all for a fast login screen...
     // we will never get even close to anything that need
     // this speed.
     // Key: login (String), Value: cpfCnpj (String)

@@ -76,7 +76,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * Placeholder method for creating a new job opening (Vaga).
+     * TODO: method for creating a new job opening (Vaga).
      *
      * @param vaga The {@code Vaga} object containing the details of the job to be created.
      * @throws UnsupportedOperationException always, as this feature is not yet implemented.
@@ -86,7 +86,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * Placeholder method for assigning a specific recruiter to a job opening.
+     * TODO: method for assigning a specific recruiter to a job opening.
      *
      * @param vaga        The job opening to which the recruiter will be assigned.
      * @param recrutador  The recruiter to be assigned to the job.
@@ -97,7 +97,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * Placeholder method for deleting a user account from the system.
+     * TODO: method for deleting a user account from the system.
      *
      * @param usuario The user account to be deleted.
      * @throws UnsupportedOperationException always, as this feature is not yet implemented.
@@ -107,7 +107,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * Placeholder method for giving final approval for a hiring decision.
+     * TODO: method for giving final approval for a hiring decision.
      *
      * @param contratacao The hiring record to be authorized.
      * @throws UnsupportedOperationException always, as this feature is not yet implemented.
@@ -117,7 +117,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * Placeholder method for viewing all job applications (candidaturas).
+     * TODO: method for viewing all job applications (candidaturas).
      *
      * @return This method is intended to return a list of job applications but currently
      *         does not return a value.
