@@ -1,5 +1,5 @@
 package trabalho.candidatura.model;
 
-public class Candidato {
+public class Candidato extends Pessoa {
     
 }

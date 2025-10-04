@@ -5,6 +5,6 @@
 build
 
 hr_management.sqlite
-hr_data*
+*hr_data*
 .vscode
 .idea

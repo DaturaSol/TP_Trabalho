@@ -62,17 +62,13 @@ public class LoginController {
      * @param passHash The password entered by the user.
      */
     private void authenticateUser(String login, String passHash) {
-        // 1. Get the data manager instance
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+        AppData appData = JsonDataManager.getInstance().getData();
 
         // 2. Search the list of users in memory using Java Streams
-        Optional<Usuario> userOptional = appData.getUsuarios().stream()
-                .filter(user -> user.getLogin().equals(login) && user.getPassHash().equals(passHash))
-                .findFirst();
+        Optional<Usuario> userOptional = appData.findUserByLogin(login);
 
         // 3. Check if a user was found
-        if (userOptional.isPresent()) {
+        if (userOptional.isPresent() && userOptional.get().getPassHash().equals(passHash)) {
             Usuario user = userOptional.get();
             showFeedback("Login successful! Role: " + user.getRoles(), Color.GREEN);
             // TODO: Navigate to the main application screen
