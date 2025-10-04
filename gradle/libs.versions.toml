@@ -8,7 +8,8 @@ gson = "2.10.1"
 
 
 [libraries]
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
 # UI-UX
 javafx-controls = { module = "org.openjfx:javafx-controls", version.ref = "javafx" }
 javafx-fxml = { module = "org.openjfx:javafx-fxml", version.ref = "javafx" }

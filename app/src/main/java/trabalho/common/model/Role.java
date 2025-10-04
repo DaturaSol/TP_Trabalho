@@ -4,5 +4,6 @@ public enum Role {
     ADMIN,
     GESTOR,
     RECRUTADOR,
-    FINANCEIRO
+    FUNCIONARIO,
+    CANDIDATO
 }

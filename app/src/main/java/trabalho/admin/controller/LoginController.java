@@ -58,23 +58,19 @@ public class LoginController {
     /**
      * Checks the user's credentials against the database.
      * 
-     * @param username The username entered by the user.
-     * @param password The password entered by the user.
+     * @param login The username entered by the user.
+     * @param passHash The password entered by the user.
      */
-    private void authenticateUser(String username, String password) {
-        // 1. Get the data manager instance
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+    private void authenticateUser(String login, String passHash) {
+        AppData appData = JsonDataManager.getInstance().getData();
 
         // 2. Search the list of users in memory using Java Streams
-        Optional<Usuario> userOptional = appData.getUsuarios().stream()
-                .filter(user -> user.getUsername().equals(username) && user.getPasswordHash().equals(password))
-                .findFirst();
+        Optional<Usuario> userOptional = appData.findUserByLogin(login);
 
         // 3. Check if a user was found
-        if (userOptional.isPresent()) {
+        if (userOptional.isPresent() && userOptional.get().getPassHash().equals(passHash)) {
             Usuario user = userOptional.get();
-            showFeedback("Login successful! Role: " + user.getRole(), Color.GREEN);
+            showFeedback("Login successful! Role: " + user.getRoles(), Color.GREEN);
             // TODO: Navigate to the main application screen
         } else {
             showFeedback("Invalid username or password.", Color.RED);

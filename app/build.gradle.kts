@@ -20,8 +20,9 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter.api)
 
+    testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     implementation(libs.gson)
