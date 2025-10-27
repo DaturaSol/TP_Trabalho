@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import trabalho.recrutamento.model.Vaga;
+
 public class Candidatura {
     private Candidato candidato;
     private Vaga vaga;
-    private Date dataCandidatura;
+    private Date dataCandidatura; 
     private StatusCandidatura status;
 
     private static final List<Candidatura> listaCandidaturas = new ArrayList<>();
@@ -16,7 +18,8 @@ public class Candidatura {
         PENDENTE, EM_ANALISE, APROVADO, REPROVADO
     }
 
-    public Candidatura() {}
+    public Candidatura() {
+    }
 
     public Candidatura(Candidato candidato, Vaga vaga, Date dataCandidatura) {
         this.candidato = candidato;
@@ -41,11 +44,11 @@ public class Candidatura {
         this.vaga = vaga;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatus() { // Or make it retunr the enum StatusCandidatura
+        return status.name(); // Method to return strings from enums
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusCandidatura status) { // Status must be of the same type
         this.status = status;
     }
 
@@ -85,7 +88,7 @@ public class Candidatura {
     public String toString() {
         return "Candidatura{" +
                 "candidato=" + (candidato != null ? candidato.getNome() : "null") +
-                ", vaga=" + (vaga != null ? vaga.getCargo() : "null") +
+                ", vaga=" + (vaga != null ? vaga.getCargo() : "null") + 
                 ", status='" + status + '\'' +
                 '}';
     }
