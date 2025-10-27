@@ -118,6 +118,9 @@ public class Gestor extends Funcionario {
 
         // A gestor should not be able to delete an admin
         switch (usuario) {
+            case Administrador admin ->
+                throw new IllegalArgumentException(
+                        "Permissão negada: Um Gestor não pode excluir um Administrador.");
             case Gestor gestor -> appData.removeGestor(gestor);
             case Recrutador recrutador -> appData.removeRecrutador(recrutador);
             case Funcionario funcionario -> appData.removeFuncionario(funcionario);
@@ -142,13 +145,7 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * TODO: method for viewing all job applications (candidaturas).
-     *
-     * @return This method is intended to return a list of job applications but
-     *         currently
-     *         does not return a value.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
+     * @return This method is intended to return a list of job applications.
      */
     public List<Candidatura> visualizarCandidaturas() {
         return JsonDataManager.getInstance().getData().getCandidaturas();
