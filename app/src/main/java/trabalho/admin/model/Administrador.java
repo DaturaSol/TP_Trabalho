@@ -111,6 +111,24 @@ public class Administrador extends Funcionario {
      */
     public void editarUsuario(Usuario usuario) {
         /// Logic is the same {cadastrarUsuario does most of the logic}
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        switch (usuario) {
+            case Administrador admin -> {
+                appData.getAdministradores().removeIf(a -> a.getCpfCnpj().equals(admin.getCpfCnpj()));
+            }
+            case Gestor gestor -> {
+                appData.getGestores().removeIf(g -> g.getCpfCnpj().equals(gestor.getCpfCnpj()));
+            }
+            case Recrutador recrutador -> {
+                appData.getRecrutadores().removeIf(r -> r.getCpfCnpj().equals(recrutador.getCpfCnpj()));
+            }
+            case Funcionario funcionario -> {
+                appData.getFuncionarios().removeIf(f -> f.getCpfCnpj().equals(funcionario.getCpfCnpj()));
+            }
+            default -> throw new IllegalArgumentException(
+                    "Tipo de usuário desconhecido para edição: " + usuario.getClass().getName());
+        }
         cadastrarUsuario(usuario);
         System.out.println("Usuário " + usuario.getLogin() + " editado com sucesso.");
     }
