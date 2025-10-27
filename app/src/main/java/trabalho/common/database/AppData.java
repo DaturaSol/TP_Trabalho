@@ -78,6 +78,33 @@ public class AppData {
             loginIndex.put(newUser.getLogin(), newUser.getCpfCnpj());
         }
     }
+    
+    /**
+     * Removes a person from the database and updates any relevant indexes.
+     * @param pessoa The person object to remove.
+     */
+    public void removePessoa(Pessoa pessoa) {
+        if (pessoa == null || pessoa.getCpfCnpj() == null) {
+            return;
+        }
+        // Remove from the main map
+        pessoas.remove(pessoa.getCpfCnpj());
+
+        // If it's a user, remove them from the login index
+        if (pessoa instanceof Usuario user) {
+            if (user.getLogin() != null) {
+                loginIndex.remove(user.getLogin());
+            }
+        }
+    }
+
+    /**
+     * Retrieves all people who are Users (including all subtypes like Admin, Gestor).
+     * @return A List of all Usuario objects.
+     */
+    public List<Usuario> getAllUsuarios() {
+        return filterByType(Usuario.class);
+    }
 
     /**
      * Rebuilds all secondary indexes from the primary `pessoas` map.
