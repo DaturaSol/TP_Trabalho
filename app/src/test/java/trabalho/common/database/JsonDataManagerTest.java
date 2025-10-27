@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import trabalho.admin.model.Administrador;
 import trabalho.admin.model.Gestor;
-import trabalho.financeiro.model.Funcionario; // <-- IMPORT ADDED
+import trabalho.financeiro.model.Funcionario;
 import trabalho.common.model.Role;
 
 import java.io.File;
@@ -36,44 +36,74 @@ public class JsonDataManagerTest {
                 // --- Setup ---
                 JsonDataManager dataManager = JsonDataManager.getInstance();
                 AppData appData = dataManager.getData();
-                Administrador rootAdmin = new Administrador("Root Admin", "000", "root@test.com", "...", 0, "root",
-                                "root",
-                                "SysAdmin", "Active", "IT", 10000);
+                Administrador rootAdmin = new Administrador(
+                                "Root Admin", "000",
+                                "root@test.com", "...",
+                                0, "root",
+                                "root", "SysAdmin",
+                                "Active", "IT",
+                                10000);
                 rootAdmin.cadastrarUsuario(rootAdmin);
-
-                // --- Action 1: Create a new Gestor and a new Funcionario ---
-                Gestor newGestor = new Gestor("New Gestor", "111", "gestor@test.com", "...", 1, "gestor1", "pass",
-                                "Manager", "Active", "Sales", 8000);
-                Funcionario newFuncionario = new Funcionario("New Func", "112", "func@test.com", "...", 2, "func1",
-                                "pass", Role.FUNCIONARIO, "Dev", "Active", "Tech", 6000);
+                Gestor newGestor = new Gestor(
+                                "New Gestor", "111",
+                                "gestor@test.com", "...",
+                                1, "gestor1",
+                                "pass", "Manager",
+                                "Active", "Sales",
+                                8000);
+                Funcionario newFuncionario = new Funcionario(
+                                "New Func", "112",
+                                "func@test.com",
+                                "...", 2,
+                                "func1", "pass",
+                                Role.FUNCIONARIO,
+                                "Dev", "Active",
+                                "Tech", 6000);
                 rootAdmin.cadastrarUsuario(newGestor);
                 rootAdmin.cadastrarUsuario(newFuncionario);
 
                 // --- Verification 1: Check if the users were created ---
-                assertEquals(1, appData.getAdministradores().size(), "Administradores list should have 1 entry.");
-                assertEquals(1, appData.getGestores().size(), "Gestores list should have 1 entry.");
-                assertEquals(1, appData.getFuncionarios().size(), "Funcionarios list should have 1 entry.");
+                assertEquals(1,
+                                appData.getAdministradores().size(),
+                                "Administradores list should have 1 entry.");
+                assertEquals(1,
+                                appData.getGestores().size(),
+                                "Gestores list should have 1 entry.");
+                assertEquals(1,
+                                appData.getFuncionarios().size(),
+                                "Funcionarios list should have 1 entry.");
 
                 // --- Action 2: Delete the Gestor and Funcionario ---
                 rootAdmin.excluirUsuario(newGestor);
                 rootAdmin.excluirUsuario(newFuncionario);
 
                 // --- Verification 2: Check if the users were deleted ---
-                assertEquals(1, appData.getAdministradores().size(), "Administradores list should still have 1 entry.");
-                assertTrue(appData.getGestores().isEmpty(), "Gestores list should be empty after deletion.");
-                assertTrue(appData.getFuncionarios().isEmpty(), "Funcionarios list should be empty after deletion.");
+                assertEquals(1,
+                                appData.getAdministradores().size(),
+                                "Administradores list should still have 1 entry.");
+                assertTrue(appData.getGestores().isEmpty(),
+                                "Gestores list should be empty after deletion.");
+                assertTrue(appData.getFuncionarios().isEmpty(),
+                                "Funcionarios list should be empty after deletion.");
         }
 
         @Test
         public void testGestorFunctionalityAndPermissions() {
                 // --- Setup ---
                 // JsonDataManager dataManager = JsonDataManager.getInstance();
-                Administrador admin = new Administrador("Root Admin", "000", "root@test.com", "...", 0, "root", "root",
-                                "SysAdmin", "Active", "IT", 10000);
+                Administrador admin = new Administrador("Root Admin", "000",
+                                "root@test.com", "...",
+                                0, "root",
+                                "root", "SysAdmin",
+                                "Active", "IT",
+                                10000);
                 admin.cadastrarUsuario(admin);
-                Gestor gestor = new Gestor("Test Gestor", "222", "gestor2@test.com", "...", 2, "gestor2", "pass",
-                                "Manager",
-                                "Active", "HR", 8000);
+                Gestor gestor = new Gestor("Test Gestor", "222",
+                                "gestor2@test.com", "...",
+                                2, "gestor2",
+                                "pass", "Manager",
+                                "Active", "HR",
+                                8000);
                 admin.cadastrarUsuario(gestor);
 
                 // TODO: Uncomment this section once the Vaga class is fully implemented.
@@ -96,28 +126,47 @@ public class JsonDataManagerTest {
         public void testUserEditing() {
                 // --- Setup ---
                 AppData appData = JsonDataManager.getInstance().getData();
-                Administrador admin = new Administrador("Root Admin", "000", "root@test.com", "...", 0, "root", "root",
-                                "SysAdmin", "Active", "IT", 10000);
+                Administrador admin = new Administrador(
+                                "Root Admin", "000",
+                                "root@test.com", "...",
+                                0, "root",
+                                "root", "SysAdmin",
+                                "Active", "IT",
+                                10000);
                 admin.cadastrarUsuario(admin);
-                Funcionario userToEdit = new Funcionario("Original Name", "444", "original@email.com", "...", 4,
-                                "user4", "pass", Role.FUNCIONARIO, "Tester", "Active", "QA", 4000);
+                Funcionario userToEdit = new Funcionario("Original Name", "444",
+                                "original@email.com", "...", 4,
+                                "user4", "pass",
+                                Role.FUNCIONARIO, "Tester",
+                                "Active", "QA",
+                                4000);
                 admin.cadastrarUsuario(userToEdit);
 
                 // --- Action: Create an "updated" version and edit the user ---
-                Funcionario updatedUser = new Funcionario("Updated Name", "444", "updated@email.com", "...", 4, "user4",
-                                "newpass", Role.FUNCIONARIO, "Senior Tester", "Active", "QA", 4500);
+                Funcionario updatedUser = new Funcionario("Updated Name", "444",
+                                "updated@email.com", "...",
+                                4, "user4", "newpass",
+                                Role.FUNCIONARIO, "Senior Tester",
+                                "Active", "QA",
+                                4500);
                 admin.editarUsuario(updatedUser);
 
                 // --- Verification ---
-                long userCount = appData.getFuncionarios().stream().filter(f -> f.getCpfCnpj().equals("444")).count();
-                Funcionario finalUser = appData.getFuncionarios().stream().filter(f -> f.getCpfCnpj().equals("444"))
+                long userCount = appData.getFuncionarios().stream().filter(
+                                f -> f.getCpfCnpj().equals("444")).count();
+                Funcionario finalUser = appData.getFuncionarios().stream().filter(
+                                f -> f.getCpfCnpj().equals("444"))
                                 .findFirst().orElse(null);
 
                 assertNotNull(finalUser, "User with CPF 444 should exist.");
                 assertEquals(1, userCount,
                                 "There should be only one user with this CPF after editing, not a duplicate.");
-                assertEquals("Updated Name", finalUser.getNome(), "The user's name should have been updated.");
-                assertEquals("Senior Tester", finalUser.getCargo(), "The user's cargo should have been updated.");
+                assertEquals("Updated Name",
+                                finalUser.getNome(),
+                                "The user's name should have been updated.");
+                assertEquals("Senior Tester",
+                                finalUser.getCargo(),
+                                "The user's cargo should have been updated.");
         }
 
         @Test
@@ -126,14 +175,28 @@ public class JsonDataManagerTest {
                 JsonDataManager initialManager = JsonDataManager.getInstance();
                 AppData initialData = initialManager.getData();
                 initialData.saveAdministrador(
-                                new Administrador("Persistent Admin", "555", "p@admin.com", "...", 5, "padmin", "p",
-                                                "a", "s", "d", 1));
+                                new Administrador(
+                                                "Persistent Admin", "555",
+                                                "p@admin.com", "...",
+                                                5, "padmin", "p", "a",
+                                                "s", "d",
+                                                1));
                 initialData.saveGestor(
-                                new Gestor("Persistent Gestor", "888", "p@gestor.com", "...", 8, "pgestor", "p", "a",
-                                                "s", "d", 1));
+                                new Gestor(
+                                                "Persistent Gestor", "888",
+                                                "p@gestor.com", "...",
+                                                8, "pgestor",
+                                                "p", "a",
+                                                "s", "d",
+                                                1));
                 initialData.saveFuncionario(
-                                new Funcionario("Persistent Func", "666", "p@func.com", "...", 6, "pfunc", "p",
-                                                Role.FUNCIONARIO, "a", "s", "d", 1));
+                                new Funcionario(
+                                                "Persistent Func", "666",
+                                                "p@func.com", "...",
+                                                6, "pfunc",
+                                                "p", Role.FUNCIONARIO, "a",
+                                                "s", "d",
+                                                1));
                 initialManager.saveData(); // This writes the data to hr_data.json
 
                 // --- Action: Reset the singleton and create a new instance to force a reload

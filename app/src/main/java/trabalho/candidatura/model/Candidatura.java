@@ -9,7 +9,7 @@ import trabalho.recrutamento.model.Vaga;
 public class Candidatura {
     private Candidato candidato;
     private Vaga vaga;
-    private Date dataCandidatura; 
+    private Date dataCandidatura;
     private StatusCandidatura status;
 
     private static final List<Candidatura> listaCandidaturas = new ArrayList<>();
@@ -88,7 +88,7 @@ public class Candidatura {
     public String toString() {
         return "Candidatura{" +
                 "candidato=" + (candidato != null ? candidato.getNome() : "null") +
-                ", vaga=" + (vaga != null ? vaga.getCargo() : "null") + 
+                ", vaga=" + (vaga != null ? vaga.getCargo() : "null") +
                 ", status='" + status + '\'' +
                 '}';
     }
