@@ -11,7 +11,7 @@ import trabalho.common.model.Role;
  * as job title, status, department, and salary. It serves as a base class
  * for more specialized employee types (e.g., Manager, Administrator).
  *
- * @author Jack ? 
+ * @author Gabriel M.S.O.
 */
 public class Funcionario extends Usuario {
     protected String cargo;
