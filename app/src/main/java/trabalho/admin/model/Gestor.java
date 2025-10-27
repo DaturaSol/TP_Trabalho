@@ -3,31 +3,35 @@ package trabalho.admin.model;
 import java.util.List;
 
 import trabalho.candidatura.model.Candidatura;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 import trabalho.common.model.Role;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Recrutador;
 import trabalho.recrutamento.model.Vaga;
 
-
 /**
  * Represents a Manager (Gestor) within the organization.
  * <p>
- * A Gestor has elevated privileges related to the hiring process and user management.
- * This class extends {@link Funcionario}, inheriting all base employee attributes
+ * A Gestor has elevated privileges related to the hiring process and user
+ * management.
+ * This class extends {@link Funcionario}, inheriting all base employee
+ * attributes
  * and adding management-specific capabilities.
  *
  * @author Gabriel M.S.O.
  */
 public class Gestor extends Funcionario {
 
-   /**
+    /**
      * No-argument constructor required for libraries like GSON.
      * <p>
      * <strong>Warning: For framework use only.</strong> A Usuario created
      * with this constructor is in an incomplete state until its fields are
      * populated. In application code, always use the parameterized constructor
      * to ensure a valid object is created.
+     * 
      * @author Gabriel M.S.O.
      */
     public Gestor() {
@@ -76,41 +80,62 @@ public class Gestor extends Funcionario {
     }
 
     /**
-     * TODO: method for creating a new job opening (Vaga).
-     *
-     * @param vaga The {@code Vaga} object containing the details of the job to be created.
-     * @throws UnsupportedOperationException always, as this feature is not yet implemented.
+     * Creates a new job opening (Vaga) and saves it to the system.
+     * 
+     * @param vaga The {@code Vaga} object containing the details of the job to be
+     *             created.
+     * @throws UnsupportedOperationException always, as this feature is not yet
+     *                                       implemented.
      */
     public void criarVaga(Vaga vaga) {
-        throw new UnsupportedOperationException("Funcion not Implemented");
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        dataManager.getData().saveVaga(vaga);
+        dataManager.saveData();
+        // System.out.println("Vaga para '" + vaga.getCargo() + "' criada com
+        // sucesso.");
     }
 
     /**
      * TODO: method for assigning a specific recruiter to a job opening.
      *
-     * @param vaga        The job opening to which the recruiter will be assigned.
-     * @param recrutador  The recruiter to be assigned to the job.
-     * @throws UnsupportedOperationException always, as this feature is not yet implemented.
+     * @param vaga       The job opening to which the recruiter will be assigned.
+     * @param recrutador The recruiter to be assigned to the job.
+     * @throws UnsupportedOperationException always, as this feature is not yet
+     *                                       implemented.
      */
     public void atribuirRecrutador(Vaga vaga, Recrutador recrutador) {
         throw new UnsupportedOperationException("Funcion not Implemented");
     }
 
     /**
-     * TODO: method for deleting a user account from the system.
-     *
+     * Deletes a user account from the system.
+     * 
      * @param usuario The user account to be deleted.
-     * @throws UnsupportedOperationException always, as this feature is not yet implemented.
      */
     public void excluirUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Funcion not Implemented");
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
+        // A gestor should not be able to delete an admin
+        switch (usuario) {
+            case Gestor gestor -> appData.removeGestor(gestor);
+            case Recrutador recrutador -> appData.removeRecrutador(recrutador);
+            case Funcionario funcionario -> appData.removeFuncionario(funcionario);
+            default ->
+                throw new IllegalArgumentException(
+                        "Tipo de usuário desconhecido: " + usuario.getClass().getName());
+        }
+
+        dataManager.saveData();
+        System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
     }
 
     /**
      * TODO: method for giving final approval for a hiring decision.
      *
      * @param contratacao The hiring record to be authorized.
-     * @throws UnsupportedOperationException always, as this feature is not yet implemented.
+     * @throws UnsupportedOperationException always, as this feature is not yet
+     *                                       implemented.
      */
     public void autorizarContratacao(Contratacao contratacao) {
         throw new UnsupportedOperationException("Funcion not Implemented");
@@ -119,12 +144,14 @@ public class Gestor extends Funcionario {
     /**
      * TODO: method for viewing all job applications (candidaturas).
      *
-     * @return This method is intended to return a list of job applications but currently
+     * @return This method is intended to return a list of job applications but
+     *         currently
      *         does not return a value.
-     * @throws UnsupportedOperationException always, as this feature is not yet implemented.
+     * @throws UnsupportedOperationException always, as this feature is not yet
+     *                                       implemented.
      */
     public List<Candidatura> visualizarCandidaturas() {
-        throw new UnsupportedOperationException("Funcion not Implemented");
+        return JsonDataManager.getInstance().getData().getCandidaturas();
     }
 
     /**
@@ -138,8 +165,8 @@ public class Gestor extends Funcionario {
      */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
-            super.dataString() + "}";
+        return this.getClass().getSimpleName() + "{" + // This ensures the class name matches!
+                super.dataString() + "}";
     }
 
 }

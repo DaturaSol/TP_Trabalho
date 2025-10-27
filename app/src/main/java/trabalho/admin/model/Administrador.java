@@ -4,6 +4,9 @@ import java.util.List;
 
 import trabalho.common.model.Role;
 import trabalho.financeiro.model.Funcionario;
+import trabalho.recrutamento.model.Recrutador;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 
 /**
  * Represents a system Administrator.
@@ -75,60 +78,100 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * TODO: method for registering a new user in the system.
-     *
+     * Register a new user in the system by saving them to the database.
+     * 
      * @param usuario The {@code Usuario} object containing the new user's details.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
      */
     public void cadastrarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Function not Implemented");
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
+        switch (usuario) {
+            case Administrador admin -> appData.saveAdministrador(admin);
+            case Gestor gestor -> appData.saveGestor(gestor);
+            case Recrutador recrutador -> appData.saveRecrutador(recrutador);
+            case Funcionario funcionario -> appData.saveFuncionario(funcionario);
+            default -> throw new IllegalArgumentException(
+                    "Tipo de usuário desconhecido: " + usuario.getClass().getName());
+        }
+
+        // Pushes to memory
+        dataManager.saveData();
+        System.out.println("Usuário " + usuario.getLogin() + " cadastrado com sucesso.");
     }
 
     /**
-     * TODO: method for modifying the details of an existing user.
-     *
+     * Modifies the details of an existing user.
+     * This works because savePessoa uses a Map, which will overwrite the
+     * entry with the same key (cpfCnpj).
+     * 
      * @param usuario The {@code Usuario} object with updated information. The user
      *                to be modified is typically identified by a unique field
      *                like CPF or login within this object.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
      */
     public void editarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Function not Implemented");
+        /// Logic is the same {cadastrarUsuario does most of the logic}
+        cadastrarUsuario(usuario);
+        System.out.println("Usuário " + usuario.getLogin() + " editado com sucesso.");
     }
 
     /**
-     * TODO: method for deleting a user account from the system.
-     *
+     * Deletes a user account from the system.
+     * 
      * @param usuario The user account to be deleted.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
      */
     public void excluirUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Function not Implemented");
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
+        switch (usuario) {
+            case Administrador admin -> appData.removeAdministrador(admin);
+            case Gestor gestor -> appData.removeGestor(gestor);
+            case Recrutador recrutador -> appData.removeRecrutador(recrutador);
+            case Funcionario funcionario -> appData.removeFuncionario(funcionario);
+            default ->
+                throw new IllegalArgumentException(
+                        "Tipo de usuário desconhecido: " + usuario.getClass().getName());
+        }
+
+        dataManager.saveData();
+        System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
     }
 
     /**
-     * TODO: method for retrieving a list of all users in the system.
+     * Retrieves a list of all users in the system.
      *
      * @return This method is intended to return a list of all {@code Usuario}
      *         objects.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
      */
     public List<Usuario> listarUsuarios() {
-        throw new UnsupportedOperationException("Function not Implemented");
+        return JsonDataManager.getInstance().getData().getAllUsuarios();
     }
 
     /**
-     * TODO: method for generating a system-wide management report.
-     *
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
+     * Generates and prints a simple system-wide management report to the console.
+     * 
+     * TODO: Properly modify this once controllers are implemented
+     * implemented.
      */
     public void gerarRelatorioGestao() {
-        throw new UnsupportedOperationException("Function not Implemented");
+        AppData appData = JsonDataManager.getInstance().getData();
+
+        int totalAdmins = appData.getAdministradores().size();
+        int totalGestores = appData.getGestores().size();
+        int totalRecrutadores = appData.getRecrutadores().size();
+        int totalFuncionarios = appData.getFuncionarios().size();
+        int totalCandidatos = appData.getCandidatos().size();
+
+        // NOTE: This is temporary, and is not intended to work this way
+        System.out.println("--- Relatório de Gestão do Sistema ---");
+        System.out.println("Total de Funcionários: " + totalFuncionarios);
+        System.out.println("  - Administradores: " + totalAdmins);
+        System.out.println("  - Gestores: " + totalGestores);
+        System.out.println("  - Recrutadores: " + totalRecrutadores);
+        System.out.println("----------------------------------------");
+        System.out.println("Total de Candidatos no Sistema: " + totalCandidatos);
+        System.out.println("--- Fim do Relatório ---");
     }
 
     /**

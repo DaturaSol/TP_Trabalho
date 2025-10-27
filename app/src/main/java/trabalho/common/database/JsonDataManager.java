@@ -3,15 +3,6 @@ package trabalho.common.database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import trabalho.admin.model.Administrador;
-import trabalho.admin.model.Gestor;
-import trabalho.admin.model.Usuario;
-import trabalho.candidatura.model.Candidato;
-import trabalho.candidatura.model.Pessoa;
-import trabalho.common.util.RuntimeTypeAdapterFactory; // Magic thingy
-import trabalho.financeiro.model.Funcionario;
-import trabalho.recrutamento.model.Recrutador;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,24 +23,10 @@ public class JsonDataManager {
 
     private JsonDataManager(String fileName) {
         this.jsonFile = fileName;
-
-        // --- CRITICAL: Configure GSON for Polymorphism ---
-        // This tells GSON to look for a "type" field in the JSON to determine
-        // which subclass of Pessoa to instantiate.
-        RuntimeTypeAdapterFactory<Pessoa> personFactory = RuntimeTypeAdapterFactory
-                .of(Pessoa.class, "type") // The field name in JSON will be "type"
-                .registerSubtype(Pessoa.class)
-                .registerSubtype(Usuario.class)
-                .registerSubtype(Funcionario.class)
-                .registerSubtype(Administrador.class)
-                .registerSubtype(Gestor.class)
-                .registerSubtype(Recrutador.class)
-                .registerSubtype(Candidato.class);
-
         this.gson = new GsonBuilder()
-                .registerTypeAdapterFactory(personFactory)
                 .setPrettyPrinting()
                 .create();
+
         loadData();
     }
 
@@ -82,12 +59,12 @@ public class JsonDataManager {
             try (Reader reader = new FileReader(this.jsonFile)) {
                 AppData loadedData = gson.fromJson(reader, AppData.class);
 
-                if (loadedData != null && loadedData.getPessoas() != null) {
+                if (loadedData != null && loadedData.getAdministradores() != null) { // At least one ADM must exist
                     // Success!
                     this.data = loadedData;
                     System.out.println("Data loaded successfully from " + this.jsonFile);
                     this.data.rebuildIndexes(); // Rebuild index on successful load
-                    return; // Exit here
+                    return;
                 }
             } catch (Exception e) {
                 System.err.println("Error reading/parsing JSON file. Starting fresh. Error: " + e.getMessage());
