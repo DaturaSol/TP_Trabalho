@@ -8,6 +8,8 @@ import trabalho.recrutamento.model.Recrutador;
 import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Candidatura;
 import trabalho.recrutamento.model.Vaga;
+import trabalho.recrutamento.model.Entrevista;
+import trabalho.recrutamento.model.Contratacao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class AppData {
     private List<Candidato> candidatos;
     private List<Vaga> vagas;
     private List<Candidatura> candidaturas;
+    private List<Entrevista> entrevistas = new ArrayList<>();
     // This is overkill, all for a fast login screen...
     // we will never get even close to anything that need
     // this speed.
@@ -80,6 +83,16 @@ public class AppData {
     public List<Candidatura> getCandidaturas() {
         return candidaturas;
     }
+
+    public List<Entrevista> getEntrevistas() {
+        return entrevistas;
+    }
+
+    public List<Contratacao> getContratacoes() {
+        return contratacoes;
+    }
+
+    public List<Contratacao> contratacoes = new ArrayList<>();
     // --- End Getters ---
 
     // --- Start Setters ---
@@ -113,6 +126,14 @@ public class AppData {
 
     public void saveCandidatura(Candidatura c) {
         candidaturas.add(c);
+    }
+
+    public void saveEntrevista(Entrevista e) {
+        entrevistas.add(e);
+    }
+
+    public void saveContratacao(Contratacao con) {
+        contratacoes.add(con);
     }
     // --- End Setters ---
 
