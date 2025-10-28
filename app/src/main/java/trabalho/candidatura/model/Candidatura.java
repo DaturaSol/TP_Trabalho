@@ -48,6 +48,10 @@ public class Candidatura {
         return status.name(); // Method to return strings from enums
     }
 
+    public StatusCandidatura getStatusEnum() {
+        return status;
+    }
+
     public void setStatus(StatusCandidatura status) { // Status must be of the same type
         this.status = status;
     }
