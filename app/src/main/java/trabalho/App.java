@@ -32,7 +32,7 @@ public class App extends Application {
             // file.
             // The path starts with "/" which means it looks in the root of the 'resources'
             // folder.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/tela_inicial.fxml"));
             // 2. Load the FXML file. This creates the entire scene graph (all the UI
             // elements) in memory.
             Parent root = loader.load();

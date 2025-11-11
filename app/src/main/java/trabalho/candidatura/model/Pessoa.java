@@ -6,9 +6,9 @@ import java.util.Objects;
  * Represents the base model in which all other objects will inherit from.
  * <p>
  * We should not work with this class directly.
- * 
+ *
  * @author Gabriel M.S.O.
-*/
+ */
 public class Pessoa {
     protected String nome;
     protected String cpfCnpj;
@@ -23,6 +23,7 @@ public class Pessoa {
      * with this constructor is in an incomplete state until its fields are
      * populated. In application code, always use the parameterized constructor
      * to ensure a valid object is created.
+     *
      * @author Gabriel M.S.O.
      */
     public Pessoa() {
@@ -32,12 +33,12 @@ public class Pessoa {
     /**
      * Constructs a new {@code Pessoa} with specified initial values.
      *
-     * @param nome      The full name of the person or legal entity.
-     * @param cpfCnpj   This should be a CPF (for a natural person)
-     *                  or a CNPJ (for a legal entity).
-     * @param email     The primary contact email address.
-     * @param endereco  The physical or mailing address.
-     * @param telefone  The primary contact phone number.
+     * @param nome     The full name of the person or legal entity.
+     * @param cpfCnpj  This should be a CPF (for a natural person)
+     *                 or a CNPJ (for a legal entity).
+     * @param email    The primary contact email address.
+     * @param endereco The physical or mailing address.
+     * @param telefone The primary contact phone number.
      */
     public Pessoa(
             String nome,
@@ -96,8 +97,9 @@ public class Pessoa {
      * Returns a string representation of the {@code Pessoa} object.
      * <p>
      * This representation is primarily intended for logging and debugging purposes.
+     *
      * @return A non-null string containing the state of the object.
-    */
+     */
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" + // This ensures the class name matches!
@@ -118,8 +120,7 @@ public class Pessoa {
      *
      * @param o The object to compare this {@code Pessoa} against.
      * @return {@code true} if the given object represents a {@code Pessoa} equivalent to this one,
-     *         {@code false} otherwise.
-     * 
+     * {@code false} otherwise.
      * @author Gabriel M.S.O.
      */
     @Override
