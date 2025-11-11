@@ -1,6 +1,8 @@
 package trabalho.recrutamento.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -28,6 +30,8 @@ public class Vaga {
     // Links para os responsáveis (usando CPF como ID)
     private String gestorCriadorCpf;
     private String recrutadorResponsavelCpf;
+
+    public static List<Vaga> listaVagas = new ArrayList<>();
 
     /**
      * Construtor para bibliotecas de serialização (GSON/JSON).

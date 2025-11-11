@@ -1,5 +1,196 @@
 package trabalho.candidatura.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.beans.property.SimpleStringProperty;
+import trabalho.candidatura.model.Candidatura;
+import trabalho.candidatura.model.Candidato;
+import trabalho.recrutamento.model.Vaga;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StatusCandidaturaController {
-    
+
+    @FXML private Button btnVoltar;
+
+    @FXML private TableView<Candidatura> tabelaCandidaturas;
+    @FXML private TableColumn<Candidatura, String> colCandidato;
+    @FXML private TableColumn<Candidatura, String> colVaga;
+    @FXML private TableColumn<Candidatura, String> colData;
+    @FXML private TableColumn<Candidatura, String> colStatus;
+
+    @FXML private TextField txtNomeCandidato;
+    @FXML private TextField txtVaga;
+    @FXML private Button btnPesquisar;
+    @FXML private Button btnLimpar;
+
+    private ObservableList<Candidatura> listaCandidaturas;
+
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    @FXML
+    public void initialize() {
+        configurarColunas();
+        carregarCandidaturas();
+        configurarAcoes();
+    }
+
+    private void configurarColunas() {
+        // Se as colunas estiverem definidas no FXML com fx:id, usamos setCellValueFactory com lambdas
+        colCandidato.setCellValueFactory(cell -> {
+            Candidato c = cell.getValue().getCandidato();
+            String nome = (c != null && c.getNome() != null) ? c.getNome() : "";
+            return new SimpleStringProperty(nome);
+        });
+
+        colVaga.setCellValueFactory(cell -> {
+            Vaga v = cell.getValue().getVaga();
+            String vagaNome = obterNomeVaga(v);
+            return new SimpleStringProperty(vagaNome);
+        });
+
+        colData.setCellValueFactory(cell -> {
+            String data = obterDataFormatada(cell.getValue());
+            return new SimpleStringProperty(data);
+        });
+
+        colStatus.setCellValueFactory(cell -> {
+            String s = cell.getValue().getStatus();
+            return new SimpleStringProperty(s != null ? s : "");
+        });
+    }
+
+    private void carregarCandidaturas() {
+        List<Candidatura> todas = getListaCandidaturas();
+        listaCandidaturas = FXCollections.observableArrayList(todas);
+        tabelaCandidaturas.setItems(listaCandidaturas);
+    }
+
+    private void configurarAcoes() {
+        btnPesquisar.setOnAction(e -> filtrarCandidaturas());
+        btnLimpar.setOnAction(e -> limparFiltros());
+    }
+
+    private String obterNomeVaga(Vaga v) {
+        if (v == null) return "";
+        try {
+            // tenta métodos comuns
+            try {
+                // getCargo()
+                var m = v.getClass().getMethod("getCargo");
+                Object res = m.invoke(v);
+                if (res != null) return res.toString();
+            } catch (NoSuchMethodException ignored) {}
+            try {
+                // getTitulo()
+                var m = v.getClass().getMethod("getTitulo");
+                Object res = m.invoke(v);
+                if (res != null) return res.toString();
+            } catch (NoSuchMethodException ignored) {}
+            // fallback para toString()
+            return v.toString();
+        } catch (Exception ex) {
+            return v.toString();
+        }
+    }
+
+    private String obterDataFormatada(Candidatura c) {
+        if (c == null) return "";
+        // tenta obter campo/prop de data por reflexao (suporta várias implementações)
+        try {
+            // tenta getter getDataCandidatura()
+            try {
+                var gm = c.getClass().getMethod("getDataCandidatura");
+                Object d = gm.invoke(c);
+                if (d instanceof Date) return sdf.format((Date)d);
+            } catch (NoSuchMethodException ignored) {}
+            // tenta getter getData()
+            try {
+                var gm = c.getClass().getMethod("getData");
+                Object d = gm.invoke(c);
+                if (d instanceof Date) return sdf.format((Date)d);
+            } catch (NoSuchMethodException ignored) {}
+            // tenta acessar campo dataCandidatura ou data
+            try {
+                Field f = c.getClass().getDeclaredField("dataCandidatura");
+                f.setAccessible(true);
+                Object d = f.get(c);
+                if (d instanceof Date) return sdf.format((Date)d);
+            } catch (NoSuchFieldException ignored) {}
+            try {
+                Field f = c.getClass().getDeclaredField("data");
+                f.setAccessible(true);
+                Object d = f.get(c);
+                if (d instanceof Date) return sdf.format((Date)d);
+            } catch (NoSuchFieldException ignored) {}
+        } catch (Exception ex) {
+            // segue pro fallback
+        }
+        return ""; // se não conseguir localizar, retorna vazio
+    }
+
+    private List<Candidatura> getListaCandidaturas() {
+        try {
+            Field f = Candidatura.class.getDeclaredField("listaCandidaturas");
+            f.setAccessible(true);
+            return (List<Candidatura>) f.get(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    private void filtrarCandidaturas() {
+        String nomeFiltro = txtNomeCandidato.getText() == null ? "" : txtNomeCandidato.getText().trim().toLowerCase();
+        String vagaFiltro = txtVaga.getText() == null ? "" : txtVaga.getText().trim().toLowerCase();
+
+        List<Candidatura> todas = getListaCandidaturas();
+
+        List<Candidatura> filtradas = todas.stream().filter(c -> {
+            boolean okNome = true;
+            boolean okVaga = true;
+
+            if (!nomeFiltro.isEmpty()) {
+                Candidato cand = c.getCandidato();
+                okNome = cand != null && cand.getNome() != null && cand.getNome().toLowerCase().contains(nomeFiltro);
+            }
+            if (!vagaFiltro.isEmpty()) {
+                String nomeVaga = obterNomeVaga(c.getVaga()).toLowerCase();
+                okVaga = nomeVaga.contains(vagaFiltro);
+            }
+            return okNome && okVaga;
+        }).collect(Collectors.toList());
+
+        tabelaCandidaturas.setItems(FXCollections.observableArrayList(filtradas));
+    }
+
+    private void limparFiltros() {
+        txtNomeCandidato.clear();
+        txtVaga.clear();
+        tabelaCandidaturas.setItems(listaCandidaturas);
+    }
+
+    @FXML
+    private void voltarTela(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Menu Principal");
+        stage.show();
+    }
 }

@@ -56,6 +56,10 @@ public class Candidatura {
         this.status = status;
     }
 
+    public static List<Candidatura> getListaCandidaturas() {
+        return listaCandidaturas;
+    }
+
     public static boolean cadastrarCandidatura(Candidatura c) {
         for (Candidatura existente : listaCandidaturas) {
             if (existente.candidato.equals(c.candidato) &&
