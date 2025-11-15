@@ -11,6 +11,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Candidatura;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Vaga;
 
 import java.io.IOException;
@@ -20,35 +22,47 @@ import java.util.stream.Collectors;
 public class ConsultaCandidatoController {
 
     // ====== Filtros ======
-    @FXML private CheckBox checkNome;
-    @FXML private TextField txtNome;
+    @FXML
+    private CheckBox checkNome;
+    @FXML
+    private TextField txtNome;
 
-    @FXML private CheckBox checkVaga;
-    @FXML private TextField txtVaga;
+    @FXML
+    private CheckBox checkVaga;
+    @FXML
+    private TextField txtVaga;
 
-    @FXML private CheckBox checkStatus;
-    @FXML private ChoiceBox<String> choiceStatus;
+    @FXML
+    private CheckBox checkStatus;
+    @FXML
+    private ChoiceBox<String> choiceStatus;
 
-    @FXML private Button btnPesquisar;
-    @FXML private Button btnLimpar;
+    @FXML
+    private Button btnPesquisar;
+    @FXML
+    private Button btnLimpar;
 
-    @FXML private TextArea txtAreaResultados;
+    @FXML
+    private TextArea txtAreaResultados;
 
     // ====== Resultados ======
-    @FXML private FlowPane flowResultados;
+    @FXML
+    private FlowPane flowResultados;
 
     @FXML
     public void initialize() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
         // Inicializa os valores possíveis do status
         choiceStatus.getItems().addAll(
-                "PENDENTE", "EM_ANALISE", "APROVADO", "REPROVADO"
-        );
+                "PENDENTE", "EM_ANALISE", "APROVADO", "REPROVADO");
 
         // Conecta os botões aos métodos
         btnPesquisar.setOnAction(e -> pesquisar());
         btnLimpar.setOnAction(e -> limparFiltros());
 
-        atualizarResultados(Candidatura.getListaCandidaturas());
+        atualizarResultados(appData.getCandidaturas());
     }
 
     /**
@@ -56,7 +70,9 @@ public class ConsultaCandidatoController {
      */
     @FXML
     private void pesquisar() {
-        List<Candidatura> todas = Candidatura.getListaCandidaturas();
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        List<Candidatura> todas = appData.getCandidaturas();
 
         List<Candidatura> filtradas = todas.stream()
                 .filter(c -> {
@@ -65,7 +81,7 @@ public class ConsultaCandidatoController {
                     // Filtro por nome
                     if (checkNome.isSelected() && txtNome.getText() != null && !txtNome.getText().isEmpty()) {
                         String nomeFiltro = txtNome.getText().toLowerCase();
-                        corresponde &= c.getCandidato().getNome().toLowerCase().contains(nomeFiltro);
+                        corresponde &= c.getCandidato().getPessoa().getNome().toLowerCase().contains(nomeFiltro);
                     }
 
                     // Filtro por vaga
@@ -96,6 +112,8 @@ public class ConsultaCandidatoController {
      */
     @FXML
     private void limparFiltros() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
         checkNome.setSelected(false);
         checkVaga.setSelected(false);
         checkStatus.setSelected(false);
@@ -104,7 +122,7 @@ public class ConsultaCandidatoController {
         txtVaga.clear();
         choiceStatus.setValue(null);
 
-        atualizarResultados(Candidatura.getListaCandidaturas());
+        atualizarResultados(appData.getCandidaturas());
     }
 
     /**
@@ -121,10 +139,9 @@ public class ConsultaCandidatoController {
 
         for (Candidatura c : candidaturas) {
             Label lbl = new Label(
-                    c.getCandidato().getNome() + " — " +
+                    c.getCandidato().getPessoa().getNome() + " — " +
                             (c.getVaga() != null ? c.getVaga().getCargo() : "Sem vaga") +
-                            " — Status: " + c.getStatus()
-            );
+                            " — Status: " + c.getStatus());
             lbl.setPrefWidth(500);
 
             Button btnDetalhes = new Button(">");
@@ -153,20 +170,20 @@ public class ConsultaCandidatoController {
     }
 
     /**
-     * Exibe detalhes da candidatura selecionada (pode ser substituído por uma nova tela).
+     * Exibe detalhes da candidatura selecionada (pode ser substituído por uma nova
+     * tela).
      */
     private void abrirDetalhes(Candidatura c) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Detalhes do Candidato");
-        alerta.setHeaderText("Candidato: " + c.getCandidato().getNome());
+        alerta.setHeaderText("Candidato: " + c.getCandidato().getPessoa().getNome());
         alerta.setContentText(
                 "Vaga: " + (c.getVaga() != null ? c.getVaga().getCargo() : "Sem vaga associada") + "\n" +
                         "Status: " + c.getStatus() + "\n" +
                         "CPF: " + c.getCandidato().getCpfCnpj() + "\n" +
-                        "Email: " + c.getCandidato().getEmail() + "\n" +
+                        "Email: " + c.getCandidato().getPessoa().getEmail() + "\n" +
                         "Formação: " + c.getCandidato().getFormacao() + "\n" +
-                        "Experiência: " + c.getCandidato().getExperiencia()
-        );
+                        "Experiência: " + c.getCandidato().getExperiencia());
         alerta.showAndWait();
     }
 }

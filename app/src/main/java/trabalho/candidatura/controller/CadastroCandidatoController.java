@@ -11,13 +11,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import trabalho.candidatura.model.Candidato;
+import trabalho.candidatura.model.Pessoa;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 
 import java.io.File;
 import java.io.IOException;
 
 public class CadastroCandidatoController {
 
-    //Dados Pessoais
+    // Dados Pessoais
     @FXML
     private TextField txtNomeCompleto;
 
@@ -36,7 +39,7 @@ public class CadastroCandidatoController {
     @FXML
     private Button btnSalvarDadosPessoais;
 
-    //Dados Candidatura
+    // Dados Candidatura
     @FXML
     private TextField txtPretensaoSalarial;
 
@@ -55,7 +58,7 @@ public class CadastroCandidatoController {
     @FXML
     private Button btnSalvarCandidatura;
 
-    //Botão Voltar
+    // Botão Voltar
     @FXML
     private Button btnVoltar;
 
@@ -70,8 +73,7 @@ public class CadastroCandidatoController {
                 "Manhã",
                 "Tarde",
                 "Noite",
-                "Horário Flexível"
-        );
+                "Horário Flexível");
 
         // Define a data atual como padrão no DatePicker
         dateCadastro.setValue(java.time.LocalDate.now());
@@ -120,21 +122,25 @@ public class CadastroCandidatoController {
             // Remover "R$" e converter para double
             String salarioStr = txtPretensaoSalarial.getText().replace("R$", "").trim();
             double pretensaoSalarial = Double.parseDouble(salarioStr);
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+
+            // Gotta verify if Pessoa already exists, if doesn't, create it
+            if (!appData.getPessoas().containsKey(cpf)) {
+                Pessoa pessoa = new Pessoa(cpf, nome, email);
+                appData.addPessoa(pessoa);
+                dataManager.saveData(); // gotta save 
+            }
 
             // Criar o objeto candidato
             Candidato candidato = new Candidato(
-                    nome,
                     cpf,
-                    email,
-                    "",       // endereço (não está no FXML)
-                    0,                 // telefone (não está no FXML)
                     formacao,
                     experiencia,
                     pretensaoSalarial,
                     disponibilidade,
                     documentos,
-                    java.sql.Date.valueOf(data)
-            );
+                    java.sql.Date.valueOf(data));
 
             // Salvar na lista estática
             boolean sucesso = Candidato.cadastrarCandidato(candidato);

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import trabalho.common.database.JsonDataManager;
 
 import java.io.IOException;
@@ -28,6 +27,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            // Initialize the data manager for the application.
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            // dataManager.saveData(); // Ensure data is loaded/saved at startup.
+
             // 1. Create an FXMLLoader. This object is responsible for loading the FXML
             // file.
             // The path starts with "/" which means it looks in the root of the 'resources'
@@ -66,8 +69,8 @@ public class App extends Application {
 
     /**
      * <b>DEBUG</b> function
-    */
-    public String getGreeting(){
+     */
+    public String getGreeting() {
         return "The app is working";
     }
 

@@ -1,15 +1,18 @@
 package trabalho.admin.model;
 
 import java.util.List;
+import java.util.Map;
 
-import trabalho.candidatura.model.Candidatura;
 import trabalho.common.database.AppData;
+import trabalho.candidatura.model.Candidatura;
 import trabalho.common.database.JsonDataManager;
-import trabalho.common.model.Role;
+import trabalho.exceptions.DuplicateDataException;
+import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Recrutador;
 import trabalho.recrutamento.model.Vaga;
+import trabalho.recrutamento.model.Contratacao.StatusContratacao;
 
 /**
  * Represents a Manager (Gestor) within the organization.
@@ -41,38 +44,21 @@ public class Gestor extends Funcionario {
     /**
      * Constructs a new, fully initialized {@code Gestor}.
      *
-     * @param nome         The full name of the manager.
      * @param cpfCnpj      The manager's unique CPF identifier.
-     * @param email        The manager's primary contact email.
-     * @param endereco     The manager's physical address.
-     * @param telefone     The manager's primary phone number.
-     * @param login        The username for the manager's system account.
-     * @param passHash     The hashed password for the system account.
      * @param cargo        The manager's job title (e.g., "Engineering Manager").
      * @param status       The manager's current employment status (e.g., "Active").
      * @param departamento The department the manager oversees (e.g., "Technology").
      * @param salarioBase  The manager's base salary.
+     * @throws MissingDataException 
      */
     public Gestor(
-            String nome,
             String cpfCnpj,
-            String email,
-            String endereco,
-            long telefone,
-            String login,
-            String passHash,
             String cargo,
             String status,
             String departamento,
-            double salarioBase) {
-        super(nome,
+            double salarioBase) throws MissingDataException {
+        super(
                 cpfCnpj,
-                email,
-                endereco,
-                telefone,
-                login,
-                passHash,
-                Role.GESTOR,
                 cargo,
                 status,
                 departamento,
@@ -84,27 +70,27 @@ public class Gestor extends Funcionario {
      * 
      * @param vaga The {@code Vaga} object containing the details of the job to be
      *             created.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
+     *             implemented.
      */
-    public void criarVaga(Vaga vaga) {
+    public void criarVaga(Vaga vaga) throws DuplicateDataException{
         JsonDataManager dataManager = JsonDataManager.getInstance();
-        dataManager.getData().saveVaga(vaga);
+        AppData appData = dataManager.getData();
+
+        vaga.setGestorCriadorCpf(cpfCnpj);
+
+        appData.addVaga(vaga);
         dataManager.saveData();
-        // System.out.println("Vaga para '" + vaga.getCargo() + "' criada com
-        // sucesso.");
+
     }
 
     /**
-     * TODO: method for assigning a specific recruiter to a job opening.
+     * Method for assigning a specific recruiter to a job opening.
      *
      * @param vaga       The job opening to which the recruiter will be assigned.
      * @param recrutador The recruiter to be assigned to the job.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
      */
     public void atribuirRecrutador(Vaga vaga, Recrutador recrutador) {
-        throw new UnsupportedOperationException("Funcion not Implemented");
+        vaga.setRecrutadorResponsavelCpf(recrutador.getCpfCnpj());
     }
 
     /**
@@ -116,32 +102,25 @@ public class Gestor extends Funcionario {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        // A gestor should not be able to delete an admin
-        switch (usuario) {
-            case Administrador admin ->
-                throw new IllegalArgumentException(
-                        "Permissão negada: Um Gestor não pode excluir um Administrador.");
-            case Gestor gestor -> appData.removeGestor(gestor);
-            case Recrutador recrutador -> appData.removeRecrutador(recrutador);
-            case Funcionario funcionario -> appData.removeFuncionario(funcionario);
-            default ->
-                throw new IllegalArgumentException(
-                        "Tipo de usuário desconhecido: " + usuario.getClass().getName());
+        Map<String, Administrador> administradoresByCpf = appData.getAdministradores();
+        // Manager should not be able to delete a Admin user
+        if (administradoresByCpf.containsKey(usuario.getCpfCnpj())) {
+            throw new IllegalArgumentException("Um gestor não pode excluir um administrador.");
         }
+        appData.removeUsuario(usuario);
 
         dataManager.saveData();
         System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
     }
 
     /**
-     * TODO: method for giving final approval for a hiring decision.
+     * Method for giving final approval for a hiring decision.
      *
      * @param contratacao The hiring record to be authorized.
-     * @throws UnsupportedOperationException always, as this feature is not yet
-     *                                       implemented.
+     *                    implemented.
      */
     public void autorizarContratacao(Contratacao contratacao) {
-        throw new UnsupportedOperationException("Funcion not Implemented");
+        contratacao.setStatus(StatusContratacao.AUTORIZADA);
     }
 
     /**
@@ -149,21 +128,6 @@ public class Gestor extends Funcionario {
      */
     public List<Candidatura> visualizarCandidaturas() {
         return JsonDataManager.getInstance().getData().getCandidaturas();
-    }
-
-    /**
-     * Returns a string representation of the {@code Gestor} object.
-     * <p>
-     * It reuses the data string format from its superclass, {@link Funcionario},
-     * prepending the specific class name 'Gestor'. The format is:
-     * {@code Gestor{cpfCnpj='...', cargo='...', ...}}
-     *
-     * @return A non-null string representing the manager's state.
-     */
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "{" + // This ensures the class name matches!
-                super.dataString() + "}";
     }
 
 }

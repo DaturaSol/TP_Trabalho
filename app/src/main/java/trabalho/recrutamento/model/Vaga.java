@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import trabalho.admin.model.Gestor;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
+
 /**
  * Representa uma Vaga de emprego.
  * Contém todos os detalhes da vaga e seu status.
@@ -31,8 +35,6 @@ public class Vaga {
     private String gestorCriadorCpf;
     private String recrutadorResponsavelCpf;
 
-    public static List<Vaga> listaVagas = new ArrayList<>();
-
     /**
      * Construtor para bibliotecas de serialização (GSON/JSON).
      * Não use diretamente.
@@ -47,7 +49,7 @@ public class Vaga {
      * Construtor principal para criar uma nova Vaga.
      */
     public Vaga(String cargo, String departamento, double salarioBase, String requisitos,
-                RegimeContratacao regime, String gestorCriadorCpf) {
+            RegimeContratacao regime, String gestorCriadorCpf) {
         this.id = UUID.randomUUID().toString();
         this.cargo = cargo;
         this.departamento = departamento;
@@ -61,6 +63,20 @@ public class Vaga {
 
     // --- Getters e Setters ---
 
+    public Gestor getGestorResponsavel() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        Gestor gestor = appData.getGestores().get(gestorCriadorCpf);
+        return gestor;
+    }
+
+    public Recrutador getRecrutadorResponsavel() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        Recrutador recrutador = appData.getRecrutadores().get(recrutadorResponsavelCpf);
+        return recrutador;
+    }
+
     public String getId() {
         return id;
     }
@@ -68,6 +84,7 @@ public class Vaga {
     public String getCargo() {
         return cargo;
     }
+
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
@@ -75,6 +92,7 @@ public class Vaga {
     public String getDepartamento() {
         return departamento;
     }
+
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
@@ -82,6 +100,7 @@ public class Vaga {
     public double getSalarioBase() {
         return salarioBase;
     }
+
     public void setSalarioBase(double salarioBase) {
         this.salarioBase = salarioBase;
     }
@@ -89,6 +108,7 @@ public class Vaga {
     public String getRequisitos() {
         return requisitos;
     }
+
     public void setRequisitos(String requisitos) {
         this.requisitos = requisitos;
     }
@@ -96,6 +116,7 @@ public class Vaga {
     public StatusVaga getStatus() {
         return status;
     }
+
     public void setStatus(StatusVaga status) {
         this.status = status;
     }
@@ -103,6 +124,7 @@ public class Vaga {
     public RegimeContratacao getRegimeContratacao() {
         return regimeContratacao;
     }
+
     public void setRegimeContratacao(RegimeContratacao regimeContratacao) {
         this.regimeContratacao = regimeContratacao;
     }
@@ -118,6 +140,7 @@ public class Vaga {
     public String getRecrutadorResponsavelCpf() {
         return recrutadorResponsavelCpf;
     }
+
     public void setRecrutadorResponsavelCpf(String recrutadorResponsavelCpf) {
         // Logica de atribuir recrutador
         this.recrutadorResponsavelCpf = recrutadorResponsavelCpf;
@@ -127,20 +150,30 @@ public class Vaga {
     }
 
     @Override
-    public String toString() {
-        return "Vaga{" +
-                "id='" + id + '\'' +
-                ", cargo='" + cargo + '\'' +
-                ", status=" + status +
-                ", departamento='" + departamento + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Vaga vaga = (Vaga) o;
         return id.equals(vaga.id);
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDataAbertura(Date dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+
+    public void setGestorCriadorCpf(String gestorCriadorCpf) {
+        this.gestorCriadorCpf = gestorCriadorCpf;
+    }
+
+    public static List<Vaga> getListaVagas() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        return appData.getVagas();
     }
 }
