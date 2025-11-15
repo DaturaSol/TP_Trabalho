@@ -27,17 +27,19 @@ public class InicioController {
 
     @FXML
     public void initialize() {
-        btnCadastrarCandidato.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/cadastro_candidato.fxml", e));
+        btnCadastrarCandidato
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/cadastro_candidato.fxml", e));
         btnNovaCandidatura.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/nova_candidatura.fxml", e));
         btnStatusCandidatura.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/status_candidatura.fxml", e));
-        btnConsultarCandidato.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/consulta_candidato.fxml", e));
+        btnConsultarCandidato
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/consulta_candidato.fxml", e));
     }
 
     /**
      * Abre uma nova tela (FXML) e substitui a atual.
      *
      * @param caminhoFXML caminho do arquivo FXML a ser carregado
-     * @param event evento do clique
+     * @param event       evento do clique
      */
     private void abrirTela(String caminhoFXML, MouseEvent event) {
         try {

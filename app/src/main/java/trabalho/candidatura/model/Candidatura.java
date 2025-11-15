@@ -1,18 +1,18 @@
 package trabalho.candidatura.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
+import trabalho.exceptions.DuplicateDataException;
 import trabalho.recrutamento.model.Vaga;
 
 public class Candidatura {
-    private Candidato candidato;
+    private String cpfCnpjCandidato;
     private Vaga vaga;
     private Date dataCandidatura;
     private StatusCandidatura status;
-
-    private static final List<Candidatura> listaCandidaturas = new ArrayList<>();
 
     public enum StatusCandidatura {
         PENDENTE, EM_ANALISE, APROVADO, REPROVADO
@@ -21,19 +21,26 @@ public class Candidatura {
     public Candidatura() {
     }
 
-    public Candidatura(Candidato candidato, Vaga vaga, Date dataCandidatura) {
-        this.candidato = candidato;
+    public Candidatura(String cpfCnpjCandidato, Vaga vaga, Date dataCandidatura) {
+        this.cpfCnpjCandidato = cpfCnpjCandidato;
         this.vaga = vaga;
         this.dataCandidatura = dataCandidatura;
         this.status = StatusCandidatura.PENDENTE;
     }
 
-    public Candidato getCandidato() {
-        return candidato;
+    public String getCpfCnpjCandidato() {
+        return cpfCnpjCandidato;
     }
 
-    public void setCandidato(Candidato candidato) {
-        this.candidato = candidato;
+    public void setCpfCnpjCandidato(String cpfCnpjCandidato) {
+        this.cpfCnpjCandidato = cpfCnpjCandidato;
+    }
+
+    public Candidato getCandidato() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        Candidato candidato = appData.getCandidatos().get(cpfCnpjCandidato);
+        return candidato;
     }
 
     public Vaga getVaga() {
@@ -56,19 +63,16 @@ public class Candidatura {
         this.status = status;
     }
 
-    public static List<Candidatura> getListaCandidaturas() {
-        return listaCandidaturas;
-    }
-
     public static boolean cadastrarCandidatura(Candidatura c) {
-        for (Candidatura existente : listaCandidaturas) {
-            if (existente.candidato.equals(c.candidato) &&
-                    existente.vaga.equals(c.vaga)) {
-                return false;
-            }
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        try {
+            appData.addCandidatura(c);
+            dataManager.saveData();
+            return true;
+        } catch (DuplicateDataException e) {
+            return false;
         }
-        listaCandidaturas.add(c);
-        return true;
     }
 
     public void atualizarStatus(StatusCandidatura novoStatus) {
@@ -76,28 +80,26 @@ public class Candidatura {
     }
 
     public static boolean excluirCandidatura(Candidatura c) {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
         if (c.status != StatusCandidatura.PENDENTE) {
             return false;
         }
-        listaCandidaturas.remove(c);
-        return true;
+        try {
+            appData.removeCandidatura(c);
+            dataManager.saveData();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static void listarCandidaturas() {
-        if (listaCandidaturas.isEmpty()) {
-            return;
-        }
-        for (Candidatura c : listaCandidaturas) {
-            System.out.println(c);
-        }
-    }
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
 
-    @Override
-    public String toString() {
-        return "Candidatura{" +
-                "candidato=" + (candidato != null ? candidato.getNome() : "null") +
-                ", vaga=" + (vaga != null ? vaga.getCargo() : "null") +
-                ", status='" + status + '\'' +
-                '}';
+        List<Candidatura> candidaturas = appData.getCandidaturas();
+
     }
 }

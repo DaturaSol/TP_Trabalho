@@ -13,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleStringProperty;
 import trabalho.candidatura.model.Candidatura;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 import trabalho.candidatura.model.Candidato;
 import trabalho.recrutamento.model.Vaga;
 
@@ -25,18 +27,28 @@ import java.util.stream.Collectors;
 
 public class StatusCandidaturaController {
 
-    @FXML private Button btnVoltar;
+    @FXML
+    private Button btnVoltar;
 
-    @FXML private TableView<Candidatura> tabelaCandidaturas;
-    @FXML private TableColumn<Candidatura, String> colCandidato;
-    @FXML private TableColumn<Candidatura, String> colVaga;
-    @FXML private TableColumn<Candidatura, String> colData;
-    @FXML private TableColumn<Candidatura, String> colStatus;
+    @FXML
+    private TableView<Candidatura> tabelaCandidaturas;
+    @FXML
+    private TableColumn<Candidatura, String> colCandidato;
+    @FXML
+    private TableColumn<Candidatura, String> colVaga;
+    @FXML
+    private TableColumn<Candidatura, String> colData;
+    @FXML
+    private TableColumn<Candidatura, String> colStatus;
 
-    @FXML private TextField txtNomeCandidato;
-    @FXML private TextField txtVaga;
-    @FXML private Button btnPesquisar;
-    @FXML private Button btnLimpar;
+    @FXML
+    private TextField txtNomeCandidato;
+    @FXML
+    private TextField txtVaga;
+    @FXML
+    private Button btnPesquisar;
+    @FXML
+    private Button btnLimpar;
 
     private ObservableList<Candidatura> listaCandidaturas;
 
@@ -50,10 +62,11 @@ public class StatusCandidaturaController {
     }
 
     private void configurarColunas() {
-        // Se as colunas estiverem definidas no FXML com fx:id, usamos setCellValueFactory com lambdas
+        // Se as colunas estiverem definidas no FXML com fx:id, usamos
+        // setCellValueFactory com lambdas
         colCandidato.setCellValueFactory(cell -> {
             Candidato c = cell.getValue().getCandidato();
-            String nome = (c != null && c.getNome() != null) ? c.getNome() : "";
+            String nome = (c != null && c.getPessoa().getNome() != null) ? c.getPessoa().getNome() : "";
             return new SimpleStringProperty(nome);
         });
 
@@ -86,21 +99,26 @@ public class StatusCandidaturaController {
     }
 
     private String obterNomeVaga(Vaga v) {
-        if (v == null) return "";
+        if (v == null)
+            return "";
         try {
             // tenta métodos comuns
             try {
                 // getCargo()
                 var m = v.getClass().getMethod("getCargo");
                 Object res = m.invoke(v);
-                if (res != null) return res.toString();
-            } catch (NoSuchMethodException ignored) {}
+                if (res != null)
+                    return res.toString();
+            } catch (NoSuchMethodException ignored) {
+            }
             try {
                 // getTitulo()
                 var m = v.getClass().getMethod("getTitulo");
                 Object res = m.invoke(v);
-                if (res != null) return res.toString();
-            } catch (NoSuchMethodException ignored) {}
+                if (res != null)
+                    return res.toString();
+            } catch (NoSuchMethodException ignored) {
+            }
             // fallback para toString()
             return v.toString();
         } catch (Exception ex) {
@@ -109,34 +127,43 @@ public class StatusCandidaturaController {
     }
 
     private String obterDataFormatada(Candidatura c) {
-        if (c == null) return "";
+        if (c == null)
+            return "";
         // tenta obter campo/prop de data por reflexao (suporta várias implementações)
         try {
             // tenta getter getDataCandidatura()
             try {
                 var gm = c.getClass().getMethod("getDataCandidatura");
                 Object d = gm.invoke(c);
-                if (d instanceof Date) return sdf.format((Date)d);
-            } catch (NoSuchMethodException ignored) {}
+                if (d instanceof Date)
+                    return sdf.format((Date) d);
+            } catch (NoSuchMethodException ignored) {
+            }
             // tenta getter getData()
             try {
                 var gm = c.getClass().getMethod("getData");
                 Object d = gm.invoke(c);
-                if (d instanceof Date) return sdf.format((Date)d);
-            } catch (NoSuchMethodException ignored) {}
+                if (d instanceof Date)
+                    return sdf.format((Date) d);
+            } catch (NoSuchMethodException ignored) {
+            }
             // tenta acessar campo dataCandidatura ou data
             try {
                 Field f = c.getClass().getDeclaredField("dataCandidatura");
                 f.setAccessible(true);
                 Object d = f.get(c);
-                if (d instanceof Date) return sdf.format((Date)d);
-            } catch (NoSuchFieldException ignored) {}
+                if (d instanceof Date)
+                    return sdf.format((Date) d);
+            } catch (NoSuchFieldException ignored) {
+            }
             try {
                 Field f = c.getClass().getDeclaredField("data");
                 f.setAccessible(true);
                 Object d = f.get(c);
-                if (d instanceof Date) return sdf.format((Date)d);
-            } catch (NoSuchFieldException ignored) {}
+                if (d instanceof Date)
+                    return sdf.format((Date) d);
+            } catch (NoSuchFieldException ignored) {
+            }
         } catch (Exception ex) {
             // segue pro fallback
         }
@@ -145,9 +172,9 @@ public class StatusCandidaturaController {
 
     private List<Candidatura> getListaCandidaturas() {
         try {
-            Field f = Candidatura.class.getDeclaredField("listaCandidaturas");
-            f.setAccessible(true);
-            return (List<Candidatura>) f.get(null);
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+            return appData.getCandidaturas();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -166,7 +193,8 @@ public class StatusCandidaturaController {
 
             if (!nomeFiltro.isEmpty()) {
                 Candidato cand = c.getCandidato();
-                okNome = cand != null && cand.getNome() != null && cand.getNome().toLowerCase().contains(nomeFiltro);
+                okNome = cand != null && cand.getPessoa().getNome() != null
+                        && cand.getPessoa().getNome().toLowerCase().contains(nomeFiltro);
             }
             if (!vagaFiltro.isEmpty()) {
                 String nomeVaga = obterNomeVaga(c.getVaga()).toLowerCase();

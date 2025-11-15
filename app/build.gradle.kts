@@ -28,6 +28,8 @@ dependencies {
     implementation(libs.gson)
     // Add all the JavaFX libraries using the "bundle" we created.
     implementation(libs.bundles.javafx)
+
+    implementation(libs.jbcrypt)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
