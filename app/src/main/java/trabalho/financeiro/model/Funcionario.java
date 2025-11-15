@@ -1,23 +1,28 @@
 package trabalho.financeiro.model;
 
 import trabalho.admin.model.Usuario;
-import trabalho.common.model.Role;
-
+import trabalho.candidatura.model.Pessoa;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 
 /**
-* Represents an employee (Funcionario) within the organization.
+ * Represents an employee (Funcionario) within the organization.
  * <p>
  * This class extends {@link Usuario}, adding employee-specific information such
  * as job title, status, department, and salary. It serves as a base class
  * for more specialized employee types (e.g., Manager, Administrator).
  *
  * @author Gabriel M.S.O.
-*/
-public class Funcionario extends Usuario {
+ */
+public class Funcionario {
     protected String cargo;
     protected String status;
     protected String departamento;
     protected double salarioBase;
+    // Critical change now instead of inhereting from Usuario it is a composition.
+    // We will be pointing to the cpfCnpj since it is an unique identifier.
+    // For both User and Pessoa.
+    protected String cpfCnpj;
 
     /**
      * No-argument constructor required for libraries like GSON.
@@ -26,6 +31,7 @@ public class Funcionario extends Usuario {
      * with this constructor is in an incomplete state until its fields are
      * populated. In application code, always use the parameterized constructor
      * to ensure a valid object is created.
+     * 
      * @author Gabriel M.S.O.
      */
     public Funcionario() {
@@ -33,48 +39,60 @@ public class Funcionario extends Usuario {
     }
 
     /**
+     * Lazy constructor for Funcionario, mainly for testing purposes.
+     */
+    public Funcionario(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    /**
      * Constructs a new, fully initialized {@code Funcionario}.
      *
-     * @param nome         The full name of the employee.
      * @param cpfCnpj      The employee's unique CPF identifier.
-     * @param email        The employee's primary contact email.
-     * @param endereco     The employee's physical address.
-     * @param telefone     The employee's primary phone number.
-     * @param login        The username for the employee's system account.
-     * @param passHash     The hashed password for the system account.
-     * @param role         The initial role assigned to the employee's user account (e.g., ADMIN, GESTOR, RECRUTADOR).
-     * @param cargo        The employee's job title (e.g., "Software Engineer", "HR Analyst").
-     * @param status       The current employment status (e.g., "Active", "On Leave").
-     * @param departamento The department the employee belongs to (e.g., "Technology", "Finance").
-     * @param salarioBase  The employee's base salary, before any deductions or bonuses.
+     * @param cargo        The employee's job title (e.g., "Software Engineer", "HR
+     *                     Analyst").
+     * @param status       The current employment status (e.g., "Active", "On
+     *                     Leave").
+     * @param departamento The department the employee belongs to (e.g.,
+     *                     "Technology", "Finance").
+     * @param salarioBase  The employee's base salary, before any deductions or
+     *                     bonuses.
      */
     public Funcionario(
-            String nome,
             String cpfCnpj,
-            String email,
-            String endereco,
-            long telefone,
-            String login,
-            String passHash,
-            Role role,
             String cargo,
             String status,
             String departamento,
             double salarioBase) {
-        super(
-                nome,
-                cpfCnpj,
-                email,
-                endereco,
-                telefone,
-                login,
-                passHash,
-                role);
+
+        this.cpfCnpj = cpfCnpj;
         this.cargo = cargo;
         this.status = status;
         this.departamento = departamento;
         this.salarioBase = salarioBase;
 
+    }
+
+    public Pessoa getPessoa() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        Pessoa pessoa = appData.getPessoas().get(cpfCnpj);
+        return pessoa;
+    }
+
+    public Usuario getUsuario() {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        Usuario usuario = appData.getUsuarios().get(cpfCnpj);
+        return usuario;
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
     public double getSalarioBase() {
@@ -111,29 +129,5 @@ public class Funcionario extends Usuario {
 
     public void consultarContracheques() {
         throw new UnsupportedOperationException("Not Implemented");
-    }
-
-    /**
-     * Generates a partial string representation of the employee's specific data.
-     * <p>
-     * This protected helper method is designed to be used by the {@link #toString()}
-     * method in this class and can be reused by subclasses to build their own
-     * string representations.
-     *
-     * @return A string fragment containing key employee details. The format is:
-     * <pre>{@code "cpfCnpj='...', cargo='...', status='...', departamento='...', salarioBase='...'"}</pre>
-     */
-    protected String dataString() {
-        return "cpfCnpj='" + cpfCnpj + '\'' +
-                ", cargo='" + cargo + "\'" +
-                ", status='" + status + "\'" +
-                ", departamento='" + departamento + "\'" +
-                ", salarioBase='" + salarioBase + '\'';
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() +"{" + // This ensures the class name matches!
-            dataString() + "}";
     }
 }

@@ -2,9 +2,9 @@ package trabalho.admin.model;
 
 import java.util.List;
 
-import trabalho.common.model.Role;
+import trabalho.exceptions.DuplicateDataException;
+import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
-import trabalho.recrutamento.model.Recrutador;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 
@@ -36,41 +36,32 @@ public class Administrador extends Funcionario {
     }
 
     /**
+     * Lazy constructor for Administrador, mainly for testing purposes.
+     */
+    public Administrador(String cpfCnpj) {
+        super(cpfCnpj);
+    }
+
+    /**
      * Constructs a new, fully initialized {@code Administrador}.
      *
-     * @param nome         The full name of the administrator.
      * @param cpfCnpj      The administrator's unique CPF identifier.
-     * @param email        The administrator's primary contact email.
-     * @param endereco     The administrator's physical address.
-     * @param telefone     The administrator's primary phone number.
-     * @param login        The username for the administrator's system account.
-     * @param passHash     The hashed password for the system account.
      * @param cargo        The administrator's job title (e.g., "System
      *                     Administrator").
      * @param status       The administrator's current employment status (e.g.,
      *                     "Active").
      * @param departamento The department the administrator belongs to (e.g., "IT").
      * @param salarioBase  The administrator's base salary.
+     * @throws MissingDataException
      */
-    public Administrador(String nome,
+    public Administrador(
             String cpfCnpj,
-            String email,
-            String endereco,
-            long telefone,
-            String login,
-            String passHash,
             String cargo,
             String status,
             String departamento,
-            double salarioBase) {
-        super(nome,
+            double salarioBase) throws MissingDataException {
+        super(
                 cpfCnpj,
-                email,
-                endereco,
-                telefone,
-                login,
-                passHash,
-                Role.ADMIN,
                 cargo,
                 status,
                 departamento,
@@ -82,18 +73,11 @@ public class Administrador extends Funcionario {
      * 
      * @param usuario The {@code Usuario} object containing the new user's details.
      */
-    public void cadastrarUsuario(Usuario usuario) {
+    public void cadastrarUsuario(Usuario usuario) throws DuplicateDataException, MissingDataException {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        switch (usuario) {
-            case Administrador admin -> appData.saveAdministrador(admin);
-            case Gestor gestor -> appData.saveGestor(gestor);
-            case Recrutador recrutador -> appData.saveRecrutador(recrutador);
-            case Funcionario funcionario -> appData.saveFuncionario(funcionario);
-            default -> throw new IllegalArgumentException(
-                    "Tipo de usuário desconhecido: " + usuario.getClass().getName());
-        }
+        appData.addUsuario(usuario);
 
         // Pushes to memory
         dataManager.saveData();
@@ -109,27 +93,17 @@ public class Administrador extends Funcionario {
      *                to be modified is typically identified by a unique field
      *                like CPF or login within this object.
      */
-    public void editarUsuario(Usuario usuario) {
+    public void editarUsuario(Usuario usuario) throws DuplicateDataException, MissingDataException {
         /// Logic is the same {cadastrarUsuario does most of the logic}
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
-        switch (usuario) {
-            case Administrador admin -> {
-                appData.getAdministradores().removeIf(a -> a.getCpfCnpj().equals(admin.getCpfCnpj()));
-            }
-            case Gestor gestor -> {
-                appData.getGestores().removeIf(g -> g.getCpfCnpj().equals(gestor.getCpfCnpj()));
-            }
-            case Recrutador recrutador -> {
-                appData.getRecrutadores().removeIf(r -> r.getCpfCnpj().equals(recrutador.getCpfCnpj()));
-            }
-            case Funcionario funcionario -> {
-                appData.getFuncionarios().removeIf(f -> f.getCpfCnpj().equals(funcionario.getCpfCnpj()));
-            }
-            default -> throw new IllegalArgumentException(
-                    "Tipo de usuário desconhecido para edição: " + usuario.getClass().getName());
-        }
+
+        // LAZY: Remove and re-add.
+        appData.removeUsuario(usuario);
+
         cadastrarUsuario(usuario);
+
+        dataManager.saveData();
         System.out.println("Usuário " + usuario.getLogin() + " editado com sucesso.");
     }
 
@@ -142,15 +116,7 @@ public class Administrador extends Funcionario {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        switch (usuario) {
-            case Administrador admin -> appData.removeAdministrador(admin);
-            case Gestor gestor -> appData.removeGestor(gestor);
-            case Recrutador recrutador -> appData.removeRecrutador(recrutador);
-            case Funcionario funcionario -> appData.removeFuncionario(funcionario);
-            default ->
-                throw new IllegalArgumentException(
-                        "Tipo de usuário desconhecido: " + usuario.getClass().getName());
-        }
+        appData.removeUsuario(usuario);
 
         dataManager.saveData();
         System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
@@ -163,7 +129,7 @@ public class Administrador extends Funcionario {
      *         objects.
      */
     public List<Usuario> listarUsuarios() {
-        return JsonDataManager.getInstance().getData().getAllUsuarios();
+        return JsonDataManager.getInstance().getData().getUsuarios().values().stream().toList();
     }
 
     /**
@@ -192,18 +158,4 @@ public class Administrador extends Funcionario {
         System.out.println("--- Fim do Relatório ---");
     }
 
-    /**
-     * Returns a string representation of the {@code Administrador} object.
-     * <p>
-     * It reuses the data string format from its superclass, {@link Funcionario},
-     * prepending the specific class name 'Administrador'.
-     *
-     * @return A non-null string representing the administrator's state,
-     *         e.g., {@code Administrador{cpfCnpj='...', cargo='...', ...}}.
-     */
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName()
-                + "{" + super.dataString() + "}";
-    }
 }

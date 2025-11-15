@@ -12,12 +12,14 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
    prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1"
-   xmlns:fx="http://javafx.com/fxml/1">
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="trabalho.common.controller.ProfilePageController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0"
          style="-fx-background-color: #bfcbd7;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="&lt; Voltar" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction"
+               prefHeight="30.0" prefWidth="70.0" text="&lt; Voltar" />
             <Label alignment="CENTER" style="-fx-text-fill: black;" text="Perfil De Usuario"
                textFill="#1f93ff">
                <font>
@@ -45,7 +47,9 @@
          <children>
             <HBox alignment="CENTER" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Admin">
+                  <Button fx:id="adminButton" mnemonicParsing="false"
+                     onAction="#handleAdminButtonAction"
+                     prefHeight="80.0" prefWidth="160.0" text="Admin">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -54,7 +58,9 @@
             </HBox>
             <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Gestor">
+                  <Button fx:id="gestorButton" mnemonicParsing="false"
+                     onAction="#handleGestorButtonAction"
+                     prefHeight="80.0" prefWidth="160.0" text="Gestor">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -63,8 +69,9 @@
             </HBox>
             <HBox alignment="CENTER" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0"
-                     text="Recrutador">
+                  <Button fx:id="recrutadorButton" mnemonicParsing="false"
+                     onAction="#handleRecrutadorButtonAction"
+                     prefHeight="80.0" prefWidth="160.0" text="Recrutador">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -73,7 +80,9 @@
             </HBox>
             <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0"
+                  <Button fx:id="funcionarioButton" mnemonicParsing="false"
+                     onAction="#handleFuncionarioButtonAction"
+                     prefHeight="80.0" prefWidth="160.0"
                      text="Funcionario" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />

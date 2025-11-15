@@ -3,6 +3,16 @@ package trabalho.common.database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import trabalho.admin.model.Administrador;
+import trabalho.admin.model.Gestor;
+import trabalho.admin.model.Usuario;
+import trabalho.candidatura.model.Pessoa;
+import trabalho.exceptions.DuplicateDataException;
+import trabalho.exceptions.MissingDataException;
+import trabalho.financeiro.model.Funcionario;
+import trabalho.financeiro.utils.PasswordManager;
+import trabalho.recrutamento.model.Recrutador;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -75,6 +85,28 @@ public class JsonDataManager {
         initializeEmptyData();
     }
 
+    public void initializeDummyData() throws DuplicateDataException, MissingDataException {
+        String adminCpf = "000.000.000-00";
+        Pessoa adminPessoa = new Pessoa(adminCpf, "Admin do Sistema");
+        Usuario adminUsuario = new Usuario(adminCpf, "admin",
+                PasswordManager.hashPassword("admin"));
+        Administrador adminFuncionario = new Administrador(adminCpf, "Administrador Sistema",
+                "Ativo", "TI", 10000.0);
+        Gestor adminAsGestor = new Gestor(adminCpf, "Admin (as Gestor)",
+                "Ativo", "TI", 10000.0);
+        Recrutador adminAsRecrutador = new Recrutador(adminCpf, "Admin (as Recrutador)",
+                "Ativo", "TI", 10000.0);
+        Funcionario adminAsFuncionario = new Funcionario(adminCpf, "Admin (as Funcionario)",
+                "Ativo", "TI", 10000.0);
+
+        this.data.addPessoa(adminPessoa);
+        this.data.addUsuario(adminUsuario);
+        this.data.addFuncionario(adminFuncionario);
+        this.data.addFuncionario(adminAsGestor);
+        this.data.addFuncionario(adminAsRecrutador);
+        this.data.addFuncionario(adminAsFuncionario);
+    }
+
     public void saveData() {
         try (Writer writer = new FileWriter(this.jsonFile)) {
             gson.toJson(this.data, writer);
@@ -86,6 +118,13 @@ public class JsonDataManager {
 
     private void initializeEmptyData() {
         this.data = new AppData();
+        try {
+            initializeDummyData();
+            this.data.rebuildIndexes();
+            saveData();
+        } catch (Exception e) {
+            System.err.println("Error initializing dummy data: " + e.getMessage());
+        }
         this.data.rebuildIndexes();
     }
 }

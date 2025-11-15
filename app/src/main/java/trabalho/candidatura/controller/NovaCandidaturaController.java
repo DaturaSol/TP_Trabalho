@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Candidatura;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Vaga;
 
 import java.io.IOException;
@@ -18,13 +20,19 @@ import java.util.List;
 
 public class NovaCandidaturaController {
 
-    @FXML private Button btnVoltar;
-    @FXML private ComboBox<Candidato> comboCandidato;
-    @FXML private ComboBox<Vaga> comboVaga;
-    @FXML private Button btnConfirmar;
-    @FXML private Button btnLimpar;
+    @FXML
+    private Button btnVoltar;
+    @FXML
+    private ComboBox<Candidato> comboCandidato;
+    @FXML
+    private ComboBox<Vaga> comboVaga;
+    @FXML
+    private Button btnConfirmar;
+    @FXML
+    private Button btnLimpar;
 
-    @FXML private TextArea txtCandidatoDados;
+    @FXML
+    private TextArea txtCandidatoDados;
 
     @FXML
     public void initialize() {
@@ -39,7 +47,7 @@ public class NovaCandidaturaController {
                 if (empty || c == null) {
                     setText(null);
                 } else {
-                    setText(c.getNome()); // mostra só o nome
+                    setText(c.getPessoa().getNome()); // mostra só o nome
                 }
             }
         });
@@ -50,7 +58,7 @@ public class NovaCandidaturaController {
                 if (empty || c == null) {
                     setText(null);
                 } else {
-                    setText(c.getNome());
+                    setText(c.getPessoa().getNome());
                 }
             }
         });
@@ -65,10 +73,10 @@ public class NovaCandidaturaController {
 
     private List<Candidato> getListaCandidatos() {
         try {
-            // Método estático da classe Candidato
-            java.lang.reflect.Field field = Candidato.class.getDeclaredField("listaCandidatos");
-            field.setAccessible(true);
-            return (List<Candidato>) field.get(null);
+            // Use AppData to get the list of candidates
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+            return appData.getCandidatos().values().stream().toList();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -77,9 +85,10 @@ public class NovaCandidaturaController {
 
     private List<Vaga> getListaVagas() {
         try {
-            java.lang.reflect.Field field = Vaga.class.getDeclaredField("listaVagas");
-            field.setAccessible(true);
-            return (List<Vaga>) field.get(null);
+            // use appData to get the list of vagas
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+            return appData.getVagas();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -90,14 +99,13 @@ public class NovaCandidaturaController {
         Candidato c = comboCandidato.getValue();
         if (c != null) {
             txtCandidatoDados.setText(
-                    "Nome: " + c.getNome() + "\n" +
+                    "Nome: " + c.getPessoa().getNome() + "\n" +
                             "CPF: " + c.getCpfCnpj() + "\n" +
-                            "Email: " + c.getEmail() + "\n" +
+                            "Email: " + c.getPessoa().getEmail() + "\n" +
                             "Formação: " + c.getFormacao() + "\n" +
                             "Experiência: " + c.getExperiencia() + "\n" +
                             "Pretensão Salarial: R$ " + c.getPretensaoSalarial() + "\n" +
-                            "Disponibilidade: " + c.getDisponibilidadeHorario()
-            );
+                            "Disponibilidade: " + c.getDisponibilidadeHorario());
         }
     }
 
@@ -116,7 +124,7 @@ public class NovaCandidaturaController {
             return;
         }
 
-        Candidatura nova = new Candidatura(candidato, vaga, new Date());
+        Candidatura nova = new Candidatura(candidato.getCpfCnpj(), vaga, new Date());
         boolean sucesso = Candidatura.cadastrarCandidatura(nova);
 
         if (sucesso) {

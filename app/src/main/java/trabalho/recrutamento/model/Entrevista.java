@@ -8,7 +8,7 @@ public class Entrevista {
 
     private String id;
     private Date dataHora;
-    private String avaliador; // Nome do recrutador
+    private String avaliadorCpf; // Cpf do recrutador
     private double nota;
     private String parecer;
 
@@ -25,7 +25,7 @@ public class Entrevista {
     public Entrevista(Date dataHora, String avaliador, String candidatoCpf, String vagaId) {
         this.id = UUID.randomUUID().toString();
         this.dataHora = dataHora;
-        this.avaliador = avaliador;
+        this.avaliadorCpf = avaliador;
         this.candidatoCpf = candidatoCpf;
         this.vagaId = vagaId;
         this.nota = 0.0;
@@ -45,11 +45,11 @@ public class Entrevista {
         this.dataHora = dataHora;
     }
 
-    public String getAvaliador() {
-        return avaliador;
+    public String getAvaliadorCpf() {
+        return avaliadorCpf;
     }
-    public void setAvaliador(String avaliador) {
-        this.avaliador = avaliador;
+    public void setAvaliadorCpf(String avaliador) {
+        this.avaliadorCpf = avaliador;
     }
 
     public double getNota() {
