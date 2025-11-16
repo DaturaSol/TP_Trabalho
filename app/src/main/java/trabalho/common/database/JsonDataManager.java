@@ -10,6 +10,7 @@ import trabalho.candidatura.model.Pessoa;
 import trabalho.exceptions.DuplicateDataException;
 import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
+import trabalho.financeiro.utils.CpfCnpjManager;
 import trabalho.financeiro.utils.PasswordManager;
 import trabalho.recrutamento.model.Recrutador;
 
@@ -73,7 +74,6 @@ public class JsonDataManager {
                     // Success!
                     this.data = loadedData;
                     System.out.println("Data loaded successfully from " + this.jsonFile);
-                    this.data.rebuildIndexes(); // Rebuild index on successful load
                     return;
                 }
             } catch (Exception e) {
@@ -86,9 +86,9 @@ public class JsonDataManager {
     }
 
     public void initializeDummyData() throws DuplicateDataException, MissingDataException {
-        String adminCpf = "000.000.000-00";
+        String adminCpf = CpfCnpjManager.toOnlyNumbers("000.000.000-00");
         Pessoa adminPessoa = new Pessoa(adminCpf, "Admin do Sistema");
-        Usuario adminUsuario = new Usuario(adminCpf, "admin",
+        Usuario adminUsuario = new Usuario(adminCpf,
                 PasswordManager.hashPassword("admin"));
         Administrador adminFuncionario = new Administrador(adminCpf, "Administrador Sistema",
                 "Ativo", "TI", 10000.0);
@@ -120,11 +120,9 @@ public class JsonDataManager {
         this.data = new AppData();
         try {
             initializeDummyData();
-            this.data.rebuildIndexes();
             saveData();
         } catch (Exception e) {
             System.err.println("Error initializing dummy data: " + e.getMessage());
         }
-        this.data.rebuildIndexes();
     }
 }

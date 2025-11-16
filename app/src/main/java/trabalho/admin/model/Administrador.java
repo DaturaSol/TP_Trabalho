@@ -1,6 +1,8 @@
 package trabalho.admin.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import trabalho.exceptions.DuplicateDataException;
 import trabalho.exceptions.MissingDataException;
@@ -81,7 +83,7 @@ public class Administrador extends Funcionario {
 
         // Pushes to memory
         dataManager.saveData();
-        System.out.println("Usuário " + usuario.getLogin() + " cadastrado com sucesso.");
+        System.out.println("Usuário " + usuario.getCpfCnpj() + " cadastrado com sucesso.");
     }
 
     /**
@@ -104,7 +106,7 @@ public class Administrador extends Funcionario {
         cadastrarUsuario(usuario);
 
         dataManager.saveData();
-        System.out.println("Usuário " + usuario.getLogin() + " editado com sucesso.");
+        System.out.println("Usuário " + usuario.getCpfCnpj() + " editado com sucesso.");
     }
 
     /**
@@ -119,7 +121,7 @@ public class Administrador extends Funcionario {
         appData.removeUsuario(usuario);
 
         dataManager.saveData();
-        System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
+        System.out.println("Usuário " + usuario.getCpfCnpj() + " excluído com sucesso.");
     }
 
     /**
@@ -135,10 +137,8 @@ public class Administrador extends Funcionario {
     /**
      * Generates and prints a simple system-wide management report to the console.
      * 
-     * TODO: Properly modify this once controllers are implemented
-     * implemented.
      */
-    public void gerarRelatorioGestao() {
+    public Map<String, Integer> gerarRelatorioGestao() {
         AppData appData = JsonDataManager.getInstance().getData();
 
         int totalAdmins = appData.getAdministradores().size();
@@ -147,15 +147,13 @@ public class Administrador extends Funcionario {
         int totalFuncionarios = appData.getFuncionarios().size();
         int totalCandidatos = appData.getCandidatos().size();
 
-        // NOTE: This is temporary, and is not intended to work this way
-        System.out.println("--- Relatório de Gestão do Sistema ---");
-        System.out.println("Total de Funcionários: " + totalFuncionarios);
-        System.out.println("  - Administradores: " + totalAdmins);
-        System.out.println("  - Gestores: " + totalGestores);
-        System.out.println("  - Recrutadores: " + totalRecrutadores);
-        System.out.println("----------------------------------------");
-        System.out.println("Total de Candidatos no Sistema: " + totalCandidatos);
-        System.out.println("--- Fim do Relatório ---");
+        Map<String, Integer> relatorio = new HashMap<>();
+        relatorio.put("Total de Funcionários", totalFuncionarios);
+        relatorio.put("Administradores", totalAdmins);
+        relatorio.put("Gestores", totalGestores);
+        relatorio.put("Recrutadores", totalRecrutadores);
+        relatorio.put("Total de Candidatos", totalCandidatos);
+        return relatorio;
     }
 
 }

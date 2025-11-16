@@ -1,5 +1,7 @@
 package trabalho.candidatura.model;
 
+import trabalho.financeiro.utils.CpfCnpjManager;
+
 /**
  * Represents the base model in which all other objects will inherit from.
  * <p>
@@ -32,7 +34,7 @@ public class Pessoa {
      * Lazy constructor for Pessoa, mainly for testing purposes.
      */
     public Pessoa(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
     }
 
     public Pessoa(String cpfCnpj, String nome) {
@@ -84,7 +86,7 @@ public class Pessoa {
      * types of pessoas.
      */
     public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
     }
 
     public String getEmail() {

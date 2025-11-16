@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A container class that acts as an in-memory database for the application.
@@ -50,9 +48,6 @@ public class AppData {
     private List<Entrevista> entrevistas;
     public List<Contratacao> contratacoes;
 
-    // `transient` tells GSON to NOT save this map to the JSON file
-    private transient Map<String, String> loginIndex; // login -> cpf
-
     public AppData() {
         this.pessoasByCpf = new HashMap<>();
         this.usuariosByCpf = new HashMap<>();
@@ -69,8 +64,6 @@ public class AppData {
         this.candidaturas = new ArrayList<>();
         this.entrevistas = new ArrayList<>();
         this.contratacoes = new ArrayList<>();
-
-        this.loginIndex = new ConcurrentHashMap<>();
 
     }
 
@@ -139,8 +132,6 @@ public class AppData {
             throw new MissingDataException("Pessoa com CPF/CNPJ" + cpf + "Não existe");
         }
         usuariosByCpf.put(cpf, usuario);
-        // Update indexes
-        updateUserIndexes(usuario);
     }
 
     public void addFuncionario(Funcionario f) throws DuplicateDataException, MissingDataException {
@@ -256,38 +247,6 @@ public class AppData {
     // --- End Removers ---
 
     // --- Utils ---
-
-    /**
-     * Rebuilds ALL indexes from the lists. Must be called after loading from JSON.
-     */
-    public void rebuildIndexes() {
-        // Clear old indexes
-        loginIndex = new ConcurrentHashMap<>();
-
-        if (usuariosByCpf != null) {
-            usuariosByCpf.values().forEach(this::updateUserIndexes);
-        }
-
-    }
-
-    private void updateUserIndexes(Usuario user) {
-        if (user != null && user.getLogin() != null && user.getCpfCnpj() != null) {
-            loginIndex.put(user.getLogin(), user.getCpfCnpj());
-        }
-    }
-
-    /**
-     * Finds a user by login with an O(1) lookup.
-     */
-    public Optional<Usuario> findUserByLogin(String login) {
-        String cpf = loginIndex.get(login);
-        if (cpf == null) {
-            return Optional.empty();
-        }
-        // Now find the first user instance with that CPF (this part is still a scan,
-        // but it's fast after the initial lookup)
-        return Optional.ofNullable(usuariosByCpf.get(cpf));
-    }
 
     /**
      * Retrieves a list of all Funcionarios in the system.

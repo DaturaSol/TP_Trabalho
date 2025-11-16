@@ -4,6 +4,7 @@ import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Pessoa;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 
 /**
  * Represents an employee (Funcionario) within the organization.
@@ -42,7 +43,7 @@ public class Funcionario {
      * Lazy constructor for Funcionario, mainly for testing purposes.
      */
     public Funcionario(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
     }
 
     /**
@@ -92,7 +93,7 @@ public class Funcionario {
     }
 
     public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
     }
 
     public double getSalarioBase() {

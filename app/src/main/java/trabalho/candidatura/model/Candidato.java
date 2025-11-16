@@ -7,7 +7,7 @@ import java.util.Map;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.exceptions.DuplicateDataException;
-import trabalho.financeiro.utils.CpfManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 
 public class Candidato {
     private String formacao;
@@ -104,13 +104,12 @@ public class Candidato {
         this.dataCadastro = dataCadastro;
     }
 
-
     // Modified for AppData integration
     public static boolean cadastrarCandidato(Candidato c) {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        if (!CpfManager.validarCPF(c.getCpfCnpj())) {
+        if (!CpfCnpjManager.isValid(c.getCpfCnpj())) {
             return false;
         }
 

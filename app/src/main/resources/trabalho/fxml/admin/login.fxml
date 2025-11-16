@@ -26,7 +26,7 @@ link! -->
     </Label>
 
     <!-- fx:id gives this TextField a unique name so the controller can access it. -->
-    <TextField fx:id="usernameField" promptText="Nome de Usuario" />
+    <TextField fx:id="usernameField" promptText="Cpf/Cnpj " />
 
     <!-- fx:id gives this PasswordField a unique name. -->
     <PasswordField fx:id="passwordField" promptText="Senha" />

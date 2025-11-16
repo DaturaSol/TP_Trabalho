@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import trabalho.admin.controller.DashboardAdministradorController;
+import trabalho.admin.controller.DashboardGestorController;
 import trabalho.admin.model.Usuario;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
@@ -45,12 +47,12 @@ public class ProfilePageController {
         boolean isAdmin = appData.getAdministradores().containsKey(cpf);
         setButtonVisibility(adminButton, isAdmin);
 
-        // Check for Gestor Role, Admin has all permissions
-        boolean isGestor = appData.getGestores().containsKey(cpf) || isAdmin;
+        // Check for Gestor Role
+        boolean isGestor = appData.getGestores().containsKey(cpf);
         setButtonVisibility(gestorButton, isGestor);
 
         // Check for Recrutador Role
-        boolean isRecrutador = appData.getRecrutadores().containsKey(cpf) || isAdmin;
+        boolean isRecrutador = appData.getRecrutadores().containsKey(cpf);
         setButtonVisibility(recrutadorButton, isRecrutador);
 
         // Check for Funcionario Role (general)
@@ -74,14 +76,40 @@ public class ProfilePageController {
 
     @FXML
     private void handleAdminButtonAction() {
-        System.out.println("Admin button clicked! Navigating to Admin Dashboard...");
-        // TODO: Add navigation logic to the admin screen
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardAdministrador.fxml"));
+            Parent root = loader.load();
+
+            DashboardAdministradorController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Administrador Dashboard");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar dashboardAdministrador.fxml.\n" + e.getMessage());
+        }
     }
 
     @FXML
     private void handleGestorButtonAction() {
-        System.out.println("Gestor button clicked! Navigating to Gestor Dashboard...");
-        // TODO: Add navigation logic to the gestor screen
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
+            Parent root = loader.load();
+
+            DashboardGestorController controller = loader.getController();
+            controller.initData(this.currentUser);
+            
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Gestor Dashboard");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar dashboardGestor.fxml.\n" + e.getMessage());
+        }
     }
 
     @FXML

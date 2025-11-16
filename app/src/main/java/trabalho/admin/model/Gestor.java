@@ -110,7 +110,7 @@ public class Gestor extends Funcionario {
         appData.removeUsuario(usuario);
 
         dataManager.saveData();
-        System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
+        System.out.println("Usuário " + usuario.getCpfCnpj() + " excluído com sucesso.");
     }
 
     /**

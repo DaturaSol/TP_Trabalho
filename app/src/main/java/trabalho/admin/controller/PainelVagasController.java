@@ -1,5 +1,5 @@
 package trabalho.admin.controller;
 
-public class RelatoriosGestaoController {
+public class PainelVagasController {
     
 }
