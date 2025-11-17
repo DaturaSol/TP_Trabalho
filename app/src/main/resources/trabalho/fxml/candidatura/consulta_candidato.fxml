@@ -28,14 +28,14 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="598.0">
                <children>
-                  <ChoiceBox fx:id="choiceStatus" layoutX="158.0" layoutY="68.0" prefHeight="25.0" prefWidth="191.0" />
+                  <ChoiceBox fx:id="choiceStatus" layoutX="167.0" layoutY="68.0" prefHeight="25.0" prefWidth="182.0" />
                   <Button fx:id="btnLimpar" layoutX="371.0" layoutY="68.0" mnemonicParsing="false" onAction="#limparFiltros" prefHeight="25.0" prefWidth="100.0" text="Limpar Filtros" />
                   <Button fx:id="btnPesquisar" layoutX="484.0" layoutY="68.0" mnemonicParsing="false" onAction="#pesquisar" prefHeight="25.0" prefWidth="100.0" text="Pesquisar" />
-                  <CheckBox fx:id="checkNome" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Nome do Candidato" />
-                  <TextField fx:id="txtNome" layoutX="158.0" layoutY="10.0" prefHeight="25.0" prefWidth="426.0" />
-                  <CheckBox fx:id="checkVaga" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" text="Vaga" />
-                  <TextField fx:id="txtVaga" layoutX="158.0" layoutY="39.0" prefHeight="25.0" prefWidth="426.0" />
-                  <CheckBox fx:id="checkStatus" layoutX="14.0" layoutY="72.0" mnemonicParsing="false" text="Status da Candidatura" />
+                  <TextField fx:id="txtNome" layoutX="167.0" layoutY="10.0" prefHeight="25.0" prefWidth="417.0" />
+                  <TextField fx:id="txtVaga" layoutX="167.0" layoutY="39.0" prefHeight="25.0" prefWidth="417.0" />
+                  <CheckBox layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Nome do Candidato" />
+                  <CheckBox layoutX="14.0" layoutY="43.0" mnemonicParsing="false" text="Vaga" />
+                  <CheckBox layoutX="14.0" layoutY="72.0" mnemonicParsing="false" text="Status da Candidatura" />
                </children>
             </AnchorPane>
          </content>

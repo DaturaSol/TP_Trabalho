@@ -21,6 +21,8 @@ public class Candidato {
     // reference to Pessoa would be lost.
     private String cpfCnpj;
 
+
+
     public Candidato() {
         super();
     }
