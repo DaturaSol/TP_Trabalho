@@ -1,5 +1,6 @@
 package trabalho.admin.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -8,9 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-
+import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
+import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Contratacao;
@@ -20,7 +25,8 @@ import trabalho.recrutamento.model.Vaga;
 
 public class AutorizarContratacoesController {
 
-    // <editor-fold desc="FXML UI Components">
+    @FXML
+    private Button backButton;
     @FXML
     private TextField idField;
     @FXML
@@ -30,7 +36,7 @@ public class AutorizarContratacoesController {
     @FXML
     private TextField candidatoField;
     @FXML
-    private TextField RecrutadorField; // Note: Capital 'R' matches FXML
+    private TextField RecrutadorField;
     @FXML
     private DatePicker dataField;
     @FXML
@@ -192,5 +198,25 @@ public class AutorizarContratacoesController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            Parent root = loader.load();
+
+            ProfilePageController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Profile");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
