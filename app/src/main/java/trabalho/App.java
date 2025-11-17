@@ -21,7 +21,7 @@ public class App extends Application {
             dataManager.saveData(); 
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/tela_inicial.fxml"));
 
             Parent root = loader.load();
 

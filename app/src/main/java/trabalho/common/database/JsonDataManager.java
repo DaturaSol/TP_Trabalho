@@ -13,15 +13,18 @@ import trabalho.exceptions.DuplicateDataException;
 import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.financeiro.utils.CpfCnpjManager;
+import trabalho.financeiro.utils.LocalDateAdapter;
 import trabalho.financeiro.utils.PasswordManager;
 import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Recrutador;
 import trabalho.recrutamento.model.RegimeContratacao;
 import trabalho.recrutamento.model.Vaga;
+import trabalho.financeiro.utils.LocalDateAdapter;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -41,6 +44,7 @@ public class JsonDataManager {
     private JsonDataManager(String fileName) {
         this.jsonFile = fileName;
         this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .setPrettyPrinting()
                 .create();
 

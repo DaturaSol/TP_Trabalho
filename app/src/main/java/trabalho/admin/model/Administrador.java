@@ -90,7 +90,7 @@ public class Administrador extends Funcionario {
         int totalCandidatos = appData.getCandidatos().size();
 
         Map<String, Integer> relatorio = new HashMap<>();
-        relatorio.put("Total de Funcionários", totalFuncionarios);
+        relatorio.put("Total de Funcionários", totalFuncionarios + totalAdmins + totalGestores + totalRecrutadores);
         relatorio.put("Administradores", totalAdmins);
         relatorio.put("Gestores", totalGestores);
         relatorio.put("Recrutadores", totalRecrutadores);

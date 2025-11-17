@@ -118,7 +118,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="80.0" text="Recrutadores:">
+                  <Label fx:id="totalRecrutadores" layoutX="10.0" layoutY="80.0" text="Recrutadores:">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>

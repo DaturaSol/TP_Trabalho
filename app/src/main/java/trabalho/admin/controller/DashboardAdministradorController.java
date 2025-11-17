@@ -62,6 +62,9 @@ public class DashboardAdministradorController {
     private Label totalGestores;
 
     @FXML
+    private Label totalRecrutadores;
+
+    @FXML
     private Label totalCandidatos;
     // </editor-fold>
 
@@ -94,11 +97,13 @@ public class DashboardAdministradorController {
         int funcCount = relatorio.get("Total de Funcionários"); // e.g., Database.getFuncionarioCount();
         int adminCount = relatorio.get("Administradores"); // e.g., Database.getAdminCount();
         int gestorCount = relatorio.get("Gestores"); // e.g., Database.getGestorCount();
+        int recrutadorCount = relatorio.get("Recrutadores");
         int candCount = relatorio.get("Total de Candidatos"); // e.g., Database.getCandidatoCount();
 
         totalFuncionarios.setText("Total de Funcionarios: " + funcCount);
         totalAdministradores.setText("Administradores: " + adminCount);
         totalGestores.setText("Gestores: " + gestorCount);
+        totalRecrutadores.setText("Recrutadores: " + recrutadorCount);
         totalCandidatos.setText("Candidatos: " + candCount);
     }
 
