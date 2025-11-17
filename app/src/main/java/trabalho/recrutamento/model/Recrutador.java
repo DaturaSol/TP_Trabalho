@@ -1,5 +1,6 @@
 package trabalho.recrutamento.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,7 +66,7 @@ public class Recrutador extends Funcionario {
 
     // Agenda uma nova entrevista para uma candidatura. (Regra: Recrutador agenda
     // entrevistas)
-    public Entrevista agendarEntrevista(Candidatura candidatura, Date dataHora) throws Exception {
+    public Entrevista agendarEntrevista(Candidatura candidatura, LocalDate dataHora) throws Exception {
         // Regra de negócio: Recrutador só gerencia vagas sob sua responsabilidade
         validarPermissaoVaga(candidatura.getVaga());
 

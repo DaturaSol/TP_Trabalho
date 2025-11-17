@@ -11,6 +11,7 @@ import trabalho.admin.controller.DashboardGestorController;
 import trabalho.admin.model.Usuario;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.recrutamento.controller.MenuRecrutamentoController;
 
 public class ProfilePageController {
 
@@ -114,8 +115,21 @@ public class ProfilePageController {
 
     @FXML
     private void handleRecrutadorButtonAction() {
-        System.out.println("Recrutador button clicked! Navigating to Recrutador Dashboard...");
-        // TODO: Add navigation logic to the recrutador screen
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            Parent root = loader.load();
+
+            MenuRecrutamentoController controller = loader.getController();
+            controller.initData(this.currentUser);
+            
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Recrutrador Dashboard");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar menu_recrutamento.fxml.\n" + e.getMessage());
+        }
     }
 
     @FXML

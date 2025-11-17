@@ -9,46 +9,29 @@ import trabalho.common.database.JsonDataManager;
 
 import java.io.IOException;
 
-// TODO: Initialize JsonDataManager 
 
-/**
- * The main entry point for the HR Management application.
- * This class is responsible for launching the JavaFX application and displaying
- * the initial login screen.
- */
 public class App extends Application {
 
-    /**
-     * The main entry point for all JavaFX applications.
-     * 
-     * @param primaryStage The primary window for this application, onto which the
-     *                     application scene can be set.
-     */
+
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Initialize the data manager for the application.
+            
             JsonDataManager dataManager = JsonDataManager.getInstance();
-            // dataManager.saveData(); // Ensure data is loaded/saved at startup.
+            dataManager.saveData(); 
 
-            // 1. Create an FXMLLoader. This object is responsible for loading the FXML
-            // file.
-            // The path starts with "/" which means it looks in the root of the 'resources'
-            // folder.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/tela_inicial.fxml"));
-            // 2. Load the FXML file. This creates the entire scene graph (all the UI
-            // elements) in memory.
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+
             Parent root = loader.load();
 
-            // 3. Create a new Scene to hold the loaded UI.
+
             Scene scene = new Scene(root);
 
-            // 4. Configure the main window (the Stage).
             primaryStage.setTitle("HR Management System - Login");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true); // Optional: makes the window size fixed.
+            primaryStage.setResizable(true); 
 
-            // 5. Show the window to the user.
             primaryStage.show();
 
         } catch (IOException e) {
@@ -57,26 +40,19 @@ public class App extends Application {
         }
     }
 
-    /**
-     * This method is called when the application is closed.
-     * It's a good place to close the database connection.
-     */
+
     @Override
     public void stop() {
         System.out.println("Closing application and saving data...");
         JsonDataManager.getInstance().saveData();
     }
 
-    /**
-     * <b>DEBUG</b> function
-     */
+
     public String getGreeting() {
         return "The app is working";
     }
 
-    /**
-     * The main method, used to launch the JavaFX application.
-     */
+
     public static void main(String[] args) {
         launch(args);
     }

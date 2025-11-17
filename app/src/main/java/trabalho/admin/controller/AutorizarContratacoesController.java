@@ -97,7 +97,7 @@ public class AutorizarContratacoesController {
         });
 
         dataColumn.setCellValueFactory(cellData -> {
-            Date data = cellData.getValue().getDataSolicitacao();
+            LocalDate data = cellData.getValue().getDataSolicitacao();
             return new SimpleStringProperty(data != null ? data.toString() : "");
         });
         dataColumn1.setCellValueFactory(cellData -> {
@@ -149,8 +149,7 @@ public class AutorizarContratacoesController {
             return false;
         if (!recrutadorFilter.isEmpty() && !contratacao.getRecrutadorSolicitanteCpf().contains(recrutadorFilter))
             return false;
-        if (dataFilter != null && !contratacao.getDataSolicitacao().toInstant()
-                .atZone(java.time.ZoneId.systemDefault()).toLocalDate().equals(dataFilter))
+        if (dataFilter != null && !contratacao.getDataSolicitacao().equals(dataFilter))
             return false;
 
         return true;

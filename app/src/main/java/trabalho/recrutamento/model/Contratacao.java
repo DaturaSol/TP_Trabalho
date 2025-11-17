@@ -1,5 +1,7 @@
 package trabalho.recrutamento.model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,7 +19,7 @@ public class Contratacao {
     }
 
     private String id;
-    private Date dataSolicitacao;
+    private LocalDate dataSolicitacao;
     private Date dataAutorizacao; // Preenchida quando o gestor autoriza/recusa
 
     public void setDataAutorizacao(Date dataAutorizacao) {
@@ -34,6 +36,8 @@ public class Contratacao {
     // Links para os responsáveis
     private String recrutadorSolicitanteCpf;
     private String gestorAutorizanteCpf; // Preenchido pelo Gestor
+    private RegimeContratacao regimeContratacao;
+    private String observacoes;
 
     public void setGestorAutorizanteCpf(String gestorAutorizanteCpf) {
         this.gestorAutorizanteCpf = gestorAutorizanteCpf;
@@ -42,7 +46,7 @@ public class Contratacao {
     // Construtor para bibliotecas de serialização
     public Contratacao() {
         this.id = new Date().toString();
-        this.dataSolicitacao = new Date();
+        this.dataSolicitacao = LocalDate.now();
         this.status = StatusContratacao.PENDENTE_AUTORIZACAO;
     }
 
@@ -61,8 +65,15 @@ public class Contratacao {
         return id;
     }
 
-    public Date getDataSolicitacao() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDate getDataSolicitacao() {
         return dataSolicitacao;
+    }
+    public void setDataSolicitacao(LocalDate dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
     }
 
     public Date getDataAutorizacao() {
@@ -75,6 +86,10 @@ public class Contratacao {
 
     public void setRegime(RegimeContratacao regime) {
         this.regime = regime;
+    }
+    
+    public void setRegimeContratacao(RegimeContratacao regime) {
+        this.regimeContratacao = regime;
     }
 
     public StatusContratacao getStatus() {
@@ -89,8 +104,20 @@ public class Contratacao {
         return candidatoCpf;
     }
 
+    public void setCandidatoCpf(String candidatoCpf) {
+        this.candidatoCpf = candidatoCpf;
+    }
+
     public String getVagaId() {
         return vagaId;
+    }
+
+    public void setVagaId(String vagaId) {
+        this.vagaId = vagaId;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
     public String getRecrutadorSolicitanteCpf() {
@@ -113,5 +140,9 @@ public class Contratacao {
         this.gestorAutorizanteCpf = gestorCpf;
         this.dataAutorizacao = new Date();
         this.status = StatusContratacao.RECUSADA;
+    }
+
+    public boolean isPendente() {
+        return this.status == StatusContratacao.PENDENTE_AUTORIZACAO;
     }
 }
