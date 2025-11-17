@@ -1,85 +1,189 @@
 package trabalho.recrutamento.model;
 
-import java.util.Date;
-import java.util.UUID;
+import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Objects;
 
-//Uma Entrevista agendada para uma Candidatura
-public class Entrevista {
+import trabalho.candidatura.model.Candidatura;
 
-    private String id;
-    private Date dataHora;
-    private String avaliadorCpf; // Cpf do recrutador
-    private double nota;
-    private String parecer;
-
-    //Chave estrangeira para a Candidatura (composta por cpf + vagaId)
-    private String candidatoCpf;
-    private String vagaId;
-
-    //Construtor para bibliotecas de serialização
+/**
+ * Classe que representa uma Entrevista no processo seletivo.
+ * 
+ * Responsabilidades:
+ * - Armazenar dados da entrevista
+ * - Registrar avaliação e nota
+ * - Vincular à candidatura
+ * 
+ * @author Aluno 3 - Módulo Recrutamento
+ * @version 1.0
+ */
+public class Entrevista implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    // ===== ATRIBUTOS =====
+    
+    private String id; // ID único da entrevista
+    private String candidaturaCpf; // CPF do candidato
+    private String vagaId; // ID da vaga
+    private LocalDateTime dataHora;
+    private String avaliador;
+    private Double nota; // Nota de 0 a 10
+    private String observacoes;
+    private boolean realizada;
+    
+    // ===== CONSTRUTORES =====
+    
+    /**
+     * Construtor padrão
+     */
     public Entrevista() {
-        this.id = UUID.randomUUID().toString();
+        this.realizada = false;
     }
-
-    //Construtor principal para agendar uma nova entrevista
-    public Entrevista(Date dataHora, String avaliador, String candidatoCpf, String vagaId) {
-        this.id = UUID.randomUUID().toString();
-        this.dataHora = dataHora;
-        this.avaliadorCpf = avaliador;
-        this.candidatoCpf = candidatoCpf;
+    
+    /**
+     * Construtor com parâmetros essenciais
+     */
+    public Entrevista(String id, String candidaturaCpf, String vagaId, 
+                      LocalDateTime dataHora, String avaliador) {
+        this();
+        this.id = id;
+        this.candidaturaCpf = candidaturaCpf;
         this.vagaId = vagaId;
-        this.nota = 0.0;
-        this.parecer = "Aguardando realização.";
+        this.dataHora = dataHora;
+        this.avaliador = avaliador;
     }
-
-    // --- Getters e Setters ---
+    
+    // ===== GETTERS E SETTERS =====
 
     public String getId() {
         return id;
     }
-
-    public Date getDataHora() {
-        return dataHora;
+    
+    public void setId(String id) {
+        this.id = id;
     }
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
+    
+    public String getCandidaturaCpf() {
+        return candidaturaCpf;
     }
-
-    public String getAvaliadorCpf() {
-        return avaliadorCpf;
+    
+    public void setCandidaturaCpf(String candidaturaCpf) {
+        this.candidaturaCpf = candidaturaCpf;
     }
-    public void setAvaliadorCpf(String avaliador) {
-        this.avaliadorCpf = avaliador;
-    }
-
-    public double getNota() {
-        return nota;
-    }
-    public String getParecer() {
-        return parecer;
-    }
-
-    public String getCandidatoCpf() {
-        return candidatoCpf;
-    }
-
+    
     public String getVagaId() {
         return vagaId;
     }
-
-    //Registra o resultado após a entrevista
-    public void registrarResultado(double nota, String parecer) {
-        this.nota = nota;
-        this.parecer = parecer;
+    
+    public void setVagaId(String vagaId) {
+        this.vagaId = vagaId;
     }
-
+    
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+    
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+    
+    public String getAvaliador() {
+        return avaliador;
+    }
+    
+    public void setAvaliador(String avaliador) {
+        this.avaliador = avaliador;
+    }
+    
+    public Double getNota() {
+        return nota;
+    }
+    
+    public void setNota(Double nota) {
+        if (nota != null && (nota < 0 || nota > 10)) {
+            throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
+        }
+        this.nota = nota;
+        if (nota != null) {
+            this.realizada = true;
+        }
+    }
+    
+    public String getObservacoes() {
+        return observacoes;
+    }
+    
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+    
+    public boolean isRealizada() {
+        return realizada;
+    }
+    
+    public void setRealizada(boolean realizada) {
+        this.realizada = realizada;
+    }
+    
+    // ===== MÉTODOS DE NEGÓCIO =====
+    
+    /**
+     * Verifica se o candidato foi aprovado na entrevista
+     * Critério: nota >= 7.0
+     * 
+     * @return true se aprovado
+     */
+    public boolean candidatoAprovado() {
+        return nota != null && nota >= 7.0;
+    }
+    
+    /**
+     * Verifica se a entrevista já aconteceu
+     * 
+     * @return true se realizada
+     */
+    public boolean jaFoiRealizada() {
+        return realizada && nota != null;
+    }
+    
+    /**
+     * Registra a avaliação da entrevista
+     * 
+     * @param nota Nota de 0 a 10
+     * @param observacoes Observações do avaliador
+     */
+    public void registrarAvaliacao(double nota, String observacoes) {
+        setNota(nota);
+        this.observacoes = observacoes;
+        this.realizada = true;
+    }
+    
+    // ===== MÉTODOS HERDADOS =====
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Entrevista)) return false;
+        Entrevista that = (Entrevista) o;
+        return Objects.equals(id, that.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
     @Override
     public String toString() {
-        return "Entrevista{" +
-                "id='" + id + '\'' +
-                ", dataHora=" + dataHora +
-                ", candidatoCpf='" + candidatoCpf + '\'' +
-                ", vagaId='" + vagaId + '\'' +
-                '}';
+        return String.format("Entrevista[id=%s, candidato=%s, vaga=%s, data=%s, nota=%s]",
+                id, candidaturaCpf, vagaId, dataHora, nota != null ? nota : "Pendente");
+    }
+
+    public static boolean cadastrarEntrevista(Entrevista entrevista) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'cadastrarEntrevista'");
     }
 }

@@ -42,7 +42,7 @@
             <TextField promptText="Email" />
             <TextField promptText="CPF/CNPJ" />
             <PasswordField promptText="Senha" />
-            <PasswordField promptText="Comfirmar Senha" />
+            <PasswordField promptText="Confirmar Senha" />
             <ComboBox prefWidth="150.0" promptText="Status" />
             <ComboBox prefWidth="150.0" promptText="Departamento" />
             <VBox alignment="CENTER" prefWidth="779.0">

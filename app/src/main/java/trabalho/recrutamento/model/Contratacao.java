@@ -1,106 +1,243 @@
 package trabalho.recrutamento.model;
 
-import java.util.Date;
-import java.util.UUID;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
- * Representa o processo de contratação de um candidato para uma vaga.
- * Inicia com a solicitação do Recrutador e aguarda autorização do Gestor.
+ * Classe que representa uma solicitação de Contratação.
+ * 
+ * Responsabilidades:
+ * - Armazenar dados da solicitação
+ * - Controlar status (PENDENTE/AUTORIZADA/REJEITADA)
+ * - Vincular candidato, vaga e recrutador
+ * 
+ * @author Aluno 3 - Módulo Recrutamento
+ * @version 1.0
  */
-public class Contratacao {
-
+public class Contratacao implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    // ===== ENUMS =====
+    
     public enum StatusContratacao {
-        PENDENTE_AUTORIZACAO,
-        AUTORIZADA,
-        RECUSADA,
-        EFETIVADA // Quando o Financeiro finaliza o cadastro
+        PENDENTE("Pendente de Autorização"),
+        AUTORIZADA("Autorizada"),
+        REJEITADA("Rejeitada");
+        
+        private final String descricao;
+        
+        StatusContratacao(String descricao) {
+            this.descricao = descricao;
+        }
+        
+        public String getDescricao() {
+            return descricao;
+        }
+        
+        @Override
+        public String toString() {
+            return descricao;
+        }
     }
-
-    private String id;
-    private Date dataSolicitacao;
-    private Date dataAutorizacao; // Preenchida quando o gestor autoriza/recusa
-    private RegimeContratacao regime;
+    
+    // ===== ATRIBUTOS =====
+    
+    private String id; // ID único da contratação
+    private String candidatoCpf; // CPF do candidato
+    private String vagaId; // ID da vaga
+    private String recrutadorCpf; // CPF do recrutador solicitante
+    private String gestorCpf; // CPF do gestor autorizador
+    private LocalDate dataSolicitacao;
+    private LocalDate dataAutorizacao;
     private StatusContratacao status;
-
-    // Chave estrangeira para a Candidatura
-    private String candidatoCpf;
-    private String vagaId;
-
-    // Links para os responsáveis
-    private String recrutadorSolicitanteCpf;
-    private String gestorAutorizanteCpf; // Preenchido pelo Gestor
-
-    // Construtor para bibliotecas de serialização
+    private Vaga.RegimeContratacao regimeContratacao;
+    private String observacoes;
+    private String motivoRejeicao;
+    
+    // ===== CONSTRUTORES =====
+    
+    /**
+     * Construtor padrão
+     */
     public Contratacao() {
-        this.id = UUID.randomUUID().toString();
-        this.dataSolicitacao = new Date();
-        this.status = StatusContratacao.PENDENTE_AUTORIZACAO;
+        this.dataSolicitacao = LocalDate.now();
+        this.status = StatusContratacao.PENDENTE;
     }
-
-    // Construtor para criar uma nova solicitação de contratação
-    public Contratacao(String candidatoCpf, String vagaId, RegimeContratacao regime, String recrutadorSolicitanteCpf) {
-        this(); // Chama o construtor padrão
+    
+    /**
+     * Construtor com parâmetros essenciais
+     */
+    public Contratacao(String id, String candidatoCpf, String vagaId, 
+                       String recrutadorCpf, Vaga.RegimeContratacao regime) {
+        this();
+        this.id = id;
         this.candidatoCpf = candidatoCpf;
         this.vagaId = vagaId;
-        this.regime = regime;
-        this.recrutadorSolicitanteCpf = recrutadorSolicitanteCpf;
+        this.recrutadorCpf = recrutadorCpf;
+        this.regimeContratacao = regime;
     }
-
-    // --- Getters e Setters ---
-
+    
+    // ===== GETTERS E SETTERS =====
+    
     public String getId() {
         return id;
     }
-
-    public Date getDataSolicitacao() {
-        return dataSolicitacao;
+    
+    public void setId(String id) {
+        this.id = id;
     }
-
-    public Date getDataAutorizacao() {
-        return dataAutorizacao;
-    }
-
-    public RegimeContratacao getRegime() {
-        return regime;
-    }
-    public void setRegime(RegimeContratacao regime) {
-        this.regime = regime;
-    }
-
-    public StatusContratacao getStatus() {
-        return status;
-    }
-    public void setStatus(StatusContratacao status) {
-        this.status = status;
-    }
-
+    
     public String getCandidatoCpf() {
         return candidatoCpf;
     }
-
+    
+    public void setCandidatoCpf(String candidatoCpf) {
+        this.candidatoCpf = candidatoCpf;
+    }
+    
     public String getVagaId() {
         return vagaId;
     }
-
-    public String getRecrutadorSolicitanteCpf() {
-        return recrutadorSolicitanteCpf;
+    
+    public void setVagaId(String vagaId) {
+        this.vagaId = vagaId;
     }
-
-    public String getGestorAutorizanteCpf() {
-        return gestorAutorizanteCpf;
+    
+    public String getRecrutadorCpf() {
+        return recrutadorCpf;
     }
-
-    // Ação do Gestor para autorizar a contratação
+    
+    public void setRecrutadorCpf(String recrutadorCpf) {
+        this.recrutadorCpf = recrutadorCpf;
+    }
+    
+    public String getGestorCpf() {
+        return gestorCpf;
+    }
+    
+    public void setGestorCpf(String gestorCpf) {
+        this.gestorCpf = gestorCpf;
+    }
+    
+    public LocalDate getDataSolicitacao() {
+        return dataSolicitacao;
+    }
+    
+    public void setDataSolicitacao(LocalDate dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
+    }
+    
+    public LocalDate getDataAutorizacao() {
+        return dataAutorizacao;
+    }
+    
+    public void setDataAutorizacao(LocalDate dataAutorizacao) {
+        this.dataAutorizacao = dataAutorizacao;
+    }
+    
+    public StatusContratacao getStatus() {
+        return status;
+    }
+    
+    public void setStatus(StatusContratacao status) {
+        this.status = status;
+    }
+    
+    public Vaga.RegimeContratacao getRegimeContratacao() {
+        return regimeContratacao;
+    }
+    
+    public void setRegimeContratacao(Vaga.RegimeContratacao regimeContratacao) {
+        this.regimeContratacao = regimeContratacao;
+    }
+    
+    public String getObservacoes() {
+        return observacoes;
+    }
+    
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+    
+    public String getMotivoRejeicao() {
+        return motivoRejeicao;
+    }
+    
+    public void setMotivoRejeicao(String motivoRejeicao) {
+        this.motivoRejeicao = motivoRejeicao;
+    }
+    
+    // ===== MÉTODOS DE NEGÓCIO =====
+    
+    /**
+     * Verifica se a contratação está pendente de autorização
+     * 
+     * @return true se status é PENDENTE
+     */
+    public boolean isPendente() {
+        return this.status == StatusContratacao.PENDENTE;
+    }
+    
+    /**
+     * Verifica se a contratação foi autorizada
+     * 
+     * @return true se status é AUTORIZADA
+     */
+    public boolean isAutorizada() {
+        return this.status == StatusContratacao.AUTORIZADA;
+    }
+    
+    /**
+     * Autoriza a contratação
+     * 
+     * @param gestorCpf CPF do gestor autorizador
+     */
     public void autorizar(String gestorCpf) {
-        this.gestorAutorizanteCpf = gestorCpf;
-        this.dataAutorizacao = new Date();
+        if (this.status != StatusContratacao.PENDENTE) {
+            throw new IllegalStateException("Apenas contratações pendentes podem ser autorizadas");
+        }
         this.status = StatusContratacao.AUTORIZADA;
+        this.gestorCpf = gestorCpf;
+        this.dataAutorizacao = LocalDate.now();
+    }
+    
+    /**
+     * Rejeita a contratação
+     * 
+     * @param gestorCpf CPF do gestor
+     * @param motivo Motivo da rejeição
+     */
+    public void rejeitar(String gestorCpf, String motivo) {
+        if (this.status != StatusContratacao.PENDENTE) {
+            throw new IllegalStateException("Apenas contratações pendentes podem ser rejeitadas");
+        }
+        this.status = StatusContratacao.REJEITADA;
+        this.gestorCpf = gestorCpf;
+        this.dataAutorizacao = LocalDate.now();
+        this.motivoRejeicao = motivo;
+    }
+    
+    // ===== MÉTODOS HERDADOS =====
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Contratacao)) return false;
+        Contratacao that = (Contratacao) o;
+        return Objects.equals(id, that.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Contratacao[id=%s, candidato=%s, vaga=%s, status=%s, regime=%s]",
+                id, candidatoCpf, vagaId, status, regimeContratacao);
     }
 
-    // Ação do Gestor para recusar a contratação
-    public void recusar(String gestorCpf) {
-        this.gestorAutorizanteCpf = gestorCpf;
-        this.dataAutorizacao = new Date();
-        this.status = StatusContratacao.RECUSADA;
-    }
 }
