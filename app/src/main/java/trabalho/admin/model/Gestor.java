@@ -6,7 +6,6 @@ import java.util.Map;
 import trabalho.common.database.AppData;
 import trabalho.candidatura.model.Candidatura;
 import trabalho.common.database.JsonDataManager;
-import trabalho.exceptions.DuplicateDataException;
 import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.recrutamento.model.Contratacao;
@@ -56,7 +55,7 @@ public class Gestor extends Funcionario {
             String cargo,
             String status,
             String departamento,
-            double salarioBase) throws MissingDataException {
+            double salarioBase)  {
         super(
                 cpfCnpj,
                 cargo,
@@ -72,14 +71,10 @@ public class Gestor extends Funcionario {
      *             created.
      *             implemented.
      */
-    public void criarVaga(Vaga vaga) throws DuplicateDataException{
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+    public void criarVaga(Vaga vaga) {
 
         vaga.setGestorCriadorCpf(cpfCnpj);
 
-        appData.addVaga(vaga);
-        dataManager.saveData();
 
     }
 
@@ -110,7 +105,7 @@ public class Gestor extends Funcionario {
         appData.removeUsuario(usuario);
 
         dataManager.saveData();
-        System.out.println("Usuário " + usuario.getLogin() + " excluído com sucesso.");
+        System.out.println("Usuário " + usuario.getCpfCnpj() + " excluído com sucesso.");
     }
 
     /**

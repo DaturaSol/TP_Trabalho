@@ -14,6 +14,7 @@ import trabalho.admin.model.Usuario;
 import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 import trabalho.financeiro.utils.PasswordManager;
 
 import java.io.IOException;
@@ -74,7 +75,8 @@ public class LoginController {
     private void authenticateUser(String login, String plainPassword) {
         AppData appData = JsonDataManager.getInstance().getData();
 
-        Optional<Usuario> userOptional = appData.findUserByLogin(login);
+        Optional<Usuario> userOptional = Optional
+                .ofNullable(appData.getUsuarios().get((CpfCnpjManager.toOnlyNumbers(login))));
 
         if (userOptional.isPresent()
                 && PasswordManager.verifyPassword(plainPassword, userOptional.get().getPassHash())) {

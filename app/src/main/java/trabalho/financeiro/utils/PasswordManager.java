@@ -2,6 +2,7 @@ package trabalho.financeiro.utils;
 
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -89,4 +90,21 @@ public final class PasswordManager {
         return getPasswordViolations(password).isEmpty();
     }
 
+    /**
+     * Formats a Set of PasswordViolations into a single, multi-line string.
+     *
+     * @param violations The set of violations to format.
+     * @return A formatted string listing all violations, or an empty string if the
+     *         set is empty.
+     */
+    public static String formatViolations(Set<PasswordViolations> violations) {
+        if (violations == null || violations.isEmpty()) {
+            return "";
+        }
+
+        // Using Java 8 Streams - modern and concise
+        return violations.stream()
+                .map(PasswordViolations::getMessage) // Get the message string from each violation
+                .collect(Collectors.joining("\n")); // Join them together with a newline character
+    }
 }

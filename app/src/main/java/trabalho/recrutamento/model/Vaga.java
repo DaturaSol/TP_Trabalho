@@ -40,7 +40,7 @@ public class Vaga {
      * Não use diretamente.
      */
     public Vaga() {
-        this.id = UUID.randomUUID().toString();
+        this.id = "0";
         this.dataAbertura = new Date();
         this.status = StatusVaga.ABERTA;
     }
@@ -50,7 +50,7 @@ public class Vaga {
      */
     public Vaga(String cargo, String departamento, double salarioBase, String requisitos,
             RegimeContratacao regime, String gestorCriadorCpf) {
-        this.id = UUID.randomUUID().toString();
+        this.id = new Date().toString();
         this.cargo = cargo;
         this.departamento = departamento;
         this.salarioBase = salarioBase;
@@ -156,7 +156,7 @@ public class Vaga {
         if (o == null || getClass() != o.getClass())
             return false;
         Vaga vaga = (Vaga) o;
-        return id.equals(vaga.id);
+        return id == vaga.id;
     }
 
     public void setId(String id) {
@@ -174,6 +174,6 @@ public class Vaga {
     public static List<Vaga> getListaVagas() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
-        return appData.getVagas();
+        return appData.getVagasById().values().stream().toList();
     }
 }

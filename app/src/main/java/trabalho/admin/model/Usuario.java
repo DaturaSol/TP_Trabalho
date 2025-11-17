@@ -2,8 +2,8 @@ package trabalho.admin.model;
 
 import trabalho.candidatura.model.Pessoa;
 import trabalho.common.database.AppData;
-import trabalho.common.database.JsonDataManager;
 import trabalho.common.model.Role;
+import trabalho.financeiro.utils.CpfCnpjManager;
 
 /**
  * Represents a user of the application.
@@ -24,8 +24,7 @@ public class Usuario {
     // Critical change now instead of inhereting from Pessoa it is a composition.
     // But we are only pointing to cpfCnpj here, since when we
     // serealize it to JSON our original reference to Pessoa would be lost.
-    private String cpfCpnj;
-    private String login;
+    private String cpfCnpj;
     private String passHash;
 
     /**
@@ -51,41 +50,27 @@ public class Usuario {
      * @param login    The username for authentication.
      * @param passHash The hashed password for authentication.
      */
-    public Usuario(String cpfCnpj, String login, String passHash) {
+    public Usuario(String cpfCnpj, String passHash) {
 
-        this.cpfCpnj = cpfCnpj;
-        this.login = login;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
         this.passHash = passHash;
 
     }
 
     public String getCpfCnpj() {
-        return cpfCpnj;
+        return cpfCnpj;
     }
 
     public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCpnj = cpfCnpj;
+        this.cpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfCnpj);
     }
 
-    public String getLogin() {
-        return login;
-    }
 
-    public Pessoa getPessoa() {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
-        Pessoa pessoa = appData.getPessoas().get(cpfCpnj);
+    public Pessoa getPessoa(AppData appData) {
+        Pessoa pessoa = appData.getPessoas().get(cpfCnpj);
         return pessoa;
     }
 
-    /**
-     * Login must be unique for a given person.
-     * But it will be present in the database for diferent
-     * types of funcionarios.
-     */
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getPassHash() {
         return passHash;

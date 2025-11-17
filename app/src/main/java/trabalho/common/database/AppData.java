@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A container class that acts as an in-memory database for the application.
@@ -45,13 +43,10 @@ public class AppData {
 
     private Map<String, Candidato> candidatosByCpf;
 
-    private List<Vaga> vagas;
+    private Map<String, Vaga> vagasById;
     private List<Candidatura> candidaturas;
     private List<Entrevista> entrevistas;
     public List<Contratacao> contratacoes;
-
-    // `transient` tells GSON to NOT save this map to the JSON file
-    private transient Map<String, String> loginIndex; // login -> cpf
 
     public AppData() {
         this.pessoasByCpf = new HashMap<>();
@@ -65,12 +60,10 @@ public class AppData {
 
         this.candidatosByCpf = new HashMap<>();
 
-        this.vagas = new ArrayList<>();
+        this.vagasById = new HashMap<>();
         this.candidaturas = new ArrayList<>();
         this.entrevistas = new ArrayList<>();
         this.contratacoes = new ArrayList<>();
-
-        this.loginIndex = new ConcurrentHashMap<>();
 
     }
 
@@ -103,8 +96,8 @@ public class AppData {
         return candidatosByCpf;
     }
 
-    public List<Vaga> getVagas() {
-        return vagas;
+    public Map<String, Vaga> getVagasById() {
+        return vagasById;
     }
 
     public List<Candidatura> getCandidaturas() {
@@ -139,8 +132,6 @@ public class AppData {
             throw new MissingDataException("Pessoa com CPF/CNPJ" + cpf + "Não existe");
         }
         usuariosByCpf.put(cpf, usuario);
-        // Update indexes
-        updateUserIndexes(usuario);
     }
 
     public void addFuncionario(Funcionario f) throws DuplicateDataException, MissingDataException {
@@ -189,10 +180,11 @@ public class AppData {
     }
 
     public void addVaga(Vaga v) throws DuplicateDataException {
-        if (vagas.contains(v)) {
+        String id = v.getId();
+        if (vagasById.containsKey(id)) {
             throw new DuplicateDataException("Vaga já existe.");
         }
-        vagas.add(v);
+        vagasById.put(id, v);
     }
 
     public void addCandidatura(Candidatura c) throws DuplicateDataException {
@@ -227,19 +219,13 @@ public class AppData {
     }
 
     public void removeFuncionario(Funcionario f) {
-        funcionariosByCpf.remove(f.getCpfCnpj());
-    }
-
-    public void removeAdministrador(Administrador a) {
-        administradoresByCpf.remove(a.getCpfCnpj());
-    }
-
-    public void removeGestor(Gestor g) {
-        gestoresByCpf.remove(g.getCpfCnpj());
-    }
-
-    public void removeRecrutador(Recrutador r) {
-        recrutadoresByCpf.remove(r.getCpfCnpj());
+        String cpf = f.getCpfCnpj();
+        switch (f) {
+            case Administrador admin -> administradoresByCpf.remove(cpf);
+            case Gestor gestor -> gestoresByCpf.remove(cpf);
+            case Recrutador recrutador -> recrutadoresByCpf.remove(cpf);
+            default -> funcionariosByCpf.remove(cpf);
+        }
     }
 
     public void removeCandidato(Candidato c) {
@@ -247,7 +233,7 @@ public class AppData {
     }
 
     public void removeVaga(Vaga v) {
-        vagas.remove(v);
+        vagasById.remove(v.getId());
     }
 
     public void removeCandidatura(Candidatura c) {
@@ -256,38 +242,6 @@ public class AppData {
     // --- End Removers ---
 
     // --- Utils ---
-
-    /**
-     * Rebuilds ALL indexes from the lists. Must be called after loading from JSON.
-     */
-    public void rebuildIndexes() {
-        // Clear old indexes
-        loginIndex = new ConcurrentHashMap<>();
-
-        if (usuariosByCpf != null) {
-            usuariosByCpf.values().forEach(this::updateUserIndexes);
-        }
-
-    }
-
-    private void updateUserIndexes(Usuario user) {
-        if (user != null && user.getLogin() != null && user.getCpfCnpj() != null) {
-            loginIndex.put(user.getLogin(), user.getCpfCnpj());
-        }
-    }
-
-    /**
-     * Finds a user by login with an O(1) lookup.
-     */
-    public Optional<Usuario> findUserByLogin(String login) {
-        String cpf = loginIndex.get(login);
-        if (cpf == null) {
-            return Optional.empty();
-        }
-        // Now find the first user instance with that CPF (this part is still a scan,
-        // but it's fast after the initial lookup)
-        return Optional.ofNullable(usuariosByCpf.get(cpf));
-    }
 
     /**
      * Retrieves a list of all Funcionarios in the system.

@@ -19,6 +19,11 @@ public class Contratacao {
     private String id;
     private Date dataSolicitacao;
     private Date dataAutorizacao; // Preenchida quando o gestor autoriza/recusa
+
+    public void setDataAutorizacao(Date dataAutorizacao) {
+        this.dataAutorizacao = dataAutorizacao;
+    }
+
     private RegimeContratacao regime;
     private StatusContratacao status;
 
@@ -30,9 +35,13 @@ public class Contratacao {
     private String recrutadorSolicitanteCpf;
     private String gestorAutorizanteCpf; // Preenchido pelo Gestor
 
+    public void setGestorAutorizanteCpf(String gestorAutorizanteCpf) {
+        this.gestorAutorizanteCpf = gestorAutorizanteCpf;
+    }
+
     // Construtor para bibliotecas de serialização
     public Contratacao() {
-        this.id = UUID.randomUUID().toString();
+        this.id = new Date().toString();
         this.dataSolicitacao = new Date();
         this.status = StatusContratacao.PENDENTE_AUTORIZACAO;
     }
@@ -63,6 +72,7 @@ public class Contratacao {
     public RegimeContratacao getRegime() {
         return regime;
     }
+
     public void setRegime(RegimeContratacao regime) {
         this.regime = regime;
     }
@@ -70,6 +80,7 @@ public class Contratacao {
     public StatusContratacao getStatus() {
         return status;
     }
+
     public void setStatus(StatusContratacao status) {
         this.status = status;
     }

@@ -30,7 +30,7 @@ public class Recrutador extends Funcionario {
             String cargo,
             String status,
             String departamento,
-            double salarioBase) throws MissingDataException {
+            double salarioBase) {
         super(
                 cpfCnpj,
                 cargo,
