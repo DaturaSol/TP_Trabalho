@@ -107,7 +107,22 @@ public class DashboardGestorController {
     @FXML
     private void handlePainelUsuariosButtonAction(ActionEvent event) {
         System.out.println("'Painel de Usuarios' clicked.");
-        // TODO: Implement logic to navigate to the user management panel.
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/painelUsuarios.fxml"));
+            Parent root = loader.load();
+
+            PainelUsuariosController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -118,7 +133,22 @@ public class DashboardGestorController {
     @FXML
     private void handlePainelVagasButtonAction(ActionEvent event) {
         System.out.println("'Painel de Vagas' clicked.");
-        // TODO: Implement logic to navigate to the vacancy management panel.
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/painelVagas.fxml"));
+            Parent root = loader.load();
+
+            PainelVagasController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -129,7 +159,23 @@ public class DashboardGestorController {
     @FXML
     private void handleVerCandidaturasButtonAction(ActionEvent event) {
         System.out.println("'Ver Candidaturas' clicked.");
-        // TODO: Implement logic to navigate to the application viewing screen.
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/admin/pesquisarCandidaturas.fxml"));
+            Parent root = loader.load();
+
+            PesquisarCandidaturasController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -140,7 +186,23 @@ public class DashboardGestorController {
     @FXML
     private void handleAprovarContratacoesButtonAction(ActionEvent event) {
         System.out.println("'Aprovar Contratações' clicked.");
-        // TODO: Implement logic to navigate to the hiring approval screen.
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/admin/autorizarContratacoes.fxml"));
+            Parent root = loader.load();
+
+            AutorizarContratacoesController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -151,8 +213,22 @@ public class DashboardGestorController {
     @FXML
     private void handleEditarInfoPessoalButtonAction(ActionEvent event) {
         System.out.println("'Editar Informações Pessoais' clicked.");
-        // TODO: Implement logic to navigate to the profile editing page for the
-        // manager.
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/infoPessoal.fxml"));
+            Parent root = loader.load();
+
+            InfoPessoalController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
     // </editor-fold>
 }

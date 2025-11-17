@@ -1,11 +1,10 @@
 package trabalho.recrutamento.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 //Uma Entrevista agendada para uma Candidatura
 public class Entrevista {
-
+    
     private String id;
     private Date dataHora;
     private String avaliadorCpf; // Cpf do recrutador
@@ -18,12 +17,12 @@ public class Entrevista {
 
     //Construtor para bibliotecas de serialização
     public Entrevista() {
-        this.id = UUID.randomUUID().toString();
+        this.id = "0";
     }
 
     //Construtor principal para agendar uma nova entrevista
     public Entrevista(Date dataHora, String avaliador, String candidatoCpf, String vagaId) {
-        this.id = UUID.randomUUID().toString();
+        this.id = dataHora.toString();
         this.dataHora = dataHora;
         this.avaliadorCpf = avaliador;
         this.candidatoCpf = candidatoCpf;

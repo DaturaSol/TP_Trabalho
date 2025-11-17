@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
    prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1"
    xmlns:fx="http://javafx.com/fxml/1"
@@ -34,6 +33,7 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
+            <Label fx:id="feedbackLabel" />
          </children>
          <padding>
             <Insets left="5.0" />
@@ -85,7 +85,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <CheckBox fx:id="administradorButton" mnemonicParsing="false"
-                                 onAction="#handleAdministradorButtonAction" prefWidth="150.0"
+                                 onAction="#handleRoleSelection" prefWidth="150.0"
                                  text="Administrador">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -97,8 +97,7 @@
                            GridPane.columnIndex="1">
                            <children>
                               <CheckBox fx:id="gestorButton" mnemonicParsing="false"
-                                 onAction="#handleGestorButtonAction" prefWidth="150.0"
-                                 text="Gestor">
+                                 onAction="#handleRoleSelection" prefWidth="150.0" text="Gestor">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -109,8 +108,7 @@
                            GridPane.rowIndex="1">
                            <children>
                               <CheckBox fx:id="recrutadorButton" mnemonicParsing="false"
-                                 onAction="#handleRecrutadorButtonAction" prefWidth="150.0"
-                                 text="Recrutador">
+                                 onAction="#handleRoleSelection" prefWidth="150.0" text="Recrutador">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -121,7 +119,7 @@
                            GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <CheckBox fx:id="funcitonarioButton" mnemonicParsing="false"
-                                 onAction="#handleFuncionarioButtonAction" prefWidth="150.0"
+                                 onAction="#handleRoleSelection" prefWidth="150.0"
                                  text="Funcionario">
                                  <font>
                                     <Font name="System Bold" size="14.0" />

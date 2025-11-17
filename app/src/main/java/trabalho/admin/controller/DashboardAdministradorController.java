@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import trabalho.admin.model.Administrador;
 import trabalho.admin.model.Usuario;
 import trabalho.common.controller.ProfilePageController;
-import trabalho.admin.controller.PainelUsuariosController;
+import trabalho.common.database.JsonDataManager;
 
 // TODO: Import necessary classes for navigation and data handling
 // import javafx.stage.Stage;
@@ -66,6 +66,7 @@ public class DashboardAdministradorController {
     // </editor-fold>
 
     private Usuario currentUser;
+
     public void initData(Usuario currentUser) {
         this.currentUser = currentUser;
     }
@@ -87,7 +88,8 @@ public class DashboardAdministradorController {
      * This would typically fetch information from a data source.
      */
     private void loadReportData() {
-        Map<String, Integer> relatorio = new Administrador().gerarRelatorioGestao();
+        Map<String, Integer> relatorio = new Administrador()
+                .gerarRelatorioGestao(JsonDataManager.getInstance().getData());
         // Placeholder data. Replace with actual data fetching logic.
         int funcCount = relatorio.get("Total de Funcionários"); // e.g., Database.getFuncionarioCount();
         int adminCount = relatorio.get("Administradores"); // e.g., Database.getAdminCount();
@@ -202,7 +204,22 @@ public class DashboardAdministradorController {
     @FXML
     private void handleEditarInfoPessoalButtonAction(ActionEvent event) {
         System.out.println("'Editar Informações Pessoais' clicked.");
-        // TODO: Implement logic to navigate to the profile editing page.
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/infoPessoal.fxml"));
+            Parent root = loader.load();
+
+            InfoPessoalController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
     // </editor-fold>
 }

@@ -37,6 +37,11 @@
       </HBox>
    </top>
    <bottom>
+      <Label fx:id="feedbackLabel" textFill="RED">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
       <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="200.0"
          BorderPane.alignment="CENTER">
          <children>

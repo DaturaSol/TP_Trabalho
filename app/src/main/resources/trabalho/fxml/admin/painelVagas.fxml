@@ -17,7 +17,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
    prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1"
    xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="trabalho.admin.controller.AutorizarContratacoesController">
+   fx:controller="trabalho.admin.controller.PainelVagasController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0"
          style="-fx-background-color: #bfcbd7;" BorderPane.alignment="CENTER">
@@ -91,7 +91,8 @@
       </VBox>
    </left>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="vagasTableView" prefHeight="200.0" prefWidth="200.0"
+         BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="50.0" text="Id" />
             <TableColumn fx:id="cargoColumn" prefWidth="75.0" text="Cargo" />

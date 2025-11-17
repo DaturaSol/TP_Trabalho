@@ -43,7 +43,7 @@ public class AppData {
 
     private Map<String, Candidato> candidatosByCpf;
 
-    private List<Vaga> vagas;
+    private Map<String, Vaga> vagasById;
     private List<Candidatura> candidaturas;
     private List<Entrevista> entrevistas;
     public List<Contratacao> contratacoes;
@@ -60,7 +60,7 @@ public class AppData {
 
         this.candidatosByCpf = new HashMap<>();
 
-        this.vagas = new ArrayList<>();
+        this.vagasById = new HashMap<>();
         this.candidaturas = new ArrayList<>();
         this.entrevistas = new ArrayList<>();
         this.contratacoes = new ArrayList<>();
@@ -96,8 +96,8 @@ public class AppData {
         return candidatosByCpf;
     }
 
-    public List<Vaga> getVagas() {
-        return vagas;
+    public Map<String, Vaga> getVagasById() {
+        return vagasById;
     }
 
     public List<Candidatura> getCandidaturas() {
@@ -180,10 +180,11 @@ public class AppData {
     }
 
     public void addVaga(Vaga v) throws DuplicateDataException {
-        if (vagas.contains(v)) {
+        String id = v.getId();
+        if (vagasById.containsKey(id)) {
             throw new DuplicateDataException("Vaga já existe.");
         }
-        vagas.add(v);
+        vagasById.put(id, v);
     }
 
     public void addCandidatura(Candidatura c) throws DuplicateDataException {
@@ -218,19 +219,13 @@ public class AppData {
     }
 
     public void removeFuncionario(Funcionario f) {
-        funcionariosByCpf.remove(f.getCpfCnpj());
-    }
-
-    public void removeAdministrador(Administrador a) {
-        administradoresByCpf.remove(a.getCpfCnpj());
-    }
-
-    public void removeGestor(Gestor g) {
-        gestoresByCpf.remove(g.getCpfCnpj());
-    }
-
-    public void removeRecrutador(Recrutador r) {
-        recrutadoresByCpf.remove(r.getCpfCnpj());
+        String cpf = f.getCpfCnpj();
+        switch (f) {
+            case Administrador admin -> administradoresByCpf.remove(cpf);
+            case Gestor gestor -> gestoresByCpf.remove(cpf);
+            case Recrutador recrutador -> recrutadoresByCpf.remove(cpf);
+            default -> funcionariosByCpf.remove(cpf);
+        }
     }
 
     public void removeCandidato(Candidato c) {
@@ -238,7 +233,7 @@ public class AppData {
     }
 
     public void removeVaga(Vaga v) {
-        vagas.remove(v);
+        vagasById.remove(v.getId());
     }
 
     public void removeCandidatura(Candidatura c) {

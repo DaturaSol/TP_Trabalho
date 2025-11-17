@@ -2,7 +2,6 @@ package trabalho.admin.model;
 
 import trabalho.candidatura.model.Pessoa;
 import trabalho.common.database.AppData;
-import trabalho.common.database.JsonDataManager;
 import trabalho.common.model.Role;
 import trabalho.financeiro.utils.CpfCnpjManager;
 
@@ -67,9 +66,7 @@ public class Usuario {
     }
 
 
-    public Pessoa getPessoa() {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+    public Pessoa getPessoa(AppData appData) {
         Pessoa pessoa = appData.getPessoas().get(cpfCnpj);
         return pessoa;
     }

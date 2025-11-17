@@ -1,21 +1,36 @@
 package trabalho.admin.controller;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.TextInputControl;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import trabalho.admin.model.Administrador;
+import trabalho.admin.model.Gestor;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Pessoa;
+import trabalho.common.controller.ProfilePageController;
+import trabalho.common.database.AppData;
+import trabalho.common.database.JsonDataManager;
+import trabalho.exceptions.DuplicateDataException;
+import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
-
-// TODO: Import your model classes (Funcionario, Pessoa, Usuario)
-// import trabalho.admin.model.Funcionario;
-// import trabalho.admin.model.Pessoa;
-// import trabalho.admin.model.Usuario;
+import trabalho.financeiro.utils.CpfCnpjManager;
+import trabalho.financeiro.utils.PasswordManager;
+import trabalho.recrutamento.model.Recrutador;
 
 /**
  * Controller for the user creation/editing screen (EditUsuario.fxml).
@@ -30,6 +45,8 @@ public class EditUsuarioController {
     private Button backButton;
     @FXML
     private Label title;
+    @FXML
+    private Label feedbackLabel;
 
     // --- User Data Fields ---
     @FXML
@@ -73,15 +90,24 @@ public class EditUsuarioController {
     // creating a new user.
     private Funcionario funcionarioToEdit;
     private Usuario currentUser;
+    private List<CheckBox> roleCheckBoxes;
+
+    private List<TextInputControl> requiredFields;
+    private static final String STYLE_ERROR = "-fx-border-color: red; -fx-background-color: #ffdddd;";
 
     // For new User creation
     public void initData(Usuario currentUser) {
         this.currentUser = currentUser;
+        title.setText("Criar Novo Usuário");
     }
+
     // For editing existing User
     public void initData(Usuario currentUser, Funcionario funcionario) {
         this.currentUser = currentUser;
         this.funcionarioToEdit = funcionario;
+        title.setText("Editar Usuário");
+        populateFields(funcionarioToEdit);
+        cpfField.setEditable(false); // The primary key (CPF) should not be editable.
     }
 
     /**
@@ -90,30 +116,16 @@ public class EditUsuarioController {
     @FXML
     private void initialize() {
         System.out.println("EditUsuarioController initialized.");
-        // You can add listeners here for real-time validation if needed.
-    }
+        roleCheckBoxes = List.of(administradorButton, gestorButton, recrutadorButton, funcitonarioButton);
 
-    /**
-     * This is the entry point for the controller. It's called from the previous
-     * screen
-     * to set up the form for either creating or editing a user.
-     *
-     * @param funcionario The funcionario to edit. If null, the form will be in
-     *                    "Create Mode".
-     */
-    public void initData(Funcionario funcionario) {
-        this.funcionarioToEdit = funcionario;
+        requiredFields = List.of(cpfField, senhaField, confirmSenhaField,
+                CargoField, departamentoField, salarioField);
 
-        if (funcionarioToEdit != null) {
-            // --- EDIT MODE ---
-            title.setText("Editar Usuário");
-            populateFields(funcionarioToEdit);
-            cpfField.setEditable(false); // The primary key (CPF) should not be editable.
-        } else {
-            // --- CREATE MODE ---
-            // The title is already "Criar Usuario" by default from the FXML.
-            // All fields are blank by default.
-            title.setText("Criar Novo Usuário");
+        for (TextInputControl field : requiredFields) {
+            field.textProperty().addListener((obs, oldText, newText) -> {
+                // When text changes, remove the error style.
+                field.setStyle("");
+            });
         }
     }
 
@@ -124,109 +136,279 @@ public class EditUsuarioController {
      * @param funcionario The user whose data will be displayed.
      */
     private void populateFields(Funcionario funcionario) {
-        Pessoa pessoa = funcionario.getPessoa();
+        AppData appData = JsonDataManager.getInstance().getData();
+        Pessoa pessoa = funcionario.getPessoa(appData);
         if (pessoa == null)
-            return; // Safety check
+            return;
 
         cpfField.setText(pessoa.getCpfCnpj());
         nomeField.setText(pessoa.getNome());
         emailField.setText(pessoa.getEmail());
         enderecoField.setText(pessoa.getEndereco());
         telefoneField.setText(String.valueOf(pessoa.getTelefone()));
-        // TODO: Populate Cargo, Departamento, and Salario from the Funcionario model
-        // CargoField.setText(funcionario.getCargo());
-        // departamentoField.setText(funcionario.getDepartamento());
-        // salarioField.setText(String.valueOf(funcionario.getSalario()));
+        CargoField.setText(funcionario.getCargo());
+        departamentoField.setText(funcionario.getDepartamento());
+        salarioField.setText(String.valueOf(funcionario.getSalarioBase()));
 
-        // TODO: Set the checkboxes based on the user's roles
-        // For example:
-        // administradorButton.setSelected(funcionario.isAdministrador());
-        // gestorButton.setSelected(funcionario.isGestor());
+        switch (funcionario) {
+            case Administrador a -> administradorButton.setSelected(true);
+            case Gestor g -> gestorButton.setSelected(true);
+            case Recrutador r -> recrutadorButton.setSelected(true);
+            default -> funcitonarioButton.setSelected(true);
+        }
     }
 
     // <editor-fold desc="FXML Action Handlers">
 
     @FXML
     private void handleSalvarButtonAction(ActionEvent event) {
-        // TODO: Add input validation logic here first.
-        // - Are required fields empty?
-        // - Do passwords match?
-        // - Is the email format valid?
-        // if (!validateInput()) { return; }
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
 
-        if (funcionarioToEdit == null) {
-            // --- LOGIC TO CREATE A NEW USER ---
-            System.out.println("Saving a NEW user...");
-            // 1. Gather data from all fields.
-            // 2. Create new Pessoa, Usuario, and Funcionario objects.
-            // 3. Save them to your data source (JSON file, database, etc.).
-            // 4. Show a success message.
-            // 5. Navigate back to the user list screen.
+        feedbackLabel.setText("");
+
+        if (!CpfCnpjManager.isValid(cpfField.getText())) {
+            showError("CPF/CNPJ inválido.", cpfField);
+            cpfField.setStyle(STYLE_ERROR);
+            return;
+        }
+
+        // New user must provide a password
+        if (this.funcionarioToEdit == null && senhaField.getText().isBlank()) {
+            showError("Senha é obrigatória para novo usuário.", senhaField);
+            return;
+        }
+
+        // If there is a password, validation for new or changed password
+        if (!senhaField.getText().isBlank() && !PasswordManager.isPasswordValid(senhaField.getText())) {
+            Set<PasswordManager.PasswordViolations> violations = PasswordManager
+                    .getPasswordViolations(senhaField.getText());
+            showError(PasswordManager.formatViolations(violations), senhaField);
+            return;
+        }
+
+        // Passwords must match
+        if (!senhaField.getText().equals(confirmSenhaField.getText())) {
+            showError("As senhas não coincidem.", confirmSenhaField);
+            return;
+        }
+
+        if (CargoField.getText().isBlank()) {
+            showError("Cargo é obrigatório.", CargoField);
+            return;
+        }
+
+        if (departamentoField.getText().isBlank()) {
+            showError("Departamento é obrigatório.", departamentoField);
+            return;
+        }
+
+        String userPassHash;
+        // Existing user keeps current password if field is blank
+        if (this.funcionarioToEdit != null && senhaField.getText().isBlank()) {
+            userPassHash = this.funcionarioToEdit.getUsuario(appData).getPassHash();
         } else {
-            // --- LOGIC TO UPDATE AN EXISTING USER ---
-            System.out.println("Updating user: " + funcionarioToEdit.getPessoa().getCpfCnpj());
-            // 1. Gather data from all fields.
-            // 2. Update the properties of the 'funcionarioToEdit' object.
-            // 3. Handle password change (only update if the password field is not empty).
-            // 4. Save the updated object to your data source.
-            // 5. Show a success message.
-            // 6. Navigate back to the user list screen.
+            userPassHash = PasswordManager.hashPassword(senhaField.getText());
+        }
+
+        long telefone = 0;
+
+        try {
+            if (!telefoneField.getText().isBlank()) {
+                telefone = Long.parseLong(telefoneField.getText());
+            }
+        } catch (NumberFormatException e) {
+            showError("Telefone inválido. Insira apenas números.", telefoneField);
+            return;
+        }
+
+        double salario;
+        if (salarioField.getText().isBlank()) {
+            showError("Salário é obrigatório.", salarioField);
+            return;
+        }
+        try {
+            salario = Double.parseDouble(salarioField.getText());
+        } catch (NumberFormatException e) {
+            showError("Salário inválido. Insira um número válido.", salarioField);
+            return;
+        }
+
+        if (roleCheckBoxes.stream().noneMatch(CheckBox::isSelected)) {
+            showError("Selecione ao menos um perfil de acesso.", null);
+            return;
+        }
+
+        String formattedCpfCnpj = CpfCnpjManager.toOnlyNumbers(cpfField.getText());
+        Pessoa pessoa = new Pessoa(
+                formattedCpfCnpj,
+                nomeField.getText(),
+                emailField.getText(),
+                enderecoField.getText(),
+                telefone);
+
+        Usuario usuario = new Usuario(
+                formattedCpfCnpj,
+                userPassHash);
+
+        try {
+            appData.addPessoa(pessoa);
+        } catch (DuplicateDataException e1) {
+            appData.removePessoa(pessoa);
+            try {
+                appData.addPessoa(pessoa);
+            } catch (DuplicateDataException e2) {
+                // Should never happen
+                e2.printStackTrace();
+            }
+        }
+        try {
+            appData.addUsuario(usuario);
+        } catch (DuplicateDataException e) {
+            appData.removeUsuario(usuario);
+            try {
+                appData.addUsuario(usuario);
+            } catch (DuplicateDataException | MissingDataException e1) {
+                // Should never happen
+                e1.printStackTrace();
+            }
+        } catch (MissingDataException e) {
+            // Should never happen
+            e.printStackTrace();
+        }
+
+        Funcionario funcionario;
+        if (administradorButton.isSelected()) {
+            funcionario = new Administrador(
+                    formattedCpfCnpj,
+                    CargoField.getText(),
+                    "Ativo",
+                    departamentoField.getText(),
+                    salario);
+
+        } else if (gestorButton.isSelected()) {
+            funcionario = new Gestor(
+                    formattedCpfCnpj,
+                    CargoField.getText(),
+                    "Ativo",
+                    departamentoField.getText(),
+                    salario);
+
+        } else if (recrutadorButton.isSelected()) {
+            funcionario = new Recrutador(
+                    formattedCpfCnpj,
+                    CargoField.getText(),
+                    "Ativo",
+                    departamentoField.getText(),
+                    salario);
+
+        } else if (funcitonarioButton.isSelected()) {
+            funcionario = new Funcionario(
+                    formattedCpfCnpj,
+                    CargoField.getText(),
+                    "Ativo",
+                    departamentoField.getText(),
+                    salario);
+
+        } else {
+            funcionario = new Funcionario();
+            feedbackLabel.setTextFill(Color.RED);
+            feedbackLabel.setText("Selecione ao menos um perfil de acesso.");
+            return;
+        }
+
+        try {
+            appData.addFuncionario(funcionario);
+        } catch (DuplicateDataException e) {
+            if (funcionarioToEdit == null) { // If we are not editing show error
+                showError(e.getMessage(), null);
+            } else {
+                appData.removeFuncionario(funcionario); // If we are editing delete
+                try {
+                    appData.addFuncionario(funcionario);
+                } catch (DuplicateDataException | MissingDataException e1) {
+                    // Should never happen
+                    e1.printStackTrace();
+                }
+            }
+        } catch (MissingDataException e) {
+            // Should never happen
+            e.printStackTrace();
+        } finally {
+            dataManager.saveData();
         }
     }
 
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         System.out.println("Back button clicked.");
-        // TODO: Implement navigation to go back to the previous screen
-        // (PainelUsuarios).
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            Parent root = loader.load();
+
+            ProfilePageController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Profile");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // --- CheckBox Action Handlers ---
-    // You can use these methods to enforce rules, e.g., if Admin is checked,
-    // then Funcionario must also be checked.
-
-    @FXML
-    private void handleAdministradorButtonAction(ActionEvent event) {
-        System.out.println("Administrador checkbox toggled.");
-    }
-
-    @FXML
-    private void handleGestorButtonAction(ActionEvent event) {
-        System.out.println("Gestor checkbox toggled.");
-    }
-
-    @FXML
-    private void handleRecrutadorButtonAction(ActionEvent event) {
-        System.out.println("Recrutador checkbox toggled.");
-    }
-
-    @FXML
-    private void handleFuncionarioButtonAction(ActionEvent event) {
-        System.out.println("Funcionario checkbox toggled.");
-    }
-    // </editor-fold>
-
-    /**
-     * A helper method for input validation.
-     * 
-     * @return true if all inputs are valid, false otherwise.
-     */
-    private boolean validateInput() {
-        // Example validation:
-        if (cpfField.getText().isBlank() || nomeField.getText().isBlank()) {
-            // TODO: Show an error alert to the user
-            System.out.println("Validation Error: CPF and Nome are required.");
+    private boolean isCurrentUserAnAdmin() {
+        // Make sure currentUser is not null before checking
+        if (this.currentUser == null) {
             return false;
         }
+        return JsonDataManager.getInstance().getData()
+                .getAdministradores().containsKey(this.currentUser.getCpfCnpj());
+    }
 
-        if (!senhaField.getText().equals(confirmSenhaField.getText())) {
-            // TODO: Show an error alert to the user
-            System.out.println("Validation Error: Passwords do not match.");
-            return false;
+    @FXML
+    private void handleRoleSelection(ActionEvent event) {
+        CheckBox selectedCheckbox = (CheckBox) event.getSource();
+
+        if (selectedCheckbox == administradorButton && selectedCheckbox.isSelected()) {
+            if (!isCurrentUserAnAdmin()) {
+                selectedCheckbox.setSelected(false);
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Permissão Negada");
+                alert.setHeaderText("Não é possível selecionar o cargo de Administrador.");
+                alert.setContentText("Apenas um administrador existente pode atribuir este cargo.");
+                alert.showAndWait();
+
+                return;
+            }
         }
 
-        // Add more validation rules as needed...
+        // If a checkbox was selected, deselect all others.
+        if (selectedCheckbox.isSelected()) {
+            for (CheckBox cb : roleCheckBoxes) {
+                if (cb != selectedCheckbox) {
+                    cb.setSelected(false);
+                }
+            }
+        } else {
+            // This logic prevents the user from having no role selected.
+            // When they uncheck a box, it re-selects it.
+            selectedCheckbox.setSelected(true);
+        }
 
-        return true;
+        System.out.println(selectedCheckbox.getText() + " role selected on UI.");
     }
+
+    private void showError(String message, TextInputControl fieldToHighlight) {
+        feedbackLabel.setTextFill(Color.RED);
+        feedbackLabel.setText(message);
+        if (fieldToHighlight != null) {
+            fieldToHighlight.setStyle(STYLE_ERROR);
+        }
+    }
+
 }

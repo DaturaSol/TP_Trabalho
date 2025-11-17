@@ -25,6 +25,11 @@ public class Candidato {
         super();
     }
 
+    public Candidato(String cpfCnpj) {
+        super();
+        this.cpfCnpj = cpfCnpj;
+    }
+
     public Candidato(
             String cpfCnpj,
             String formacao,

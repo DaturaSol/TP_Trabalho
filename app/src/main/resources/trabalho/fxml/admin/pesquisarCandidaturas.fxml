@@ -71,7 +71,8 @@
       </VBox>
    </left>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="candidaturasTableView" prefHeight="200.0" prefWidth="200.0"
+         BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="121.5999755859375" text="Id Vaga" />
             <TableColumn fx:id="cpfColumn" prefWidth="125.60003662109375" text="Cpf/Cnpj Candidato" />

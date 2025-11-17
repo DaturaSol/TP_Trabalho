@@ -18,14 +18,12 @@ import java.io.IOException;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import trabalho.admin.model.Administrador;
-import trabalho.admin.model.Gestor;
 import trabalho.admin.model.Usuario;
 import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.financeiro.utils.CpfCnpjManager;
-import trabalho.recrutamento.model.Recrutador;
 
 /**
  * Controller for the user management panel (PainelUsuarios.fxml).
@@ -131,6 +129,7 @@ public class PainelUsuariosController {
     }
 
     private void configureTableColumns() {
+        AppData appData = JsonDataManager.getInstance().getData();
 
         cpfColumn.setCellValueFactory(cellData -> {
             String cpf = CpfCnpjManager.format(cellData.getValue().getCpfCnpj());
@@ -138,22 +137,22 @@ public class PainelUsuariosController {
         });
 
         nomeColumn.setCellValueFactory(cellData -> {
-            String nome = cellData.getValue().getPessoa().getNome();
+            String nome = cellData.getValue().getPessoa(appData).getNome();
             return new SimpleStringProperty(nome != null ? nome : "");
         });
 
         emailColumn.setCellValueFactory(cellData -> {
-            String email = cellData.getValue().getPessoa().getEmail();
+            String email = cellData.getValue().getPessoa(appData).getEmail();
             return new SimpleStringProperty(email != null ? email : "");
         });
 
         enderecoColumn.setCellValueFactory(cellData -> {
-            String endereco = cellData.getValue().getPessoa().getEndereco();
+            String endereco = cellData.getValue().getPessoa(appData).getEndereco();
             return new SimpleStringProperty(endereco != null ? endereco : "");
         });
 
         telefoneColumn.setCellValueFactory(cellData -> {
-            long telefone = cellData.getValue().getPessoa().getTelefone();
+            long telefone = cellData.getValue().getPessoa(appData).getTelefone();
             return new SimpleStringProperty(telefone != 0 ? String.valueOf(telefone) : "");
         });
 
@@ -201,6 +200,8 @@ public class PainelUsuariosController {
 
     @FXML
     private void handlePesquisarButtonAction(ActionEvent event) {
+        AppData appData = JsonDataManager.getInstance().getData();
+
         System.out.println("'Pesquisar' button clicked.");
         String cpfFilter = cpfField.getText().trim();
         String nomeFilter = nomeField.getText().trim().toLowerCase();
@@ -222,16 +223,17 @@ public class PainelUsuariosController {
             boolean matchesCpf = cpfFilter.isEmpty()
                     || CpfCnpjManager.toOnlyNumbers(f.getCpfCnpj()).contains(cpfFilter);
 
-            boolean matchesNome = nomeFilter.isEmpty() || f.getPessoa().getNome().toLowerCase().contains(nomeFilter);
+            boolean matchesNome = nomeFilter.isEmpty()
+                    || f.getPessoa(appData).getNome().toLowerCase().contains(nomeFilter);
 
             boolean matchesEmail = emailFilter.isEmpty()
-                    || f.getPessoa().getEmail().toLowerCase().contains(emailFilter);
+                    || f.getPessoa(appData).getEmail().toLowerCase().contains(emailFilter);
 
             boolean matchesEndereco = enderecoFilter.isEmpty()
-                    || f.getPessoa().getEndereco().toLowerCase().contains(enderecoFilter);
+                    || f.getPessoa(appData).getEndereco().toLowerCase().contains(enderecoFilter);
 
             boolean matchesTelefone = telefoneFilter.isEmpty()
-                    || String.valueOf(f.getPessoa().getTelefone()).contains(telefoneFilter);
+                    || String.valueOf(f.getPessoa(appData).getTelefone()).contains(telefoneFilter);
 
             boolean matchesCargo = cargoFilter.isEmpty() || f.getCargo().toLowerCase().contains(cargoFilter);
 
@@ -295,6 +297,13 @@ public class PainelUsuariosController {
     private void handleEditarUsuarioButtonAction(ActionEvent event) {
         System.out.println("'Editar Usuario' button clicked.");
         Funcionario selectedUser = userTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedUser instanceof Administrador && !JsonDataManager.getInstance().getData()
+                .getAdministradores().containsKey(this.currentUser.getCpfCnpj())) {
+            System.out.println("Only administrators can edit other administrators.");
+            return;
+        }
+
         if (selectedUser != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/editUsuario.fxml"));
@@ -317,45 +326,20 @@ public class PainelUsuariosController {
 
     @FXML
     private void handleExcluirUsuarioButtonAction(ActionEvent event) {
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
         System.out.println("'Excluir Usuario' button clicked.");
         Funcionario selectedUser = userTableView.getSelectionModel().getSelectedItem();
+
         if (selectedUser != null) {
-            switch (selectedUser) {
-                case Administrador a -> {
-                    JsonDataManager dataManager = JsonDataManager.getInstance();
-                    AppData appData = dataManager.getData();
-
-                    if (!appData.getAdministradores().containsKey(this.currentUser.getCpfCnpj())) {
-                        System.out.println("Only administrators can delete other administrators.");
-                        return;
-                    }
-
-                    appData.removeAdministrador(a);
-                    dataManager.saveData();
-                    loadFuncionarios();
-                }
-                case Gestor g -> {
-                    JsonDataManager dataManager = JsonDataManager.getInstance();
-                    AppData appData = dataManager.getData();
-                    appData.removeGestor(g);
-                    dataManager.saveData();
-                    loadFuncionarios();
-                }
-                case Recrutador r -> {
-                    JsonDataManager dataManager = JsonDataManager.getInstance();
-                    AppData appData = dataManager.getData();
-                    appData.removeRecrutador(r);
-                    dataManager.saveData();
-                    loadFuncionarios();
-                }
-                default -> {
-                    JsonDataManager dataManager = JsonDataManager.getInstance();
-                    AppData appData = dataManager.getData();
-                    appData.removeFuncionario(selectedUser);
-                    dataManager.saveData();
-                    loadFuncionarios();
-                }
+            if (selectedUser instanceof Administrador
+                    && !appData.getAdministradores().containsKey(this.currentUser.getCpfCnpj())) {
+                System.out.println("Only administrators can delete other administrators.");
+                return;
             }
+            appData.removeFuncionario(selectedUser);
+            dataManager.saveData();
+            loadFuncionarios();
         }
     }
 

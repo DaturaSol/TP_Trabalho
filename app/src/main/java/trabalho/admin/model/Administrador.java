@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import trabalho.exceptions.DuplicateDataException;
 import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.common.database.AppData;
-import trabalho.common.database.JsonDataManager;
 
 /**
  * Represents a system Administrator.
@@ -61,7 +59,7 @@ public class Administrador extends Funcionario {
             String cargo,
             String status,
             String departamento,
-            double salarioBase) throws MissingDataException {
+            double salarioBase) {
         super(
                 cpfCnpj,
                 cargo,
@@ -71,76 +69,20 @@ public class Administrador extends Funcionario {
     }
 
     /**
-     * Register a new user in the system by saving them to the database.
-     * 
-     * @param usuario The {@code Usuario} object containing the new user's details.
-     */
-    public void cadastrarUsuario(Usuario usuario) throws DuplicateDataException, MissingDataException {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
-
-        appData.addUsuario(usuario);
-
-        // Pushes to memory
-        dataManager.saveData();
-        System.out.println("Usuário " + usuario.getCpfCnpj() + " cadastrado com sucesso.");
-    }
-
-    /**
-     * Modifies the details of an existing user.
-     * This works because savePessoa uses a Map, which will overwrite the
-     * entry with the same key (cpfCnpj).
-     * 
-     * @param usuario The {@code Usuario} object with updated information. The user
-     *                to be modified is typically identified by a unique field
-     *                like CPF or login within this object.
-     */
-    public void editarUsuario(Usuario usuario) throws DuplicateDataException, MissingDataException {
-        /// Logic is the same {cadastrarUsuario does most of the logic}
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
-
-        // LAZY: Remove and re-add.
-        appData.removeUsuario(usuario);
-
-        cadastrarUsuario(usuario);
-
-        dataManager.saveData();
-        System.out.println("Usuário " + usuario.getCpfCnpj() + " editado com sucesso.");
-    }
-
-    /**
-     * Deletes a user account from the system.
-     * 
-     * @param usuario The user account to be deleted.
-     */
-    public void excluirUsuario(Usuario usuario) {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
-
-        appData.removeUsuario(usuario);
-
-        dataManager.saveData();
-        System.out.println("Usuário " + usuario.getCpfCnpj() + " excluído com sucesso.");
-    }
-
-    /**
      * Retrieves a list of all users in the system.
      *
      * @return This method is intended to return a list of all {@code Usuario}
      *         objects.
      */
-    public List<Usuario> listarUsuarios() {
-        return JsonDataManager.getInstance().getData().getUsuarios().values().stream().toList();
+    public List<Usuario> listarUsuarios(AppData appData) {
+        return appData.getUsuarios().values().stream().toList();
     }
 
     /**
      * Generates and prints a simple system-wide management report to the console.
      * 
      */
-    public Map<String, Integer> gerarRelatorioGestao() {
-        AppData appData = JsonDataManager.getInstance().getData();
-
+    public Map<String, Integer> gerarRelatorioGestao(AppData appData) {
         int totalAdmins = appData.getAdministradores().size();
         int totalGestores = appData.getGestores().size();
         int totalRecrutadores = appData.getRecrutadores().size();

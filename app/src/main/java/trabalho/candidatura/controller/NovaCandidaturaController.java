@@ -88,7 +88,7 @@ public class NovaCandidaturaController {
             // use appData to get the list of vagas
             JsonDataManager dataManager = JsonDataManager.getInstance();
             AppData appData = dataManager.getData();
-            return appData.getVagas();
+            return appData.getVagasById().values().stream().toList();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();

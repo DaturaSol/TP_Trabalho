@@ -71,7 +71,8 @@
       </HBox>
    </bottom>
    <center>
-      <TableView prefHeight="420.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="contratacoesTableView" prefHeight="420.0" prefWidth="631.0"
+         BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id Vaga" />
             <TableColumn fx:id="regimeColumn" prefWidth="75.0" text="Regime" />

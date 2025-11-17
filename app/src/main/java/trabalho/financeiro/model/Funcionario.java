@@ -3,7 +3,6 @@ package trabalho.financeiro.model;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Pessoa;
 import trabalho.common.database.AppData;
-import trabalho.common.database.JsonDataManager;
 import trabalho.financeiro.utils.CpfCnpjManager;
 
 /**
@@ -74,16 +73,12 @@ public class Funcionario {
 
     }
 
-    public Pessoa getPessoa() {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+    public Pessoa getPessoa(AppData appData) {
         Pessoa pessoa = appData.getPessoas().get(cpfCnpj);
         return pessoa;
     }
 
-    public Usuario getUsuario() {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
+    public Usuario getUsuario(AppData appData) {
         Usuario usuario = appData.getUsuarios().get(cpfCnpj);
         return usuario;
     }
