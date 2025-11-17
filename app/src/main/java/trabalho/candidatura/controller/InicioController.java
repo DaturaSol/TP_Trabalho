@@ -60,4 +60,14 @@ public class InicioController {
             System.err.println("Erro ao abrir tela: " + caminhoFXML);
         }
     }
+
+    @FXML
+    private void voltarTela(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Menu Recrutamento");
+        stage.show();
+    }
 }
