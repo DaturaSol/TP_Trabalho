@@ -82,7 +82,10 @@ public class EditVagaController {
         departamentoField.setText(vaga.getDepartamento());
         salarioField.setText(String.valueOf(vaga.getSalarioBase()));
         requisitosField.setText(vaga.getRequisitos());
-        regimeComboBox.setValue(vaga.getRegimeContratacao());
+        if (vaga.getRegimeContratacao() != null) {
+            regimeComboBox.setValue(RegimeContratacao.valueOf(vaga.getRegimeContratacao().name()));
+        }
+        //regimeComboBox.setValue(vaga.getRegimeContratacao());
         statusComboBox.setValue(vaga.getStatus());
 
         if (vaga.getDataAbertura() != null) {

@@ -17,10 +17,48 @@ public class Vaga {
 
     // Enum para o status da vaga, conforme o padrão em Candidatura.java
     public enum StatusVaga {
-        ABERTA,
-        EM_PROCESSO,
-        FECHADA
+        ABERTA("Aberta"),
+        EM_PROCESSO("Em processo"),
+        FECHADA("Fechada");
+        
+        private final String descricao;
+        
+        StatusVaga(String descricao) {
+            this.descricao = descricao;
+        }
+        
+        public String getDescricao() {
+            return descricao;
+        }
+        
+        @Override
+        public String toString() {
+            return descricao;
+        }
     }
+
+    public static final String RegimeContratacao = null;
+
+    // public enum RegimeContratacao {
+    //     CLT("CLT"),
+    //     ESTAGIO("Estágio"),
+    //     PJ("Pessoa Jurídica");
+        
+    //     private final String descricao;
+        
+    //     RegimeContratacao(String descricao) {
+    //         this.descricao = descricao;
+    //     }
+        
+    //     public String getDescricao() {
+    //         return descricao;
+    //     }
+        
+    //     @Override
+    //     public String toString() {
+    //         return descricao;
+    //     }
+    // }
 
     private String id;
     private String cargo;
@@ -40,9 +78,7 @@ public class Vaga {
      * Não use diretamente.
      */
     public Vaga() {
-        this.id = "0";
-        this.dataAbertura = new Date();
-        this.status = StatusVaga.ABERTA;
+
     }
 
     /**

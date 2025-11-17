@@ -1,14 +1,16 @@
 package trabalho.recrutamento.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 //Uma Entrevista agendada para uma Candidatura
 public class Entrevista {
     
     private String id;
-    private Date dataHora;
+    private LocalDate dataHora;
     private String avaliadorCpf; // Cpf do recrutador
-    private double nota;
+    private Double nota;
     private String parecer;
 
     //Chave estrangeira para a Candidatura (composta por cpf + vagaId)
@@ -17,11 +19,10 @@ public class Entrevista {
 
     //Construtor para bibliotecas de serialização
     public Entrevista() {
-        this.id = "0";
     }
 
     //Construtor principal para agendar uma nova entrevista
-    public Entrevista(Date dataHora, String avaliador, String candidatoCpf, String vagaId) {
+    public Entrevista(LocalDate dataHora, String avaliador, String candidatoCpf, String vagaId) {
         this.id = dataHora.toString();
         this.dataHora = dataHora;
         this.avaliadorCpf = avaliador;
@@ -31,16 +32,17 @@ public class Entrevista {
         this.parecer = "Aguardando realização.";
     }
 
+
     // --- Getters e Setters ---
 
     public String getId() {
         return id;
     }
 
-    public Date getDataHora() {
+    public LocalDate getDataHora() {
         return dataHora;
     }
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(LocalDate dataHora) {
         this.dataHora = dataHora;
     }
 
@@ -51,7 +53,7 @@ public class Entrevista {
         this.avaliadorCpf = avaliador;
     }
 
-    public double getNota() {
+    public Double getNota() {
         return nota;
     }
     public String getParecer() {
@@ -80,5 +82,30 @@ public class Entrevista {
                 ", candidatoCpf='" + candidatoCpf + '\'' +
                 ", vagaId='" + vagaId + '\'' +
                 '}';
+    }
+
+    public void setId(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    }
+
+    public void setCandidaturaCpf(String cpfCnpjCandidato) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCandidaturaCpf'");
+    }
+
+    public void setVagaId(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setVagaId'");
+    }
+
+    public void setObservacoes(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setObservacoes'");
+    }
+
+    public void setDataHora(LocalDateTime dataHora2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDataHora'");
     }
 }
