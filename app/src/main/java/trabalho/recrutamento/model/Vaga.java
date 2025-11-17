@@ -4,17 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Classe que representa uma Vaga de emprego no sistema.
- * 
- * Responsabilidades:
- * - Armazenar informações da vaga
- * - Controlar status (ABERTA/FECHADA)
- * - Gerenciar requisitos e benefícios
- * 
- * @author Aluno 3 - Módulo Recrutamento
- * @version 1.0
- */
 public class Vaga implements Serializable {
     
     private static final long serialVersionUID = 1L;

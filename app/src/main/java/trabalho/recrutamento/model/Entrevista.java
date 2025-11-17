@@ -1,24 +1,10 @@
 package trabalho.recrutamento.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
-import trabalho.candidatura.model.Candidatura;
 
-/**
- * Classe que representa uma Entrevista no processo seletivo.
- * 
- * Responsabilidades:
- * - Armazenar dados da entrevista
- * - Registrar avaliação e nota
- * - Vincular à candidatura
- * 
- * @author Aluno 3 - Módulo Recrutamento
- * @version 1.0
- */
 public class Entrevista implements Serializable {
     
     private static final long serialVersionUID = 1L;

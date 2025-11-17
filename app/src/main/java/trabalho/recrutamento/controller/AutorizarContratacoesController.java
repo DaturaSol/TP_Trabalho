@@ -84,7 +84,6 @@ public class AutorizarContratacoesController {
         confirmacao.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    // Aqui você pode adicionar CPF do gestor se necessário
                     c.autorizar("GESTOR_CPF");
                     
                     JsonDataManager dataManager = JsonDataManager.getInstance();

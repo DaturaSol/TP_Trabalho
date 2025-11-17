@@ -10,10 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-/**
- * Menu principal do módulo de Recrutamento
- * Padrão: InicioController de candidatura
- */
+
 public class MenuRecrutamentoController {
 
     @FXML

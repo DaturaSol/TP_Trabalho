@@ -1,10 +1,8 @@
 package trabalho.recrutamento.model;
 
-import trabalho.candidatura.model.Pessoa;
+
 import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario;
-
-import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -20,13 +18,6 @@ public class Recrutador extends Funcionario {
         super();
         this.ativo = true;
     }
-    
-
-    // public Recrutador(String cpf, String nome, String email, String matricula, double salarioBase) {
-    //     super(cpf, nome, email);
-    //     this.matricula = matricula;
-    //     this.ativo = true;
-    // }
 
         public Recrutador(
             String cpfCnpj,
@@ -87,9 +78,4 @@ public class Recrutador extends Funcionario {
         return Objects.hash(super.hashCode(), matricula);
     }
     
-    // @Override
-    // public String toString() {
-    //     return String.format("Recrutador[cpf=%s, nome=%s, matricula=%s, departamento=%s]",
-    //             getCpfCnpj(), getPessoa(), matricula, departamento);
-    // }
 }

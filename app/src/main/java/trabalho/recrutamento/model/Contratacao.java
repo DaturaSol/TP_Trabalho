@@ -4,17 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Classe que representa uma solicitação de Contratação.
- * 
- * Responsabilidades:
- * - Armazenar dados da solicitação
- * - Controlar status (PENDENTE/AUTORIZADA/REJEITADA)
- * - Vincular candidato, vaga e recrutador
- * 
- * @author Aluno 3 - Módulo Recrutamento
- * @version 1.0
- */
 public class Contratacao implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -171,29 +160,14 @@ public class Contratacao implements Serializable {
     
     // ===== MÉTODOS DE NEGÓCIO =====
     
-    /**
-     * Verifica se a contratação está pendente de autorização
-     * 
-     * @return true se status é PENDENTE
-     */
     public boolean isPendente() {
         return this.status == StatusContratacao.PENDENTE;
     }
     
-    /**
-     * Verifica se a contratação foi autorizada
-     * 
-     * @return true se status é AUTORIZADA
-     */
     public boolean isAutorizada() {
         return this.status == StatusContratacao.AUTORIZADA;
     }
     
-    /**
-     * Autoriza a contratação
-     * 
-     * @param gestorCpf CPF do gestor autorizador
-     */
     public void autorizar(String gestorCpf) {
         if (this.status != StatusContratacao.PENDENTE) {
             throw new IllegalStateException("Apenas contratações pendentes podem ser autorizadas");
@@ -203,12 +177,6 @@ public class Contratacao implements Serializable {
         this.dataAutorizacao = LocalDate.now();
     }
     
-    /**
-     * Rejeita a contratação
-     * 
-     * @param gestorCpf CPF do gestor
-     * @param motivo Motivo da rejeição
-     */
     public void rejeitar(String gestorCpf, String motivo) {
         if (this.status != StatusContratacao.PENDENTE) {
             throw new IllegalStateException("Apenas contratações pendentes podem ser rejeitadas");
