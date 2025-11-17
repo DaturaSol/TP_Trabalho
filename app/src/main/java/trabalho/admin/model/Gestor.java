@@ -76,7 +76,7 @@ public class Gestor extends Funcionario {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        vaga.setGestorCriadorCpf(cpfCnpj);
+        vaga.setGestorCriador(cpfCnpj);
 
         appData.addVaga(vaga);
         dataManager.saveData();
@@ -90,7 +90,7 @@ public class Gestor extends Funcionario {
      * @param recrutador The recruiter to be assigned to the job.
      */
     public void atribuirRecrutador(Vaga vaga, Recrutador recrutador) {
-        vaga.setRecrutadorResponsavelCpf(recrutador.getCpfCnpj());
+        vaga.setRecrutadorResponsavel(recrutador.getCpfCnpj());
     }
 
     /**
