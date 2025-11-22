@@ -40,6 +40,7 @@ public class Candidato {
             String disponibilidadeHorario,
             String documentosAdicionais,
             Date dataCadastro) {
+        this.cpfCnpj = cpfCnpj;
         this.formacao = formacao;
         this.experiencia = experiencia;
         this.pretensaoSalarial = pretensaoSalarial;
