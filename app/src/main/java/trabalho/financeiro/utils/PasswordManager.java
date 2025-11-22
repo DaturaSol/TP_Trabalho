@@ -21,12 +21,12 @@ public final class PasswordManager {
     private static final int WORK_FACTOR = 12;
 
     public enum PasswordViolations {
-        TOO_SHORT("Password must be at least 8 characters long."),
-        NO_LETTERS("Password must contain at least one letter."),
-        NO_DIGITS("Password must contain at least one number."),
-        NO_SPECIAL_CHAR("Password must contain at least one special character."),
-        NO_UPPERCASE("Password must contain at least one uppercase letter."),
-        NO_LOWERCASE("Password must contain at least one lowercase letter.");
+        TOO_SHORT("Senha precisa ter ao menos 8 caracteres."),
+        NO_LETTERS("Senha precisa ter uma letra ao menos."),
+        NO_DIGITS("Senha precisa ter um número ao menos."),
+        NO_SPECIAL_CHAR("Senha precisa ter um caractere especial ao menos."),
+        NO_UPPERCASE("Senha precisa de uma letra maiuscula ao menos."),
+        NO_LOWERCASE("Senha precisa de uma letra minuscula ao menos.");
 
         private final String message;
 

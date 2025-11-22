@@ -93,7 +93,7 @@ public class JsonDataManager {
         System.out.println("Initializing a new, empty data set in memory.");
         initializeEmptyData();
     }
-
+    
     public void initializeDummyData() throws DuplicateDataException, MissingDataException {
         String adminCpf = CpfCnpjManager.toOnlyNumbers("000.000.000-00");
         Pessoa adminPessoa = new Pessoa(adminCpf, "Admin do Sistema");
