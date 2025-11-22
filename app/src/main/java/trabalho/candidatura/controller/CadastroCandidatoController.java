@@ -14,6 +14,7 @@ import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Pessoa;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,6 +95,9 @@ public class CadastroCandidatoController {
         if (nome.isEmpty() || cpf.isEmpty() || email.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Preencha Nome, CPF e Email.");
             return;
+        } else if (!CpfCnpjManager.isValid(cpf)) {
+            mostrarAlerta("Erro", "CPF inválido ou já cadastrado!");
+            return;
         }
 
         System.out.println("=== Dados Pessoais ===");
@@ -148,8 +152,6 @@ public class CadastroCandidatoController {
             if (sucesso) {
                 mostrarAlerta("Sucesso", "Candidato cadastrado com sucesso!");
                 limparCampos();
-            } else {
-                mostrarAlerta("Erro", "CPF inválido ou já cadastrado!");
             }
 
         } catch (Exception e) {
