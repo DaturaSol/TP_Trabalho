@@ -1,9 +1,7 @@
 package trabalho.recrutamento.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import trabalho.admin.model.Gestor;
 import trabalho.common.database.AppData;
@@ -20,17 +18,17 @@ public class Vaga {
         ABERTA("Aberta"),
         EM_PROCESSO("Em processo"),
         FECHADA("Fechada");
-        
+
         private final String descricao;
-        
+
         StatusVaga(String descricao) {
             this.descricao = descricao;
         }
-        
+
         public String getDescricao() {
             return descricao;
         }
-        
+
         @Override
         public String toString() {
             return descricao;
@@ -40,24 +38,24 @@ public class Vaga {
     public static final String RegimeContratacao = null;
 
     // public enum RegimeContratacao {
-    //     CLT("CLT"),
-    //     ESTAGIO("Estágio"),
-    //     PJ("Pessoa Jurídica");
-        
-    //     private final String descricao;
-        
-    //     RegimeContratacao(String descricao) {
-    //         this.descricao = descricao;
-    //     }
-        
-    //     public String getDescricao() {
-    //         return descricao;
-    //     }
-        
-    //     @Override
-    //     public String toString() {
-    //         return descricao;
-    //     }
+    // CLT("CLT"),
+    // ESTAGIO("Estágio"),
+    // PJ("Pessoa Jurídica");
+
+    // private final String descricao;
+
+    // RegimeContratacao(String descricao) {
+    // this.descricao = descricao;
+    // }
+
+    // public String getDescricao() {
+    // return descricao;
+    // }
+
+    // @Override
+    // public String toString() {
+    // return descricao;
+    // }
     // }
 
     private String id;
@@ -211,5 +209,10 @@ public class Vaga {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
         return appData.getVagasById().values().stream().toList();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cargo: %s | Data: %s", cargo, id);
     }
 }

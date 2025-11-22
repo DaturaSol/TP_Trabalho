@@ -19,7 +19,6 @@ import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Recrutador;
 import trabalho.recrutamento.model.RegimeContratacao;
 import trabalho.recrutamento.model.Vaga;
-import trabalho.financeiro.utils.LocalDateAdapter;
 
 import java.io.*;
 import java.nio.file.Files;

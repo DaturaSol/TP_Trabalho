@@ -32,9 +32,12 @@ public class MenuRecrutamentoController {
     @FXML
     public void initialize() {
         btnGerenciarVagas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/gerenciar_vagas.fxml", e));
-        btnAgendarEntrevistas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/agendar_entrevistas.fxml", e));
-        btnSolicitarContratacoes.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/solicitar_contratacoes.fxml", e));
-        btnAutorizarContratacoes.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/autorizar_contratacoes.fxml", e));
+        btnAgendarEntrevistas
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/agendar_entrevistas.fxml", e));
+        btnSolicitarContratacoes
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/solicitar_contratacoes.fxml", e));
+        btnAutorizarContratacoes
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/autorizar_contratacoes.fxml", e));
         btnGerenciarCandidaturas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/inicio.fxml", e));
     }
 

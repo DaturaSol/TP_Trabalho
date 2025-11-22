@@ -17,6 +17,7 @@ import trabalho.admin.model.Administrador;
 import trabalho.admin.model.Usuario;
 import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.JsonDataManager;
+import trabalho.recrutamento.controller.MenuRecrutamentoController;
 
 // TODO: Import necessary classes for navigation and data handling
 // import javafx.stage.Stage;
@@ -171,7 +172,23 @@ public class DashboardAdministradorController {
     @FXML
     private void handleActAsRecrutadorButtonAction(ActionEvent event) {
         System.out.println("'Act as Recrutador' clicked.");
-        // TODO: Implement logic to navigate to the Recrutador dashboard.
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            Parent root = loader.load();
+
+            MenuRecrutamentoController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Painel de Usuarios");
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao acessar painelUsuarios.fxml.\n" + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

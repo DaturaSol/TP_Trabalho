@@ -53,7 +53,8 @@ public final class CpfCnpjManager {
 
     /**
      * Formats a numbers-only CPF or CNPJ string into the standard display format.
-     * CPF: ###.###.###-##
+     * <br>
+     * CPF: ###.###.###-## <br>
      * CNPJ: ##.###.###/####-##
      *
      * @param doc The CPF or CNPJ string, can be formatted or numbers-only.
