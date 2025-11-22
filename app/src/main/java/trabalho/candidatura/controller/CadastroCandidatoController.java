@@ -91,21 +91,23 @@ public class CadastroCandidatoController {
         String formacao = txtFormacao.getText();
         String experiencia = txtExperiencia.getText();
 
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
         // Validação simples
         if (nome.isEmpty() || cpf.isEmpty() || email.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Preencha Nome, CPF e Email.");
             return;
         } else if (!CpfCnpjManager.isValid(cpf)) {
-            mostrarAlerta("Erro", "CPF inválido ou já cadastrado!");
+            mostrarAlerta("Erro", "CPF inválido!");
             return;
+        } else if (appData.getPessoas().containsKey(cpf)) {
+            mostrarAlerta("Erro", "CPF já cadastrado!");
+            return;
+        } else {
+            mostrarAlerta("Sucesso", "Dados pessoais salvos com sucesso!");
         }
 
-        System.out.println("=== Dados Pessoais ===");
-        System.out.println("Nome: " + nome);
-        System.out.println("CPF: " + cpf);
-        System.out.println("Email: " + email);
-        System.out.println("Formação: " + formacao);
-        System.out.println("Experiência: " + experiencia);
     }
 
     /**
@@ -146,7 +148,6 @@ public class CadastroCandidatoController {
                     documentos,
                     java.sql.Date.valueOf(data));
 
-            // Salvar na lista estática
             boolean sucesso = Candidato.cadastrarCandidato(candidato);
 
             if (sucesso) {
@@ -155,7 +156,7 @@ public class CadastroCandidatoController {
             }
 
         } catch (Exception e) {
-            mostrarAlerta("Erro", "Verifique os dados informados.\n" + e.getMessage());
+            mostrarAlerta("Erro", "Verifique os dados informados.\n");
         }
     }
 
