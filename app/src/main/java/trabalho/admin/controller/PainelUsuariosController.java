@@ -24,6 +24,7 @@ import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.financeiro.utils.CpfCnpjManager;
+import trabalho.recrutamento.model.Recrutador;
 
 /**
  * Controller for the user management panel (PainelUsuarios.fxml).
@@ -337,6 +338,7 @@ public class PainelUsuariosController {
                 System.out.println("Only administrators can delete other administrators.");
                 return;
             }
+            System.out.println(selectedUser.getClass().getName());
             appData.removeFuncionario(selectedUser);
             dataManager.saveData();
             loadFuncionarios();

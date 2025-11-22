@@ -223,7 +223,19 @@ public class AppData {
         switch (f) {
             case Administrador admin -> administradoresByCpf.remove(cpf);
             case Gestor gestor -> gestoresByCpf.remove(cpf);
-            case Recrutador recrutador -> recrutadoresByCpf.remove(cpf);
+            case Recrutador recrutador -> {
+                recrutadoresByCpf.remove(cpf);
+                List<Vaga> allVagas = vagasById.values().stream().toList();
+                System.out.println("Removing Recrutador");
+                for (Vaga vaga : allVagas) {
+                    if (vaga.getRecrutadorResponsavelCpf().equals(recrutador.getCpfCnpj())) {
+                        System.out.println("Vaga " + vaga.getId() + "Recrutador " + recrutador.getCpfCnpj());
+                        vagasById.remove(vaga.getId());
+                        vaga.setRecrutadorResponsavelCpf(null);
+                        vagasById.put(vaga.getId(), vaga);
+                    }
+                }
+            }
             default -> funcionariosByCpf.remove(cpf);
         }
     }
