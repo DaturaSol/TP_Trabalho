@@ -67,22 +67,19 @@ public class InicioController {
             if (caminhoFXML.contains("status_candidatura.fxml")) {
                 StatusCandidaturaController ctrl = (StatusCandidaturaController) controller;
                 ctrl.initData(this.currentUser);
-                
+
             } else if (caminhoFXML.contains("nova_candidatura.fxml")) {
                 NovaCandidaturaController ctrl = (NovaCandidaturaController) controller;
                 ctrl.initData(this.currentUser);
 
-            } else if (caminhoFXML.contains("consultar_candidato.fxml")) {
-                ConsultaCandidatoController ctrl = (ConsultaCandidatoController) loader.getController();
+            } else if (caminhoFXML.contains("consulta_candidato.fxml")) {
+                ConsultaCandidatoController ctrl = (ConsultaCandidatoController) controller;
                 ctrl.initData(this.currentUser);
 
             } else if (caminhoFXML.contains("cadastro_candidato.fxml")) {
                 CadastroCandidatoController ctrl = (CadastroCandidatoController) controller;
                 ctrl.initData(this.currentUser);
-            } else {
-            // Este é o problema!
-            System.err.println("ERRO DE TIPO: O FXML " + caminhoFXML + " está carregando o Controller errado: " + controller.getClass().getName());
-            }
+            } 
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
