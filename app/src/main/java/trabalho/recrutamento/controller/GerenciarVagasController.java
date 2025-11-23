@@ -1,6 +1,7 @@
 package trabalho.recrutamento.controller;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import trabalho.admin.model.Usuario;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Vaga;
@@ -48,7 +50,7 @@ public class GerenciarVagasController {
     @FXML private Button btnLimpar;
     @FXML private Button btnPesquisar;
     @FXML private Button btnLimparFiltros;
-    @FXML private Button btnVoltar;
+    @FXML private Button backButton;
     @FXML private FlowPane flowResultados;
     
     private Vaga vagaEditando = null;
@@ -252,13 +254,29 @@ public class GerenciarVagasController {
         alerta.showAndWait();
     }
 
+    private Usuario currentUser;
+
     @FXML
-    private void voltarTela(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Menu Recrutamento");
-        stage.show();
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            Parent root = loader.load();
+
+            MenuRecrutamentoController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Profile");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void initData(Usuario user) {
+        this.currentUser = user;
     }
 }

@@ -10,8 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Pessoa;
+import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 
@@ -193,18 +195,34 @@ public class CadastroCandidatoController {
     /**
      * Ação do botão "Voltar"
      */
+
+    private Usuario currentUser;
+    
     @FXML
-    private void voltarTela(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
-        Parent root = loader.load();
+    private Button backButton;
 
-        // Pega a janela atual (Stage)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    @FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
+            Parent root = loader.load();
 
-        // Substitui o conteúdo pela nova tela
-        stage.setScene(new Scene(root));
-        stage.setTitle("Menu Principal");
-        stage.show();
+            InicioController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Candidatura");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void initData(Usuario user) {
+        this.currentUser = user;
     }
 
     /**

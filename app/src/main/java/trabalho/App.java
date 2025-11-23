@@ -31,13 +31,8 @@ public class App extends Application {
             JsonDataManager dataManager = JsonDataManager.getInstance();
             // dataManager.saveData(); // Ensure data is loaded/saved at startup.
 
-            // 1. Create an FXMLLoader. This object is responsible for loading the FXML
-            // file.
-            // The path starts with "/" which means it looks in the root of the 'resources'
-            // folder.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
-            // 2. Load the FXML file. This creates the entire scene graph (all the UI
-            // elements) in memory.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/tela_inicial.fxml"));
+
             Parent root = loader.load();
 
             // 3. Create a new Scene to hold the loaded UI.

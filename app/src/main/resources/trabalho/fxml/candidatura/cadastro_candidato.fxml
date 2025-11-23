@@ -94,6 +94,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="&lt; Voltar" onMouseClicked="#voltarTela"/>
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="&lt; Voltar" onAction="#handleBackButtonAction" fx:id="backButton"/>
    </children>
 </AnchorPane>

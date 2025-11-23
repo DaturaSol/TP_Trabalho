@@ -15,7 +15,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="&lt; Voltar"/>
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="&lt; Voltar" fx:id="backButton" onAction="#handleBackButtonAction"/>
       <Accordion layoutX="112.0" layoutY="80.0" />
       <Button fx:id="btnCadastrarCandidato" layoutX="44.0" layoutY="162.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="236.0" text="Cadastrar Candidato" />
       <Button fx:id="btnNovaCandidatura" layoutX="316.0" layoutY="162.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="236.0" text="Nova Candidatura" />
