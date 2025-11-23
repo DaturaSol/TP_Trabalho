@@ -22,7 +22,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnVoltar" mnemonicParsing="false" onMouseClicked="#voltarTela" text="&lt; Voltar" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="&lt; Voltar" />
             <Label text="Solicitar Contratação">
                <font>
                   <Font name="System Bold" size="18.0" />

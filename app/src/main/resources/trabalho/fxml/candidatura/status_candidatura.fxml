@@ -20,7 +20,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#voltarTela" text="&lt; Voltar" />
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonAction" fx:id="backButton" text="&lt; Voltar" />
       <TableView fx:id="tabelaCandidaturas" layoutY="178.0" prefHeight="223.0" prefWidth="583.0">
         <columns>
           <TableColumn fx:id="colCandidato" editable="false" prefWidth="135.0" text="Nome do Candidato" />

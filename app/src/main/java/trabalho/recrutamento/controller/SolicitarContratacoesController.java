@@ -1,5 +1,6 @@
 package trabalho.recrutamento.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -35,7 +36,7 @@ public class SolicitarContratacoesController {
     @FXML private TextArea txtDadosEntrevista;
     @FXML private Button btnSolicitar;
     @FXML private Button btnLimpar;
-    @FXML private Button btnVoltar;
+    @FXML private Button backButton;
 
     @FXML
     public void initialize() {
@@ -83,10 +84,6 @@ public class SolicitarContratacoesController {
     }
 
     private Usuario currentUser;
-
-    public void initData(Usuario currentUser) {
-        this.currentUser = currentUser;
-    }
 
     private void solicitar() {
         try {
@@ -174,12 +171,26 @@ public class SolicitarContratacoesController {
     }
 
     @FXML
-    private void voltarTela(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Menu Recrutamento");
-        stage.show();
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            Parent root = loader.load();
+
+            MenuRecrutamentoController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Profile");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void initData(Usuario user) {
+        this.currentUser = user;
     }
 }
