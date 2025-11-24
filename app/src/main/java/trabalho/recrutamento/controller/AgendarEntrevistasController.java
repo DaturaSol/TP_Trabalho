@@ -147,7 +147,7 @@ public class AgendarEntrevistasController {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
         return appData.getCandidaturas().stream()
-            .filter(c -> "APROVADO".equals(c.getStatus()) || "EM_ANALISE".equals(c.getStatus()))
+            .filter(c -> "EM_ANALISE".equals(c.getStatus()))
             .collect(Collectors.toList());
     }
 

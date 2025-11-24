@@ -66,6 +66,13 @@ public class Candidatura {
     public static boolean cadastrarCandidatura(Candidatura c) {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
+
+        for (Candidatura candidatura : appData.getCandidaturas()) {
+            if (candidatura.getCpfCnpjCandidato().equals(c.getCpfCnpjCandidato()) &&
+                    candidatura.getVaga().equals(c.getVaga())) {
+                return false;
+            }
+        }
         try {
             appData.addCandidatura(c);
             dataManager.saveData();
