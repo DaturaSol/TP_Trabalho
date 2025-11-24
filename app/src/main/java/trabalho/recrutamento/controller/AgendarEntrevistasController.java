@@ -1,5 +1,6 @@
 package trabalho.recrutamento.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,7 +35,7 @@ public class AgendarEntrevistasController {
     @FXML private TextArea txtDadosCandidatura;
     @FXML private Button btnAgendar;
     @FXML private Button btnLimpar;
-    @FXML private Button btnVoltar;
+    @FXML private Button backButton;
 
     @FXML
     public void initialize() {
@@ -82,10 +83,6 @@ public class AgendarEntrevistasController {
     }
 
     private Usuario currentUser;
-
-    public void initData(Usuario currentUser) {
-        this.currentUser = currentUser;
-    }
 
     private void agendar() {
         try {
@@ -163,14 +160,26 @@ public class AgendarEntrevistasController {
     }
 
     @FXML
-    private void voltarTela(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
-        Parent root = loader.load();
-        MenuRecrutamentoController controller = loader.getController();
-        controller.initData(this.currentUser);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Menu Recrutamento");
-        stage.show();
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            Parent root = loader.load();
+
+            MenuRecrutamentoController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("User Profile");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void initData(Usuario user) {
+        this.currentUser = user;
     }
 }

@@ -2,6 +2,7 @@ package trabalho.candidatura.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,8 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleStringProperty;
 import trabalho.candidatura.model.Candidatura;
+import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Candidato;
 import trabalho.recrutamento.model.Vaga;
 
@@ -212,13 +215,33 @@ public class StatusCandidaturaController {
         tabelaCandidaturas.setItems(listaCandidaturas);
     }
 
+
+    private Usuario currentUser;
+
     @FXML
-    private void voltarTela(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Menu Principal");
-        stage.show();
+    private Button backButton;
+
+    @FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/candidatura/inicio.fxml"));
+            Parent root = loader.load();
+
+            InicioController controller = loader.getController();
+            controller.initData(this.currentUser);
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Candidatura");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void initData(Usuario user) {
+        this.currentUser = user;
     }
 }

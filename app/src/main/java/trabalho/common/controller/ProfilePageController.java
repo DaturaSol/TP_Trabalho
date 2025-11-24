@@ -128,6 +128,7 @@ public class ProfilePageController {
             stage.setTitle("Recrutrador Dashboard");
             stage.show();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Erro ao acessar menu_recrutamento.fxml.\n" + e.getMessage());
         }
     }
