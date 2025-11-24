@@ -27,6 +27,7 @@
           <TableColumn fx:id="colVaga" prefWidth="120.0" text="Vaga" />
             <TableColumn fx:id="colData" prefWidth="163.0" text="Data da Solicitação" />
             <TableColumn fx:id="colStatus" prefWidth="181.0" text="Status" />
+            <TableColumn fx:id="colAcoes" prefWidth="100.0" text="Ações" />
         </columns>
       </TableView>
       <Accordion layoutX="112.0" layoutY="80.0" />

@@ -30,8 +30,6 @@ import java.util.stream.Collectors;
 
 public class StatusCandidaturaController {
 
-    @FXML
-    private Button btnVoltar;
 
     @FXML
     private TableView<Candidatura> tabelaCandidaturas;
@@ -43,6 +41,9 @@ public class StatusCandidaturaController {
     private TableColumn<Candidatura, String> colData;
     @FXML
     private TableColumn<Candidatura, String> colStatus;
+    @FXML
+    private TableColumn<Candidatura, Void> colAcoes;
+
 
     @FXML
     private TextField txtNomeCandidato;
@@ -87,6 +88,52 @@ public class StatusCandidaturaController {
         colStatus.setCellValueFactory(cell -> {
             String s = cell.getValue().getStatus();
             return new SimpleStringProperty(s != null ? s : "");
+        });
+        adicionarColunaAcoes();
+    }
+
+    private void adicionarColunaAcoes() {
+        colAcoes.setCellFactory(col -> new TableCell<>() {
+            private final Button btnEditar = new Button("Editar");
+
+            {
+                btnEditar.setOnAction(e -> {
+                    Candidatura candidatura = getTableView().getItems().get(getIndex());
+                    abrirDialogEditarStatus(candidatura);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnEditar);
+                }
+            }
+        });
+    }
+
+    private void abrirDialogEditarStatus(Candidatura candidatura) {
+
+        ChoiceDialog<Candidatura.StatusCandidatura> dialog =
+                new ChoiceDialog<>(candidatura.getStatusEnum(),
+                        Candidatura.StatusCandidatura.values());
+
+        dialog.setTitle("Editar Status");
+        dialog.setHeaderText("Editar status da candidatura");
+        dialog.setContentText("Selecione o novo status:");
+
+        dialog.showAndWait().ifPresent(statusSelecionado -> {
+
+            candidatura.setStatus(statusSelecionado);
+
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            dataManager.saveData(); // salva no JSON
+
+            tabelaCandidaturas.refresh();
         });
     }
 
