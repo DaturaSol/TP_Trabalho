@@ -1,5 +1,6 @@
 package trabalho.candidatura.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class Candidato {
     private double pretensaoSalarial;
     private String disponibilidadeHorario;
     private String documentosAdicionais;
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
     // Critical Change instead of inheriting from Pessoa, we will use composition.
     // We will point to cpfCnpj here, since when we serialize to JSON our original
     // reference to Pessoa would be lost.
@@ -39,7 +40,7 @@ public class Candidato {
             double pretensaoSalarial,
             String disponibilidadeHorario,
             String documentosAdicionais,
-            Date dataCadastro) {
+            LocalDate dataCadastro) {
         this.cpfCnpj = cpfCnpj;
         this.formacao = formacao;
         this.experiencia = experiencia;
@@ -104,11 +105,11 @@ public class Candidato {
         this.documentosAdicionais = documentosAdicionais;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 

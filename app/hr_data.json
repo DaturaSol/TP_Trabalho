@@ -1,0 +1,149 @@
+{
+  "pessoasByCpf": {
+    "04394245001": {
+      "cpfCnpj": "04394245001",
+      "nome": "Renata Chaves Martins",
+      "email": "renata@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "17496508004": {
+      "cpfCnpj": "17496508004",
+      "nome": "Geraldo Fonseca Junior",
+      "email": "geraldo@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "78988944054": {
+      "cpfCnpj": "78988944054",
+      "nome": "Adilson Marques Castro",
+      "email": "adilson@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "98620725041": {
+      "cpfCnpj": "98620725041",
+      "nome": "Ademir Barbosa Silva",
+      "email": "ademir@gmail.com",
+      "telefone": 0
+    },
+    "04978456010": {
+      "cpfCnpj": "04978456010",
+      "nome": "Maria Julia",
+      "email": "maria@gmail.com",
+      "telefone": 0
+    }
+  },
+  "usuariosByCpf": {
+    "04394245001": {
+      "cpfCnpj": "04394245001",
+      "passHash": "$2a$12$7.hmqs/s8Lz9VyMVqu9O2eDnsU1e61kdnBCwi0MQj0p5KgtSL6Fra"
+    },
+    "17496508004": {
+      "cpfCnpj": "17496508004",
+      "passHash": "$2a$12$o75b2f0EYWkvN6OnGkZwpuidkwBy5j.7c79cZGe02fWLUxXoEE8QK"
+    },
+    "78988944054": {
+      "cpfCnpj": "78988944054",
+      "passHash": "$2a$12$byb8jJudRmzURgrP9ydi3OFsj56uuE4Vt.so.qsjMh6Az/u38rf8m"
+    },
+    "98620725041": {
+      "cpfCnpj": "98620725041",
+      "passHash": "$2a$12$aSBCXjH1lXE0QMem8AfC.eB3wv8zHcqy8LGhM0xGeWJdC.WMjkkHK"
+    }
+  },
+  "funcionariosByCpf": {},
+  "administradoresByCpf": {
+    "78988944054": {
+      "cargo": "Administrador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 15000.0,
+      "cpfCnpj": "78988944054"
+    },
+    "98620725041": {
+      "cargo": "Administrador do Sistema",
+      "status": "Ativo",
+      "departamento": "TI",
+      "salarioBase": 10000.0,
+      "cpfCnpj": "98620725041"
+    }
+  },
+  "gestoresByCpf": {
+    "17496508004": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 15000.0,
+      "cpfCnpj": "17496508004"
+    },
+    "78988944054": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 15000.0,
+      "cpfCnpj": "78988944054"
+    }
+  },
+  "recrutadoresByCpf": {
+    "04394245001": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 8000.0,
+      "cpfCnpj": "04394245001"
+    }
+  },
+  "candidatosByCpf": {
+    "04978456010": {
+      "formacao": "",
+      "experiencia": "",
+      "pretensaoSalarial": 10000.0,
+      "disponibilidadeHorario": "Integral",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-24",
+      "cpfCnpj": "04978456010"
+    }
+  },
+  "vagasById": {
+    "VAG1763996339720": {
+      "id": "VAG1763996339720",
+      "cargo": "Contador",
+      "departamento": "Financeiro",
+      "salarioBase": 12000.0,
+      "requisitos": "Ensino Superior",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
+    },
+    "VAG1763996445641": {
+      "id": "VAG1763996445641",
+      "cargo": "Arquiteto",
+      "departamento": "Arquitetura",
+      "salarioBase": 5000.0,
+      "requisitos": "Ensino Superior",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 24, 2025, 12:00:45 PM"
+    }
+  },
+  "candidaturas": [
+    {
+      "cpfCnpjCandidato": "04978456010",
+      "vaga": {
+        "id": "VAG1763996339720",
+        "cargo": "Contador",
+        "departamento": "Financeiro",
+        "salarioBase": 12000.0,
+        "requisitos": "Ensino Superior",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
+      },
+      "dataCandidatura": "Nov 24, 2025, 9:58:54 PM",
+      "status": "EM_ANALISE"
+    }
+  ],
+  "entrevistas": [],
+  "contratacoes": []
+}

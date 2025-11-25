@@ -79,7 +79,7 @@ public class JsonDataManager {
             try (Reader reader = new FileReader(this.jsonFile)) {
                 AppData loadedData = gson.fromJson(reader, AppData.class);
 
-                if (loadedData != null && !loadedData.getAdministradores().isEmpty()) { // At least one ADM must exist
+                if (loadedData != null) { // At least one ADM must exist
                     // Success!
                     this.data = loadedData;
                     System.out.println("Data loaded successfully from " + this.jsonFile);
