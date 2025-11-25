@@ -125,25 +125,19 @@
       "status": "ABERTA",
       "regimeContratacao": "CLT",
       "dataAbertura": "Nov 24, 2025, 12:00:45 PM"
+    },
+    "VAG1764114035376": {
+      "id": "VAG1764114035376",
+      "cargo": "Consultor",
+      "departamento": "Financeiro",
+      "salarioBase": 20000.0,
+      "requisitos": "Graduação em Economia",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 25, 2025, 8:40:35 PM"
     }
   },
-  "candidaturas": [
-    {
-      "cpfCnpjCandidato": "04978456010",
-      "vaga": {
-        "id": "VAG1763996339720",
-        "cargo": "Contador",
-        "departamento": "Financeiro",
-        "salarioBase": 12000.0,
-        "requisitos": "Ensino Superior",
-        "status": "ABERTA",
-        "regimeContratacao": "CLT",
-        "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
-      },
-      "dataCandidatura": "Nov 24, 2025, 9:58:54 PM",
-      "status": "EM_ANALISE"
-    }
-  ],
+  "candidaturas": [],
   "entrevistas": [],
   "contratacoes": []
 }
