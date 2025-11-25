@@ -20,6 +20,7 @@ import trabalho.financeiro.utils.CpfCnpjManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 
 public class CadastroCandidatoController {
 
@@ -148,7 +149,7 @@ public class CadastroCandidatoController {
                     pretensaoSalarial,
                     disponibilidade,
                     documentos,
-                    java.sql.Date.valueOf(data));
+                    Date.valueOf(data).toLocalDate());
 
             boolean sucesso = Candidato.cadastrarCandidato(candidato);
 
