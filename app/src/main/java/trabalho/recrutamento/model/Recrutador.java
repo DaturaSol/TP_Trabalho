@@ -1,19 +1,16 @@
 package trabalho.recrutamento.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
-import trabalho.common.model.Role;
-import trabalho.exceptions.DuplicateDataException;
-import trabalho.exceptions.MissingDataException;
 import trabalho.financeiro.model.Funcionario; // Assumindo esta localização
 import trabalho.candidatura.model.Candidato;
 import trabalho.candidatura.model.Candidatura;
 import trabalho.candidatura.model.Candidatura.StatusCandidatura;
+import trabalho.candidatura.model.Pessoa;
 
 /**
  * Representa um Recrutador (Recrutador) no sistema.
@@ -136,4 +133,13 @@ public class Recrutador extends Funcionario {
         }
     }
 
+    public Pessoa getPessoa() {
+        AppData appData = JsonDataManager.getInstance().getData();
+        return appData.getPessoas().get(cpfCnpj);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s | CPF/CNPJ: %s", getPessoa().getNome(), cpfCnpj);
+    }
 }
