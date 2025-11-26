@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.layout.HBox;
 
 public class StatusCandidaturaController {
 
@@ -94,12 +95,20 @@ public class StatusCandidaturaController {
 
     private void adicionarColunaAcoes() {
         colAcoes.setCellFactory(col -> new TableCell<>() {
+
             private final Button btnEditar = new Button("Editar");
+            private final Button btnExcluir = new Button("Excluir");
 
             {
                 btnEditar.setOnAction(e -> {
                     Candidatura candidatura = getTableView().getItems().get(getIndex());
                     abrirDialogEditarStatus(candidatura);
+                });
+
+                btnExcluir.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white;");
+                btnExcluir.setOnAction(e -> {
+                    Candidatura candidatura = getTableView().getItems().get(getIndex());
+                    excluirCandidatura(candidatura);
                 });
             }
 
@@ -110,11 +119,37 @@ public class StatusCandidaturaController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(btnEditar);
+                    HBox box = new HBox(5, btnEditar, btnExcluir);
+                    setGraphic(box);
                 }
             }
         });
     }
+
+    private void excluirCandidatura(Candidatura candidatura) {
+
+        Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmar.setTitle("Excluir Candidatura");
+        confirmar.setHeaderText("Deseja realmente excluir esta candidatura?");
+        confirmar.setContentText("Candidato: " + candidatura.getCandidato().getPessoa().getNome() +
+                "\nVaga: " + obterNomeVaga(candidatura.getVaga()));
+
+        if (confirmar.showAndWait().get() == ButtonType.OK) {
+
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+
+            // Remove dos dados
+            appData.getCandidaturas().remove(candidatura);
+
+            dataManager.saveData(); // salva no JSON
+
+            // Atualiza tabela
+            listaCandidaturas.remove(candidatura);
+            tabelaCandidaturas.refresh();
+        }
+    }
+
 
     private void abrirDialogEditarStatus(Candidatura candidatura) {
 
