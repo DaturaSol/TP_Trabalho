@@ -2,11 +2,11 @@ package trabalho.recrutamento.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.UUID;
 
 //Uma Entrevista agendada para uma Candidatura
 public class Entrevista {
-    
+
     private String id;
     private LocalDate dataHora;
     private String avaliadorCpf; // Cpf do recrutador
@@ -14,17 +14,17 @@ public class Entrevista {
     private String parecer;
     private String observacoes;
 
-    //Chave estrangeira para a Candidatura (composta por cpf + vagaId)
+    // Chave estrangeira para a Candidatura (composta por cpf + vagaId)
     private String candidatoCpf;
     private String vagaId;
 
-    //Construtor para bibliotecas de serialização
+    // Construtor para bibliotecas de serialização
     public Entrevista() {
     }
 
-    //Construtor principal para agendar uma nova entrevista
+    // Construtor principal para agendar uma nova entrevista
     public Entrevista(LocalDate dataHora, String avaliador, String candidatoCpf, String vagaId) {
-        this.id = dataHora.toString();
+        this.id = UUID.randomUUID().toString();
         this.dataHora = dataHora;
         this.avaliadorCpf = avaliador;
         this.candidatoCpf = candidatoCpf;
@@ -32,7 +32,6 @@ public class Entrevista {
         this.nota = 0.0;
         this.parecer = "Aguardando realização.";
     }
-
 
     // --- Getters e Setters ---
 
@@ -43,6 +42,7 @@ public class Entrevista {
     public LocalDate getDataHora() {
         return dataHora;
     }
+
     public void setDataHora(LocalDate dataHora) {
         this.dataHora = dataHora;
     }
@@ -50,6 +50,7 @@ public class Entrevista {
     public String getAvaliadorCpf() {
         return avaliadorCpf;
     }
+
     public void setAvaliadorCpf(String avaliador) {
         this.avaliadorCpf = avaliador;
     }
@@ -57,6 +58,7 @@ public class Entrevista {
     public Double getNota() {
         return nota;
     }
+
     public String getParecer() {
         return parecer;
     }
@@ -81,7 +83,7 @@ public class Entrevista {
         this.candidatoCpf = candidatoCpf;
     }
 
-    public void setId(String string) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -97,7 +99,7 @@ public class Entrevista {
         this.observacoes = observacoes;
     }
 
-    //Registra o resultado após a entrevista
+    // Registra o resultado após a entrevista
     public void registrarResultado(double nota, String parecer) {
         this.nota = nota;
         this.parecer = parecer;
@@ -115,7 +117,7 @@ public class Entrevista {
     }
 
     public void setDataHora(LocalDateTime dataHora2) {
-        this.dataHora = dataHora;
+        this.dataHora = dataHora2.toLocalDate();
     }
 
 }

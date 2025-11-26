@@ -114,13 +114,6 @@
       "departamento": "RH",
       "salarioBase": 8000.0,
       "cpfCnpj": "04394245001"
-    },
-    "85743658153": {
-      "cargo": "Recrutador",
-      "status": "Ativo",
-      "departamento": "RH",
-      "salarioBase": 200.0,
-      "cpfCnpj": "85743658153"
     }
   },
   "candidatosByCpf": {
@@ -173,20 +166,7 @@
       "status": "EM_PROCESSO",
       "regimeContratacao": "CLT",
       "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
-      "gestorCriadorCpf": "78988944054",
-      "recrutadorResponsavelCpf": "85743658153"
-    },
-    "Tue Nov 25 00:20:02 BRT 2025": {
-      "id": "Tue Nov 25 00:20:02 BRT 2025",
-      "cargo": "Biologo",
-      "departamento": "Bosque",
-      "salarioBase": 100.0,
-      "requisitos": "falar com os bichos",
-      "status": "EM_PROCESSO",
-      "regimeContratacao": "ESTAGIO",
-      "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
-      "gestorCriadorCpf": "78988944054",
-      "recrutadorResponsavelCpf": "04394245001"
+      "gestorCriadorCpf": "78988944054"
     }
   },
   "candidaturas": [

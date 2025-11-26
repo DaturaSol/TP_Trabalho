@@ -2,6 +2,7 @@ package trabalho.recrutamento.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import trabalho.admin.model.Gestor;
 import trabalho.common.database.AppData;
@@ -84,7 +85,7 @@ public class Vaga {
      */
     public Vaga(String cargo, String departamento, double salarioBase, String requisitos,
             RegimeContratacao regime, String gestorCriadorCpf) {
-        this.id = new Date().toString();
+        this.id = String.format("VID-%s", UUID.randomUUID().toString());
         this.cargo = cargo;
         this.departamento = departamento;
         this.salarioBase = salarioBase;
@@ -176,15 +177,12 @@ public class Vaga {
     }
 
     // public String getRecrutadorResponsavelCpf() {
-    //     return recrutadorResponsavelCpf;
+    // return recrutadorResponsavelCpf;
     // }
 
     public void setRecrutadorResponsavelCpf(String recrutadorResponsavelCpf) {
         // Logica de atribuir recrutador
         this.recrutadorResponsavelCpf = recrutadorResponsavelCpf;
-        if (this.status == StatusVaga.ABERTA) {
-            this.status = StatusVaga.EM_PROCESSO;
-        }
     }
 
     @Override
@@ -217,6 +215,6 @@ public class Vaga {
 
     @Override
     public String toString() {
-        return String.format("Cargo: %s | Data: %s", cargo, id);
+        return String.format("Cargo: %s | ID: %s", cargo, id);
     }
 }

@@ -1,5 +1,8 @@
 package trabalho.admin.controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +27,6 @@ import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.financeiro.model.Funcionario;
 import trabalho.financeiro.utils.CpfCnpjManager;
-import trabalho.recrutamento.model.Recrutador;
 
 /**
  * Controller for the user management panel (PainelUsuarios.fxml).
@@ -327,21 +329,53 @@ public class PainelUsuariosController {
 
     @FXML
     private void handleExcluirUsuarioButtonAction(ActionEvent event) {
-        JsonDataManager dataManager = JsonDataManager.getInstance();
-        AppData appData = dataManager.getData();
-        System.out.println("'Excluir Usuario' button clicked.");
         Funcionario selectedUser = userTableView.getSelectionModel().getSelectedItem();
 
         if (selectedUser != null) {
-            if (selectedUser instanceof Administrador
-                    && !appData.getAdministradores().containsKey(this.currentUser.getCpfCnpj())) {
-                System.out.println("Only administrators can delete other administrators.");
-                return;
+            JsonDataManager dataManager = JsonDataManager.getInstance();
+            AppData appData = dataManager.getData();
+
+            // Check permissions (Admin check)
+            if (selectedUser instanceof Administrador) {
+                if (!appData.getAdministradores().containsKey(this.currentUser.getCpfCnpj())) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Permissão Negada");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Apenas administradores podem excluir outros administradores.");
+                    errorAlert.showAndWait();
+                    return;
+                }
+                if (selectedUser.getCpfCnpj().equals(this.currentUser.getCpfCnpj())) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Permissão Negada");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Não é possivel excluir a si mesmo como administrador.");
+                    errorAlert.showAndWait();
+                    return;
+                }
             }
-            System.out.println(selectedUser.getClass().getName());
-            appData.removeFuncionario(selectedUser);
-            dataManager.saveData();
-            loadFuncionarios();
+
+            // --- NEW: Confirmation Dialog ---
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Exclusão");
+            alert.setHeaderText(null);
+
+            // Try to get the name for a friendly message, fallback to generic message if
+            // null
+            String userName = selectedUser.getPessoa(appData) != null ? selectedUser.getPessoa(appData).getNome()
+                    : "este usuário";
+            alert.setContentText("Tem certeza que deseja excluir " + userName + "?\nEssa ação não pode ser desfeita.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Only proceed if the user clicked "OK"
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                System.out.println("Excluding user: " + selectedUser.getClass().getName());
+
+                appData.removeFuncionario(selectedUser);
+                dataManager.saveData();
+                loadFuncionarios();
+            }
         }
     }
 
