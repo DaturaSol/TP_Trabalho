@@ -12,6 +12,7 @@ public class Entrevista {
     private String avaliadorCpf; // Cpf do recrutador
     private Double nota;
     private String parecer;
+    private String observacoes;
 
     //Chave estrangeira para a Candidatura (composta por cpf + vagaId)
     private String candidatoCpf;
@@ -68,6 +69,34 @@ public class Entrevista {
         return vagaId;
     }
 
+    public void setParecer(String parecer) {
+        this.parecer = parecer;
+    }
+
+    public void setVagaId(String vagaId) {
+        this.vagaId = vagaId;
+    }
+
+    public void setCandidaturaCpf(String candidatoCpf) {
+        this.candidatoCpf = candidatoCpf;
+    }
+
+    public void setId(String string) {
+        this.id = id;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setNota(Double nota) {
+        this.nota = nota;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
     //Registra o resultado após a entrevista
     public void registrarResultado(double nota, String parecer) {
         this.nota = nota;
@@ -81,31 +110,12 @@ public class Entrevista {
                 ", dataHora=" + dataHora +
                 ", candidatoCpf='" + candidatoCpf + '\'' +
                 ", vagaId='" + vagaId + '\'' +
+                ", nota=" + nota +
                 '}';
     }
 
-    public void setId(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setId'");
-    }
-
-    public void setCandidaturaCpf(String cpfCnpjCandidato) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCandidaturaCpf'");
-    }
-
-    public void setVagaId(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setVagaId'");
-    }
-
-    public void setObservacoes(String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setObservacoes'");
-    }
-
     public void setDataHora(LocalDateTime dataHora2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDataHora'");
+        this.dataHora = dataHora;
     }
+
 }

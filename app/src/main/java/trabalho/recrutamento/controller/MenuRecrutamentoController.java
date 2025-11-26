@@ -28,7 +28,7 @@ public class MenuRecrutamentoController {
     @FXML
     private Button btnSolicitarContratacoes;
     @FXML
-    private Button btnAutorizarContratacoes;
+    private Button btnRealizarEntrevistas;
     @FXML
     private Button btnGerenciarCandidaturas;
     @FXML
@@ -38,6 +38,7 @@ public class MenuRecrutamentoController {
     public void initialize() {
         btnGerenciarVagas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/gerenciar_vagas.fxml", e));
         btnAgendarEntrevistas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/agendar_entrevistas.fxml", e));
+        btnRealizarEntrevistas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/realizar_entrevista.fxml", e));
         btnSolicitarContratacoes.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/solicitar_contratacoes.fxml", e));
         btnGerenciarCandidaturas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/inicio.fxml", e));
     }
@@ -53,22 +54,22 @@ public class MenuRecrutamentoController {
             Object controller = loader.getController();
 
             if (caminhoFXML.contains("agendar_entrevistas.fxml")) {
-                // Se for AgendarEntrevistas, faça o cast para AgendarEntrevistasController
                 AgendarEntrevistasController ctrl = (AgendarEntrevistasController) controller;
                 ctrl.initData(this.currentUser);
                 
             } else if (caminhoFXML.contains("gerenciar_vagas.fxml")) {
-                // Se for GerenciarVagas, faça o cast para GerenciarVagasController
                 GerenciarVagasController ctrl = (GerenciarVagasController) controller;
                 ctrl.initData(this.currentUser);
 
             } else if (caminhoFXML.contains("solicitar_contratacoes.fxml")) {
-                // Se for SolicitarContratacoes
                 SolicitarContratacoesController ctrl = (SolicitarContratacoesController) controller;
                 ctrl.initData(this.currentUser);
 
+            } else if (caminhoFXML.contains("realizar_entrevista.fxml")) {
+                RealizarEntrevistaController ctrl = (RealizarEntrevistaController) controller;
+                ctrl.initData(this.currentUser);
+
             } else if (caminhoFXML.contains("inicio.fxml")) {
-                // Se for o Menu de Candidaturas (InicioController)
                 InicioController ctrl = (InicioController) controller;
                 ctrl.initData(this.currentUser);
             }

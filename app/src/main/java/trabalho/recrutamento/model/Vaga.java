@@ -111,6 +111,10 @@ public class Vaga {
         return recrutador;
     }
 
+    public String getRecrutadorResponsavelCpf() {
+        return recrutadorResponsavelCpf;
+    }
+
     public String getId() {
         return id;
     }
@@ -171,9 +175,9 @@ public class Vaga {
         return gestorCriadorCpf;
     }
 
-    public String getRecrutadorResponsavelCpf() {
-        return recrutadorResponsavelCpf;
-    }
+    // public String getRecrutadorResponsavelCpf() {
+    //     return recrutadorResponsavelCpf;
+    // }
 
     public void setRecrutadorResponsavelCpf(String recrutadorResponsavelCpf) {
         // Logica de atribuir recrutador
