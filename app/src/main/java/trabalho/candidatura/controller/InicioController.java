@@ -17,10 +17,6 @@ import trabalho.recrutamento.controller.SolicitarContratacoesController;
 
 import java.io.IOException;
 
-/**
- * Controlador da tela inicial de candidatura.
- * Responsável por navegar entre as telas principais.
- */
 public class InicioController {
 
     @FXML
@@ -46,22 +42,14 @@ public class InicioController {
 
     private Usuario currentUser;
 
-    /**
-     * Abre uma nova tela (FXML) e substitui a atual.
-     *
-     * @param caminhoFXML caminho do arquivo FXML a ser carregado
-     * @param event       evento do clique
-     */
     private void abrirTela(String caminhoFXML, MouseEvent event) {
         try {
-            // 🔍 Teste de depuração
             System.out.println("Tentando carregar: " + caminhoFXML);
             System.out.println("Encontrado? " + (getClass().getResource(caminhoFXML) != null));
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
 
-            //Inicializacao de usuario
             Object controller = loader.getController();
 
             if (caminhoFXML.contains("status_candidatura.fxml")) {

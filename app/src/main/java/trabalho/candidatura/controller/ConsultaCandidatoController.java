@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 public class ConsultaCandidatoController {
 
-    // ====== Filtros ======
     @FXML
     private CheckBox checkNome;
     @FXML
@@ -41,8 +40,6 @@ public class ConsultaCandidatoController {
     @FXML
     private Button btnLimpar;
 
-
-    // ====== Resultados ======
     @FXML
     private FlowPane flowResultados;
 
@@ -58,9 +55,6 @@ public class ConsultaCandidatoController {
         atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
-    /**
-     * Executa a pesquisa aplicando os filtros selecionados.
-     */
     @FXML
     private void pesquisar() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
@@ -91,9 +85,6 @@ public class ConsultaCandidatoController {
 
     }
 
-    /**
-     * Remove os filtros e exibe todos os resultados.
-     */
     @FXML
     private void limparFiltros() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
@@ -107,9 +98,6 @@ public class ConsultaCandidatoController {
         atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
-    /**
-     * Atualiza a área de resultados (FlowPane) com as candidaturas filtradas.
-     */
     private void atualizarResultados(List<Candidato> candidatos) {
         flowResultados.getChildren().clear();
 
@@ -184,7 +172,6 @@ public class ConsultaCandidatoController {
         atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
-
     private Usuario currentUser;
     
     @FXML
@@ -214,10 +201,6 @@ public class ConsultaCandidatoController {
         this.currentUser = user;
     }
 
-    /**
-     * Exibe detalhes da candidatura selecionada (pode ser substituído por uma nova
-     * tela).
-     */
     private void abrirDetalhes(Candidatura c) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Detalhes do Candidato");

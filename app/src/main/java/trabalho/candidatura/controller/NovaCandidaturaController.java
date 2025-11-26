@@ -39,7 +39,6 @@ public class NovaCandidaturaController {
 
     @FXML
     public void initialize() {
-        // Popula os ComboBox com candidatos e vagas cadastrados
         List<Candidato> candidatos = getListaCandidatos();
         List<Vaga> vagas = getListaVagas();
 
@@ -69,14 +68,12 @@ public class NovaCandidaturaController {
         comboVaga.getItems().addAll(vagas);
         comboCandidato.setOnAction(e -> mostrarDadosCandidato());
 
-        // Configurar botões
         btnConfirmar.setOnAction(e -> confirmarCandidatura());
         btnLimpar.setOnAction(e -> limparSelecao());
     }
 
     private List<Candidato> getListaCandidatos() {
         try {
-            // Use AppData to get the list of candidates
             JsonDataManager dataManager = JsonDataManager.getInstance();
             AppData appData = dataManager.getData();
             return appData.getCandidatos().values().stream().toList();
