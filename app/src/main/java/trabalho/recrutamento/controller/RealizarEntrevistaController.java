@@ -18,10 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Controller para realizar entrevistas agendadas
- * Permite ao recrutador avaliar candidatos e registrar resultados
- */
 public class RealizarEntrevistaController {
 
     @FXML private ComboBox<Entrevista> comboEntrevista;
@@ -35,9 +31,7 @@ public class RealizarEntrevistaController {
 
     private Usuario currentUser;
 
-    /**
-     * Inicializa o controller
-     */
+
     @FXML
     public void initialize() {
         // Popular combo de resultado
@@ -51,22 +45,13 @@ public class RealizarEntrevistaController {
         btnLimpar.setOnAction(e -> limpar());
     }
 
-    /**
-     * Inicializa dados do usuário logado
-     * @param user Usuário (recrutador) logado no sistema
-     */
+
     public void initData(Usuario user) {
         this.currentUser = user;
-        
-        // Carregar entrevistas do recrutador logado
         carregarEntrevistasDoRecrutador();
     }
 
-    /**
-     * Configura a exibição do ComboBox de entrevistas
-     */
     private void configurarComboEntrevista() {
-        // Formato da célula na lista dropdown
         comboEntrevista.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Entrevista e, boolean empty) {
@@ -79,7 +64,6 @@ public class RealizarEntrevistaController {
             }
         });
         
-        // Formato da célula quando selecionada
         comboEntrevista.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Entrevista e, boolean empty) {
