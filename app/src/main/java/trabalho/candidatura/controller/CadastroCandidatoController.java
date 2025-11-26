@@ -62,16 +62,12 @@ public class CadastroCandidatoController {
     @FXML
     private Button btnSalvarCandidatura;
 
-    // Botão Voltar
     @FXML
     private Button btnVoltar;
 
-    /**
-     * Metodo de inicialização
-     */
+    //Metodo de inicialização
     @FXML
     public void initialize() {
-
         comboDisponibilidade.getItems().addAll(
                 "Integral",
                 "Manhã",
@@ -79,13 +75,9 @@ public class CadastroCandidatoController {
                 "Noite",
                 "Horário Flexível");
 
-        // Define a data atual como padrão no DatePicker
         dateCadastro.setValue(java.time.LocalDate.now());
     }
 
-    /**
-     * Ação do botão "Salvar" na aba de Dados Pessoais
-     */
     @FXML
     private void salvarDadosPessoais(ActionEvent event) {
         String nome = txtNomeCompleto.getText();
@@ -97,7 +89,6 @@ public class CadastroCandidatoController {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        // Validação simples
         if (nome.isEmpty() || cpf.isEmpty() || email.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Preencha Nome, CPF e Email.");
             return;
@@ -110,12 +101,8 @@ public class CadastroCandidatoController {
         } else {
             mostrarAlerta("Sucesso", "Dados pessoais salvos com sucesso!");
         }
-
     }
 
-    /**
-     * Ação do botão "Salvar" na aba de Dados da Candidatura
-     */
     @FXML
     private void salvarCandidatura(ActionEvent event) {
         try {
@@ -134,11 +121,11 @@ public class CadastroCandidatoController {
             JsonDataManager dataManager = JsonDataManager.getInstance();
             AppData appData = dataManager.getData();
 
-            // Gotta verify if Pessoa already exists, if doesn't, create it
+            // Verificação se Pessoa já existe
             if (!appData.getPessoas().containsKey(cpf)) {
                 Pessoa pessoa = new Pessoa(cpf, nome, email);
                 appData.addPessoa(pessoa);
-                dataManager.saveData(); // gotta save 
+                dataManager.saveData();
             }
 
             // Criar o objeto candidato
@@ -175,9 +162,6 @@ public class CadastroCandidatoController {
         dateCadastro.setValue(java.time.LocalDate.now());
     }
 
-    /**
-     * Ação do botão "Adicionar Documento"
-     */
     @FXML
     private void adicionarDocumento(ActionEvent event) {
         // Cria o seletor de arquivos
@@ -195,10 +179,6 @@ public class CadastroCandidatoController {
             txtDocumentos.appendText(nomeArquivo + "\n");
         }
     }
-
-    /**
-     * Ação do botão "Voltar"
-     */
 
     private Usuario currentUser;
     
@@ -229,9 +209,6 @@ public class CadastroCandidatoController {
         this.currentUser = user;
     }
 
-    /**
-     * Metodo utilitário para exibir alertas
-     */
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);

@@ -20,11 +20,11 @@ import trabalho.recrutamento.model.Vaga;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ConsultaCandidatoController {
 
-    // ====== Filtros ======
     @FXML
     private CheckBox checkNome;
     @FXML
@@ -36,19 +36,10 @@ public class ConsultaCandidatoController {
     private TextField txtVaga;
 
     @FXML
-    private CheckBox checkStatus;
-    @FXML
-    private ChoiceBox<String> choiceStatus;
-
-    @FXML
     private Button btnPesquisar;
     @FXML
     private Button btnLimpar;
 
-    @FXML
-    private TextArea txtAreaResultados;
-
-    // ====== Resultados ======
     @FXML
     private FlowPane flowResultados;
 
@@ -57,105 +48,128 @@ public class ConsultaCandidatoController {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        // Inicializa os valores possíveis do status
-        choiceStatus.getItems().addAll(
-                "PENDENTE", "EM_ANALISE", "APROVADO", "REPROVADO");
-
         // Conecta os botões aos métodos
         btnPesquisar.setOnAction(e -> pesquisar());
         btnLimpar.setOnAction(e -> limparFiltros());
 
-        atualizarResultados(appData.getCandidaturas());
+        atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
-    /**
-     * Executa a pesquisa aplicando os filtros selecionados.
-     */
     @FXML
     private void pesquisar() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
-        List<Candidatura> todas = appData.getCandidaturas();
+        Map<String, Candidato> todos = appData.getCandidatos();
 
-        List<Candidatura> filtradas = todas.stream()
+        List<Candidato> filtrados = todos.values().stream()
                 .filter(c -> {
                     boolean corresponde = true;
 
-                    // Filtro por nome
-                    if (checkNome.isSelected() && txtNome.getText() != null && !txtNome.getText().isEmpty()) {
-                        String nomeFiltro = txtNome.getText().toLowerCase();
-                        corresponde &= c.getCandidato().getPessoa().getNome().toLowerCase().contains(nomeFiltro);
+                    // filtro nome
+                    if (checkNome.isSelected() && !txtNome.getText().isBlank()) {
+                        String filtro = txtNome.getText().toLowerCase();
+                        corresponde &= c.getPessoa().getNome().toLowerCase().contains(filtro);
                     }
 
-                    // Filtro por vaga
-                    if (checkVaga.isSelected() && txtVaga.getText() != null && !txtVaga.getText().isEmpty()) {
-                        String vagaFiltro = txtVaga.getText().toLowerCase();
-                        Vaga vaga = c.getVaga();
-                        if (vaga != null && vaga.getCargo() != null) {
-                            corresponde &= vaga.getCargo().toLowerCase().contains(vagaFiltro);
-                        } else {
-                            corresponde = false;
-                        }
-                    }
-
-                    // Filtro por status
-                    if (checkStatus.isSelected() && choiceStatus.getValue() != null) {
-                        corresponde &= c.getStatus().equals(choiceStatus.getValue());
+                    // filtro CPF
+                    if (checkVaga.isSelected() && !txtVaga.getText().isBlank()) {
+                        String filtro = txtVaga.getText().toLowerCase();
+                        corresponde &= c.getPessoa().getCpfCnpj().toLowerCase().contains(filtro);
                     }
 
                     return corresponde;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
-        atualizarResultados(filtradas);
+        atualizarResultados(filtrados);
+
     }
 
-    /**
-     * Remove os filtros e exibe todos os resultados.
-     */
     @FXML
     private void limparFiltros() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
         checkNome.setSelected(false);
         checkVaga.setSelected(false);
-        checkStatus.setSelected(false);
 
         txtNome.clear();
         txtVaga.clear();
-        choiceStatus.setValue(null);
 
-        atualizarResultados(appData.getCandidaturas());
+        atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
-    /**
-     * Atualiza a área de resultados (FlowPane) com as candidaturas filtradas.
-     */
-    private void atualizarResultados(List<Candidatura> candidaturas) {
+    private void atualizarResultados(List<Candidato> candidatos) {
         flowResultados.getChildren().clear();
 
-        if (candidaturas.isEmpty()) {
+        if (candidatos.isEmpty()) {
             Label vazio = new Label("Nenhum resultado encontrado.");
             flowResultados.getChildren().add(vazio);
             return;
         }
 
-        for (Candidatura c : candidaturas) {
-            Label lbl = new Label(
-                    c.getCandidato().getPessoa().getNome() + " — " +
-                            (c.getVaga() != null ? c.getVaga().getCargo() : "Sem vaga") +
-                            " — Status: " + c.getStatus());
-            lbl.setPrefWidth(500);
+        for (Candidato c : candidatos) {
 
-            Button btnDetalhes = new Button(">");
-            btnDetalhes.setOnAction(e -> abrirDetalhes(c));
+            Label lbl = new Label(
+                    c.getPessoa().getNome() +
+                            " — CPF: " + c.getPessoa().getCpfCnpj() +
+                            " — Email: " + c.getPessoa().getEmail()
+            );
+            lbl.setPrefWidth(400);
+
+            Button btnDetalhes = new Button("Detalhes");
+            btnDetalhes.setOnAction(e -> abrirDetalhesCandidato(c));
+
+            Button btnExcluir = new Button("Excluir");
+            btnExcluir.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white;");
+            btnExcluir.setOnAction(e -> excluirCandidato(c));
 
             FlowPane linha = new FlowPane();
             linha.setHgap(10);
-            linha.getChildren().addAll(lbl, btnDetalhes);
+            linha.getChildren().addAll(lbl, btnDetalhes, btnExcluir);
 
             flowResultados.getChildren().add(linha);
         }
+    }
+
+    private void abrirDetalhesCandidato(Candidato c) {
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Detalhes do Candidato");
+        alerta.setHeaderText("Candidato: " + c.getPessoa().getNome());
+
+        alerta.setContentText(
+                "CPF: " + c.getPessoa().getCpfCnpj() + "\n" +
+                        "Email: " + c.getPessoa().getEmail() + "\n" +
+                        "Formação: " + c.getFormacao() + "\n" +
+                        "Experiência: " + c.getExperiencia()
+        );
+
+        alerta.showAndWait();
+    }
+
+    private void excluirCandidato(Candidato candidato) {
+        Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmar.setTitle("Excluir Candidato");
+        confirmar.setHeaderText("Excluir o candidato?");
+        confirmar.setContentText("Isso removerá o candidato e suas informações.");
+
+        if (confirmar.showAndWait().get() != ButtonType.OK) return;
+
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+
+        appData.getCandidaturas().removeIf(c ->
+                c.getCandidato() != null &&
+                        c.getCandidato().getCpfCnpj().equals(candidato.getCpfCnpj())
+        );
+
+        appData.getCandidatos().remove(candidato.getCpfCnpj());
+
+        appData.getPessoas().remove(candidato.getCpfCnpj());
+
+        dataManager.saveData();
+
+        atualizarResultados(appData.getCandidatos().values().stream().toList());
     }
 
     private Usuario currentUser;
@@ -187,10 +201,6 @@ public class ConsultaCandidatoController {
         this.currentUser = user;
     }
 
-    /**
-     * Exibe detalhes da candidatura selecionada (pode ser substituído por uma nova
-     * tela).
-     */
     private void abrirDetalhes(Candidatura c) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Detalhes do Candidato");
