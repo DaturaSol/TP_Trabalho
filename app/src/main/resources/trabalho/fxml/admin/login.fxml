@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- The root element is a VBox (Vertical Box layout). -->
+<!-- fx:controller links this FXML file to its Java controller class. This is the most important
+link! -->
+
+<VBox alignment="CENTER" prefHeight="375.0" prefWidth="272.0" spacing="15.0"
+    xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="trabalho.admin.controller.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label alignment="TOP_CENTER" text="Login" textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <!-- fx:id gives this TextField a unique name so the controller can access it. -->
+    <TextField fx:id="usernameField" promptText="Cpf/Cnpj " />
+
+    <!-- fx:id gives this PasswordField a unique name. -->
+    <PasswordField fx:id="passwordField" promptText="Senha" />
+
+    <!-- onAction links the button's click event to the handleLoginButtonAction method in the
+    controller. -->
+    <Button fx:id="loginButton" defaultButton="true" onAction="#handleLoginButtonAction"
+        text="Entrar" />
+
+    <!-- This label will be used to show error or success messages. -->
+    <Label fx:id="feedbackLabel" text="" />
+
+</VBox>

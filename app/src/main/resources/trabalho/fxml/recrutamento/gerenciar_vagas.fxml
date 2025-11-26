@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.VPos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trabalho.recrutamento.controller.GerenciarVagasController">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" text="&lt; Voltar" />
+            <Label text="Gerenciar Vagas">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefWidth="350.0" spacing="10.0">
+         <children>
+            <TitledPane animated="false" collapsible="false" text="Cadastrar/Editar Vaga">
+               <content>
+                  <GridPane hgap="10.0" vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Cargo:" />
+                        <Label text="Departamento:" GridPane.rowIndex="1" />
+                        <Label text="Salário Base:" GridPane.rowIndex="2" />
+                        <Label text="Regime:" GridPane.rowIndex="3" />
+                        <Label text="Status:" GridPane.rowIndex="4" />
+                        <Label text="Requisitos:" GridPane.valignment="TOP" GridPane.rowIndex="5" />
+                        <TextField fx:id="txtCargo" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtDepartamento" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtSalarioBase" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="comboRegime" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="comboStatus" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextArea fx:id="txtRequisitos" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <children>
+                              <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" text="Salvar" />
+                              <Button fx:id="btnLimpar" mnemonicParsing="false" text="Limpar" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" text="Filtrar Vagas">
+               <content>
+                  <VBox spacing="10.0">
+                     <children>
+                        <GridPane hgap="10.0" vgap="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="NEVER" minWidth="110.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <CheckBox fx:id="checkCargo" mnemonicParsing="false" text="Cargo:" />
+                              <CheckBox fx:id="checkDepartamento" mnemonicParsing="false" text="Departamento:" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="checkStatus" mnemonicParsing="false" text="Status:" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="checkRegime" mnemonicParsing="false" text="Regime:" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtFiltroCargo" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtFiltroDepartamento" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="choiceStatus" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ChoiceBox fx:id="choiceRegime" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnPesquisar" mnemonicParsing="false" text="Pesquisar" />
+                              <Button fx:id="btnLimparFiltros" mnemonicParsing="false" text="Limpar Filtros" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+         <BorderPane.margin>
+            <Insets right="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <TitledPane animated="false" collapsible="false" text="Resultados da Pesquisa" BorderPane.alignment="CENTER">
+         <content>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+               <content>
+                  <FlowPane fx:id="flowResultados" hgap="10.0" vgap="10.0" />
+               </content>
+            </ScrollPane>
+         </content>
+      </TitledPane>
+   </center>
+</BorderPane>
