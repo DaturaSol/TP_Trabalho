@@ -141,7 +141,8 @@ public class JsonDataManager {
         }
     }
 
-    private void initializeEmptyData() {
+    @SuppressWarnings("unused")
+    private void initializeEmptyData() { 
         this.data = new AppData();
         try {
             initializeDummyData();
