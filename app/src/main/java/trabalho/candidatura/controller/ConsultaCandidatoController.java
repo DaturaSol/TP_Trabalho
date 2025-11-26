@@ -162,7 +162,7 @@ public class ConsultaCandidatoController {
     private void excluirCandidato(Candidato candidato) {
         Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION);
         confirmar.setTitle("Excluir Candidato");
-        confirmar.setHeaderText("Excluir COMPLETAMENTE o candidato?");
+        confirmar.setHeaderText("Excluir o candidato?");
         confirmar.setContentText("Isso removerá o candidato e suas informações.");
 
         if (confirmar.showAndWait().get() != ButtonType.OK) return;
@@ -170,14 +170,14 @@ public class ConsultaCandidatoController {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        String cpf = candidato.getCpfCnpj();
+        appData.getCandidaturas().removeIf(c ->
+                c.getCandidato() != null &&
+                        c.getCandidato().getCpfCnpj().equals(candidato.getCpfCnpj())
+        );
 
-        appData.getCandidatos().remove(cpf);
-        appData.getPessoas().remove(cpf);
-        appData.getUsuarios().remove(cpf);
+        appData.getCandidatos().remove(candidato.getCpfCnpj());
 
-        // remove candidaturas dele, se tiver
-        appData.getCandidaturas().removeIf(c -> c.getCandidato().getCpfCnpj().equals(cpf));
+        appData.getPessoas().remove(candidato.getCpfCnpj());
 
         dataManager.saveData();
 
