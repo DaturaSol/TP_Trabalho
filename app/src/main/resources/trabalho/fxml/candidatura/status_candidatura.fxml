@@ -20,14 +20,14 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonAction" fx:id="backButton" text="&lt; Voltar" />
-      <TableView fx:id="tabelaCandidaturas" layoutY="178.0" prefHeight="223.0" prefWidth="583.0">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="&lt; Voltar" />
+      <TableView fx:id="tabelaCandidaturas" layoutY="178.0" prefHeight="223.0" prefWidth="582.0">
         <columns>
           <TableColumn fx:id="colCandidato" editable="false" prefWidth="135.0" text="Nome do Candidato" />
-          <TableColumn fx:id="colVaga" prefWidth="120.0" text="Vaga" />
-            <TableColumn fx:id="colData" prefWidth="163.0" text="Data da Solicitação" />
-            <TableColumn fx:id="colStatus" prefWidth="181.0" text="Status" />
-            <TableColumn fx:id="colAcoes" prefWidth="100.0" text="Ações" />
+          <TableColumn fx:id="colVaga" prefWidth="87.0" text="Vaga" />
+            <TableColumn fx:id="colData" prefWidth="119.0" text="Data da Solicitação" />
+            <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="95.0" text="Status" />
+            <TableColumn fx:id="colAcoes" prefWidth="145.0" text="Ações" />
         </columns>
       </TableView>
       <Accordion layoutX="112.0" layoutY="80.0" />
