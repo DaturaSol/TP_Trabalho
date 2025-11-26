@@ -33,10 +33,18 @@
       "email": "maria@gmail.com",
       "telefone": 0
     },
-    "64863523025": {
-      "cpfCnpj": "64863523025",
-      "nome": "José Marcos Moura",
-      "email": "jose@gmail.com",
+    "00245924124": {
+      "cpfCnpj": "00245924124",
+      "nome": "Ana",
+      "email": "a@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "85743658153": {
+      "cpfCnpj": "85743658153",
+      "nome": "Jason",
+      "email": "j@gmail.com",
+      "endereco": "",
       "telefone": 0
     }
   },
@@ -56,6 +64,14 @@
     "98620725041": {
       "cpfCnpj": "98620725041",
       "passHash": "$2a$12$aSBCXjH1lXE0QMem8AfC.eB3wv8zHcqy8LGhM0xGeWJdC.WMjkkHK"
+    },
+    "00245924124": {
+      "cpfCnpj": "00245924124",
+      "passHash": "$2a$12$vzmqzpH6vWxRZj1wqFnAP..GKKkcAZGFb4qMH4o/KPDM7WyqW8LFC"
+    },
+    "85743658153": {
+      "cpfCnpj": "85743658153",
+      "passHash": "$2a$12$pmRkjm8enA9Fah8bunLza.zo0bMSfVaKZYatj2QIgXqp9YScUS37C"
     }
   },
   "funcionariosByCpf": {},
@@ -98,6 +114,13 @@
       "departamento": "RH",
       "salarioBase": 8000.0,
       "cpfCnpj": "04394245001"
+    },
+    "85743658153": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 200.0,
+      "cpfCnpj": "85743658153"
     }
   },
   "candidatosByCpf": {
@@ -109,6 +132,15 @@
       "documentosAdicionais": "",
       "dataCadastro": "2025-11-24",
       "cpfCnpj": "04978456010"
+    },
+    "00245924124": {
+      "formacao": "Aluno",
+      "experiencia": "Nenhuma",
+      "pretensaoSalarial": 500.0,
+      "disponibilidadeHorario": "Integral",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-24",
+      "cpfCnpj": "00245924124"
     }
   },
   "vagasById": {
@@ -118,7 +150,7 @@
       "departamento": "Financeiro",
       "salarioBase": 12000.0,
       "requisitos": "Ensino Superior",
-      "status": "FECHADA",
+      "status": "ABERTA",
       "regimeContratacao": "CLT",
       "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
     },
@@ -132,44 +164,89 @@
       "regimeContratacao": "CLT",
       "dataAbertura": "Nov 24, 2025, 12:00:45 PM"
     },
-    "VAG1764114035376": {
-      "id": "VAG1764114035376",
-      "cargo": "Consultor",
-      "departamento": "Financeiro",
-      "salarioBase": 20000.0,
-      "requisitos": "Graduação em Economia",
-      "status": "ABERTA",
+    "Tue Nov 25 00:03:38 BRT 2025": {
+      "id": "Tue Nov 25 00:03:38 BRT 2025",
+      "cargo": "Medico",
+      "departamento": "Saude",
+      "salarioBase": 230.0,
+      "requisitos": "saber ler",
+      "status": "EM_PROCESSO",
       "regimeContratacao": "CLT",
-      "dataAbertura": "Nov 25, 2025, 8:40:35 PM"
+      "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "78988944054",
+      "recrutadorResponsavelCpf": "85743658153"
     },
-    "VAG1764117818244": {
-      "id": "VAG1764117818244",
-      "cargo": "Desenvolvedor de Software",
-      "departamento": "Tecnologia",
-      "salarioBase": 3000.0,
-      "requisitos": "",
-      "status": "ABERTA",
-      "regimeContratacao": "CLT",
-      "dataAbertura": "Nov 25, 2025, 9:43:38 PM"
+    "Tue Nov 25 00:20:02 BRT 2025": {
+      "id": "Tue Nov 25 00:20:02 BRT 2025",
+      "cargo": "Biologo",
+      "departamento": "Bosque",
+      "salarioBase": 100.0,
+      "requisitos": "falar com os bichos",
+      "status": "EM_PROCESSO",
+      "regimeContratacao": "ESTAGIO",
+      "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "78988944054",
+      "recrutadorResponsavelCpf": "04394245001"
     }
   },
   "candidaturas": [
     {
       "cpfCnpjCandidato": "04978456010",
       "vaga": {
-        "id": "VAG1763996445641",
-        "cargo": "Arquiteto",
-        "departamento": "Arquitetura",
-        "salarioBase": 5000.0,
+        "id": "VAG1763996339720",
+        "cargo": "Contador",
+        "departamento": "Financeiro",
+        "salarioBase": 12000.0,
         "requisitos": "Ensino Superior",
         "status": "ABERTA",
         "regimeContratacao": "CLT",
-        "dataAbertura": "Nov 24, 2025, 12:00:45 PM"
+        "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
       },
-      "dataCandidatura": "Nov 25, 2025, 9:25:28 PM",
+      "dataCandidatura": "Nov 24, 2025, 9:58:54 PM",
       "status": "EM_ANALISE"
+    },
+    {
+      "cpfCnpjCandidato": "00245924124",
+      "vaga": {
+        "id": "VAG1763996339720",
+        "cargo": "Contador",
+        "departamento": "Financeiro",
+        "salarioBase": 12000.0,
+        "requisitos": "Ensino Superior",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 24, 2025, 11:58:59 AM"
+      },
+      "dataCandidatura": "Nov 24, 2025, 10:26:12 PM",
+      "status": "EM_ANALISE"
+    },
+    {
+      "cpfCnpjCandidato": "04978456010",
+      "vaga": {
+        "id": "Tue Nov 25 00:03:38 BRT 2025",
+        "cargo": "Medico",
+        "departamento": "Saude",
+        "salarioBase": 230.0,
+        "requisitos": "saber ler",
+        "status": "EM_PROCESSO",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "78988944054",
+        "recrutadorResponsavelCpf": "85743658153"
+      },
+      "dataCandidatura": "Nov 25, 2025, 12:05:48 AM",
+      "status": "APROVADO"
     }
   ],
-  "entrevistas": [],
+  "entrevistas": [
+    {
+      "avaliadorCpf": "85743658153",
+      "nota": 7.0,
+      "parecer": "sabe costurar",
+      "observacoes": "Ada",
+      "candidatoCpf": "04978456010",
+      "vagaId": "Tue Nov 25 00:03:38 BRT 2025"
+    }
+  ],
   "contratacoes": []
 }
