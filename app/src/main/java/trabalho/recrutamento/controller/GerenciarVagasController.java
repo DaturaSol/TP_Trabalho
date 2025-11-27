@@ -132,6 +132,7 @@ public class GerenciarVagasController {
 
             if (vagaEditando == null) {
                 appData.addVaga(vaga);
+                vaga.setRecrutadorResponsavelCpf(currentUser.getCpfCnpj());
             }
 
             dataManager.saveData();
@@ -157,11 +158,14 @@ public class GerenciarVagasController {
     private void pesquisar() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
-        // List<Vaga> todas = appData.getVagasById();
 
         List<Vaga> filtradas = appData.getVagasById().values().stream()
                 .filter(v -> {
                     boolean ok = true;
+
+                    if (v.getRecrutadorResponsavelCpf() == null || !v.getRecrutadorResponsavelCpf().equals(currentUser.getCpfCnpj())) {
+                        return false; 
+                    }
 
                     if (checkCargo.isSelected() && txtFiltroCargo.getText() != null
                             && !txtFiltroCargo.getText().isEmpty()) {
@@ -264,7 +268,11 @@ public class GerenciarVagasController {
     private List<Vaga> getListaVagas() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
-        return new ArrayList<>(appData.getVagasById().values());
+        if (this.currentUser == null) return new ArrayList<>();
+        return appData.getVagasById().values().stream()
+        .filter(vagas -> vagas.getRecrutadorResponsavelCpf() != null && 
+                        vagas.getRecrutadorResponsavelCpf().equals(this.currentUser.getCpfCnpj()))
+        .collect(Collectors.toList());
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
@@ -298,5 +306,6 @@ public class GerenciarVagasController {
 
     public void initData(Usuario user) {
         this.currentUser = user;
+        atualizarResultados(getListaVagas());
     }
 }
