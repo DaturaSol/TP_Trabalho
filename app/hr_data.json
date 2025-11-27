@@ -5,12 +5,69 @@
       "nome": "Ademir Barbosa Silva",
       "email": "ademir@gmail.com",
       "telefone": 0
+    },
+    "22153950015": {
+      "cpfCnpj": "22153950015",
+      "nome": "Felipe Neto",
+      "email": "felipe_neto@gmail.com",
+      "endereco": "São Paulo",
+      "telefone": 0
+    },
+    "48943015046": {
+      "cpfCnpj": "48943015046",
+      "nome": "João Vitor",
+      "email": "jao_da_padoca@gmail.com",
+      "endereco": "Sqn 309 BL C",
+      "telefone": 0
+    },
+    "99218726056": {
+      "cpfCnpj": "99218726056",
+      "nome": "Lucas Neto",
+      "email": "imao_do_felipe_neto@gmail.com",
+      "endereco": "São paulo",
+      "telefone": 0
+    },
+    "95613044066": {
+      "cpfCnpj": "95613044066",
+      "nome": "Matheus",
+      "email": "matheus_fan_do_felipe@gmail.com",
+      "telefone": 0
+    },
+    "72372871099": {
+      "cpfCnpj": "72372871099",
+      "nome": "Julia Paiva",
+      "email": "julinha@gmail.com",
+      "telefone": 0
+    },
+    "45480523058": {
+      "cpfCnpj": "45480523058",
+      "nome": "Lilith",
+      "email": "lilith_evil@gmail.com",
+      "telefone": 0
+    },
+    "40856661007": {
+      "cpfCnpj": "40856661007",
+      "nome": "Maria Antonieta",
+      "email": "mari@yahoo.com",
+      "telefone": 0
     }
   },
   "usuariosByCpf": {
     "98620725041": {
       "cpfCnpj": "98620725041",
       "passHash": "$2a$12$baCpkgTcYzMdSkbC5TzwPev/PAUvnciqfNxY7T9.QGFZ.NTCT.6UC"
+    },
+    "22153950015": {
+      "cpfCnpj": "22153950015",
+      "passHash": "$2a$12$IvToqpW9eryov7.9ZFqfA.3a95SHy6FIWsqhX8.0s3UOi252qGXdG"
+    },
+    "48943015046": {
+      "cpfCnpj": "48943015046",
+      "passHash": "$2a$12$/i91asHj/HWipcd7wAhUreVqMuh/1R7TXZn3QfmKIG.ZInDBd9Fkq"
+    },
+    "99218726056": {
+      "cpfCnpj": "99218726056",
+      "passHash": "$2a$12$vhVYVjsAlgxmth2vjY4dtO/uvte/bP203S3NHiTuiHxqOfpaBi0eu"
     }
   },
   "funcionariosByCpf": {},
@@ -23,11 +80,256 @@
       "cpfCnpj": "98620725041"
     }
   },
-  "gestoresByCpf": {},
-  "recrutadoresByCpf": {},
-  "candidatosByCpf": {},
-  "vagasById": {},
-  "candidaturas": [],
-  "entrevistas": [],
-  "contratacoes": []
+  "gestoresByCpf": {
+    "48943015046": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "Gestão",
+      "salarioBase": 1900.0,
+      "cpfCnpj": "48943015046"
+    },
+    "99218726056": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "Gestão",
+      "salarioBase": 700.0,
+      "cpfCnpj": "99218726056"
+    }
+  },
+  "recrutadoresByCpf": {
+    "22153950015": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 1700.0,
+      "cpfCnpj": "22153950015"
+    },
+    "48943015046": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 1900.0,
+      "cpfCnpj": "48943015046"
+    }
+  },
+  "candidatosByCpf": {
+    "95613044066": {
+      "formacao": "Nenhuma",
+      "experiencia": "Quase nada",
+      "pretensaoSalarial": 40000.0,
+      "disponibilidadeHorario": "Horário Flexível",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-27",
+      "cpfCnpj": "95613044066"
+    },
+    "72372871099": {
+      "formacao": "Programação em assembly",
+      "experiencia": "Dor e sofrimento",
+      "pretensaoSalarial": 50.0,
+      "disponibilidadeHorario": "Integral",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-27",
+      "cpfCnpj": "72372871099"
+    },
+    "45480523058": {
+      "formacao": "Maldade, satanismo",
+      "experiencia": "vida dificil",
+      "pretensaoSalarial": 10000.0,
+      "disponibilidadeHorario": "Noite",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-27",
+      "cpfCnpj": "45480523058"
+    },
+    "40856661007": {
+      "formacao": "Muitas formações",
+      "experiencia": "Uma vida inteira",
+      "pretensaoSalarial": 7000.0,
+      "disponibilidadeHorario": "Tarde",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-27",
+      "cpfCnpj": "40856661007"
+    }
+  },
+  "vagasById": {
+    "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a": {
+      "id": "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a",
+      "cargo": "Youtuber",
+      "departamento": "RH",
+      "salarioBase": 700.0,
+      "requisitos": "Fazer videos para o youtube",
+      "status": "ABERTA",
+      "regimeContratacao": "ESTAGIO",
+      "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "48943015046",
+      "recrutadorResponsavelCpf": "22153950015"
+    },
+    "VID-5d21a5a4-26ea-4dac-a5f6-908936c667b3": {
+      "id": "VID-5d21a5a4-26ea-4dac-a5f6-908936c667b3",
+      "cargo": "Amiga da amenda",
+      "departamento": "Gestão",
+      "salarioBase": 70000.0,
+      "requisitos": "Ser amiga da amenda",
+      "status": "ABERTA",
+      "regimeContratacao": "PJ",
+      "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "48943015046",
+      "recrutadorResponsavelCpf": "48943015046"
+    },
+    "VID-13f55173-cdbe-4333-81f0-568652870521": {
+      "id": "VID-13f55173-cdbe-4333-81f0-568652870521",
+      "cargo": "Palhaço",
+      "departamento": "Dp",
+      "salarioBase": 1000.0,
+      "requisitos": "Ajuda eu nos videos",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "48943015046",
+      "recrutadorResponsavelCpf": "22153950015"
+    },
+    "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837": {
+      "id": "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837",
+      "cargo": "Ajudante de Pedreiro",
+      "departamento": "Sonhos destruidos",
+      "salarioBase": 1000.0,
+      "requisitos": "Ajudar eu a construir minha casa",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "48943015046",
+      "recrutadorResponsavelCpf": "22153950015"
+    }
+  },
+  "candidaturas": [
+    {
+      "cpfCnpjCandidato": "95613044066",
+      "vaga": {
+        "id": "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837",
+        "cargo": "Ajudante de Pedreiro",
+        "departamento": "Sonhos destruidos",
+        "salarioBase": 1000.0,
+        "requisitos": "Ajudar eu a construir minha casa",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "48943015046",
+        "recrutadorResponsavelCpf": "22153950015"
+      },
+      "dataCandidatura": "Nov 27, 2025, 1:38:09 AM",
+      "status": "APROVADO"
+    },
+    {
+      "cpfCnpjCandidato": "72372871099",
+      "vaga": {
+        "id": "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a",
+        "cargo": "Youtuber",
+        "departamento": "RH",
+        "salarioBase": 700.0,
+        "requisitos": "Fazer videos para o youtube",
+        "status": "ABERTA",
+        "regimeContratacao": "ESTAGIO",
+        "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "48943015046",
+        "recrutadorResponsavelCpf": "22153950015"
+      },
+      "dataCandidatura": "Nov 27, 2025, 1:38:15 AM",
+      "status": "APROVADO"
+    },
+    {
+      "cpfCnpjCandidato": "45480523058",
+      "vaga": {
+        "id": "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837",
+        "cargo": "Ajudante de Pedreiro",
+        "departamento": "Sonhos destruidos",
+        "salarioBase": 1000.0,
+        "requisitos": "Ajudar eu a construir minha casa",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "48943015046",
+        "recrutadorResponsavelCpf": "22153950015"
+      },
+      "dataCandidatura": "Nov 27, 2025, 1:38:21 AM",
+      "status": "PENDENTE"
+    },
+    {
+      "cpfCnpjCandidato": "40856661007",
+      "vaga": {
+        "id": "VID-13f55173-cdbe-4333-81f0-568652870521",
+        "cargo": "Palhaço",
+        "departamento": "Dp",
+        "salarioBase": 1000.0,
+        "requisitos": "Ajuda eu nos videos",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 27, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "48943015046",
+        "recrutadorResponsavelCpf": "22153950015"
+      },
+      "dataCandidatura": "Nov 27, 2025, 1:38:26 AM",
+      "status": "REPROVADO"
+    }
+  ],
+  "entrevistas": [
+    {
+      "id": "ENT1764218385405",
+      "dataHora": "2025-11-29",
+      "avaliadorCpf": "22153950015",
+      "nota": 9.0,
+      "parecer": "Me levantou com os braços",
+      "observacoes": "Bem forte o menino",
+      "candidatoCpf": "95613044066",
+      "vagaId": "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837"
+    },
+    {
+      "id": "ENT1764218401126",
+      "dataHora": "2025-11-29",
+      "avaliadorCpf": "22153950015",
+      "nota": 6.0,
+      "parecer": "Meio sem graça, mas da pro gasto",
+      "observacoes": "Bons dentes, mas acorda cedo ?",
+      "candidatoCpf": "72372871099",
+      "vagaId": "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a"
+    },
+    {
+      "id": "ENT1764218415519",
+      "dataHora": "2025-12-06",
+      "avaliadorCpf": "22153950015",
+      "nota": 4.0,
+      "parecer": "Melhor cortar a cabeça",
+      "observacoes": "Me fez rir",
+      "candidatoCpf": "40856661007",
+      "vagaId": "VID-13f55173-cdbe-4333-81f0-568652870521"
+    },
+    {
+      "id": "ENT1764218766937",
+      "dataHora": "2025-11-28",
+      "avaliadorCpf": "22153950015",
+      "nota": 8.0,
+      "parecer": "Boa",
+      "observacoes": "Pessima",
+      "candidatoCpf": "72372871099",
+      "vagaId": "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a"
+    }
+  ],
+  "contratacoes": [
+    {
+      "id": "CTR1764218560443",
+      "dataSolicitacao": "2025-11-27",
+      "status": "PENDENTE_AUTORIZACAO",
+      "candidatoCpf": "95613044066",
+      "vagaId": "VID-0fea7b3e-9e73-46af-89b7-5c60ad45c837",
+      "regimeContratacao": "CLT",
+      "observacoes": "Muito forte"
+    },
+    {
+      "id": "CTR1764218821385",
+      "dataSolicitacao": "2025-11-27",
+      "status": "PENDENTE_AUTORIZACAO",
+      "candidatoCpf": "72372871099",
+      "vagaId": "VID-e6ba8e7c-881c-4da1-8a45-09f6e94da68a",
+      "regimeContratacao": "PJ",
+      "observacoes": "Pessima "
+    }
+  ]
 }

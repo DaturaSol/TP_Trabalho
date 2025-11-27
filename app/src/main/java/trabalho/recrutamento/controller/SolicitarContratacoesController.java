@@ -3,11 +3,9 @@ package trabalho.recrutamento.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Candidatura;
@@ -16,11 +14,9 @@ import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Entrevista;
 import trabalho.recrutamento.model.RegimeContratacao;
-import trabalho.recrutamento.model.Vaga;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

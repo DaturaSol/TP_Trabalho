@@ -107,7 +107,7 @@ public class CadastroCandidatoController {
     private void salvarCandidatura(ActionEvent event) {
         try {
             String nome = txtNomeCompleto.getText();
-            String cpf = txtCpf.getText();
+            String cpf = CpfCnpjManager.toOnlyNumbers(txtCpf.getText());
             String email = txtEmail.getText();
             String formacao = txtFormacao.getText();
             String experiencia = txtExperiencia.getText();

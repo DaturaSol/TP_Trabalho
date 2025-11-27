@@ -9,3 +9,4 @@ hr_management.sqlite
 .idea
 
 bin
+app\hr_data.json
