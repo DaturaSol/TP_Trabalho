@@ -218,17 +218,22 @@ public class AppData {
         usuariosByCpf.remove(u.getCpfCnpj());
     }
 
+    // Exemplo de Polymorfirsmo
     public void removeFuncionario(Funcionario f) {
         String cpf = f.getCpfCnpj();
         switch (f) {
             case Administrador admin -> administradoresByCpf.remove(cpf);
+
             case Gestor gestor -> gestoresByCpf.remove(cpf);
+
             case Recrutador recrutador -> {
                 recrutadoresByCpf.remove(cpf);
                 List<Vaga> allVagas = vagasById.values().stream().toList();
                 System.out.println("Removing Recrutador");
+
                 for (Vaga vaga : allVagas) {
-                    if (vaga.getRecrutadorResponsavelCpf().equals(recrutador.getCpfCnpj())) {
+                    if (vaga.getRecrutadorResponsavelCpf() != null
+                            && vaga.getRecrutadorResponsavelCpf().equals(recrutador.getCpfCnpj())) {
                         System.out.println("Vaga " + vaga.getId() + "Recrutador " + recrutador.getCpfCnpj());
                         vagasById.remove(vaga.getId());
                         vaga.setRecrutadorResponsavelCpf(null);
@@ -236,6 +241,7 @@ public class AppData {
                     }
                 }
             }
+
             default -> funcionariosByCpf.remove(cpf);
         }
     }
@@ -246,6 +252,11 @@ public class AppData {
 
     public void removeVaga(Vaga v) {
         vagasById.remove(v.getId());
+        for (Candidatura candidatura : this.candidaturas) {
+            if (candidatura.getVaga().getId().equals(v.getId())) {
+                removeCandidatura(candidatura);
+            }
+        }
     }
 
     public void removeCandidatura(Candidatura c) {

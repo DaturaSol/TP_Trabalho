@@ -1,0 +1,224 @@
+{
+  "pessoasByCpf": {
+    "04394245001": {
+      "cpfCnpj": "04394245001",
+      "nome": "Renata Chaves Martins",
+      "email": "renata@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "17496508004": {
+      "cpfCnpj": "17496508004",
+      "nome": "Geraldo Fonseca Junior",
+      "email": "geraldo@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "78988944054": {
+      "cpfCnpj": "78988944054",
+      "nome": "Adilson Marques Castro",
+      "email": "adilson@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "85743658153": {
+      "cpfCnpj": "85743658153",
+      "nome": "Jason",
+      "email": "j@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "98620725041": {
+      "cpfCnpj": "98620725041",
+      "nome": "Ademir Barbosa Silva",
+      "email": "ademir@gmail.com",
+      "telefone": 0
+    },
+    "61045368083": {
+      "cpfCnpj": "61045368083",
+      "nome": "Renata Machado Nunes",
+      "email": "renata@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "nome": "Gabriela Ribeiro Souza",
+      "email": "gabriela@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "41053572042": {
+      "cpfCnpj": "41053572042",
+      "nome": "Geraldo Gonçalves Xavier",
+      "email": "geraldo@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "39940241020": {
+      "cpfCnpj": "39940241020",
+      "nome": "Camila Martins de Melo",
+      "email": "camila@gmail.com",
+      "telefone": 0
+    },
+    "38918119003": {
+      "cpfCnpj": "38918119003",
+      "nome": "Thiago Gomes Tomé",
+      "email": "thiago@gmail.com",
+      "telefone": 0
+    }
+  },
+  "usuariosByCpf": {
+    "04394245001": {
+      "cpfCnpj": "04394245001",
+      "passHash": "$2a$12$7.hmqs/s8Lz9VyMVqu9O2eDnsU1e61kdnBCwi0MQj0p5KgtSL6Fra"
+    },
+    "17496508004": {
+      "cpfCnpj": "17496508004",
+      "passHash": "$2a$12$o75b2f0EYWkvN6OnGkZwpuidkwBy5j.7c79cZGe02fWLUxXoEE8QK"
+    },
+    "78988944054": {
+      "cpfCnpj": "78988944054",
+      "passHash": "$2a$12$byb8jJudRmzURgrP9ydi3OFsj56uuE4Vt.so.qsjMh6Az/u38rf8m"
+    },
+    "00245924124": {
+      "cpfCnpj": "00245924124",
+      "passHash": "$2a$12$vzmqzpH6vWxRZj1wqFnAP..GKKkcAZGFb4qMH4o/KPDM7WyqW8LFC"
+    },
+    "85743658153": {
+      "cpfCnpj": "85743658153",
+      "passHash": "$2a$12$pmRkjm8enA9Fah8bunLza.zo0bMSfVaKZYatj2QIgXqp9YScUS37C"
+    },
+    "98620725041": {
+      "cpfCnpj": "98620725041",
+      "passHash": "$2a$12$baCpkgTcYzMdSkbC5TzwPev/PAUvnciqfNxY7T9.QGFZ.NTCT.6UC"
+    },
+    "61045368083": {
+      "cpfCnpj": "61045368083",
+      "passHash": "$2a$12$FuqcvKdL2cjDX1txEXVk9OkAllgR4GOIoMoQfam1aXsw/5U/nKwSy"
+    },
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "passHash": "$2a$12$9D1pkRBc/8mMAaT4IZAJLOp9bN4B38aUNA3pEWPdCeliFPTJc1t3m"
+    },
+    "41053572042": {
+      "cpfCnpj": "41053572042",
+      "passHash": "$2a$12$hTZOq.zz6/jKzjwAvQAxfe3QWvTrZ/QXQ0ut2jCzpf/hhrAsv3G8K"
+    }
+  },
+  "funcionariosByCpf": {},
+  "administradoresByCpf": {
+    "98620725041": {
+      "cargo": "Administrador do Sistema",
+      "status": "Ativo",
+      "departamento": "TI",
+      "salarioBase": 10000.0,
+      "cpfCnpj": "98620725041"
+    }
+  },
+  "gestoresByCpf": {
+    "26570441078": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 12000.0,
+      "cpfCnpj": "26570441078"
+    },
+    "41053572042": {
+      "cargo": "Gestor",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 12000.0,
+      "cpfCnpj": "41053572042"
+    }
+  },
+  "recrutadoresByCpf": {
+    "61045368083": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 8000.0,
+      "cpfCnpj": "61045368083"
+    }
+  },
+  "candidatosByCpf": {
+    "39940241020": {
+      "formacao": "Contabilidade\n",
+      "experiencia": "",
+      "pretensaoSalarial": 12000.0,
+      "disponibilidadeHorario": "Tarde",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-26",
+      "cpfCnpj": "39940241020"
+    },
+    "38918119003": {
+      "formacao": "Arquitetura\n",
+      "experiencia": "",
+      "pretensaoSalarial": 7000.0,
+      "disponibilidadeHorario": "Noite",
+      "documentosAdicionais": "",
+      "dataCadastro": "2025-11-26",
+      "cpfCnpj": "38918119003"
+    }
+  },
+  "vagasById": {
+    "VID-a575dc46-d708-4160-9b68-9b025740a7ad": {
+      "id": "VID-a575dc46-d708-4160-9b68-9b025740a7ad",
+      "cargo": "Desenvolvedor",
+      "departamento": "TI",
+      "salarioBase": 15000.0,
+      "requisitos": "Graduação na área de tecnologia\n",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "98620725041",
+      "recrutadorResponsavelCpf": "61045368083"
+    },
+    "VID-05615cf1-3774-4194-9a50-f9c96ce30406": {
+      "id": "VID-05615cf1-3774-4194-9a50-f9c96ce30406",
+      "cargo": "Contador",
+      "departamento": "Financeiro",
+      "salarioBase": 13000.0,
+      "requisitos": "Graduação em contabilidade",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "98620725041",
+      "recrutadorResponsavelCpf": "61045368083"
+    }
+  },
+  "candidaturas": [],
+  "entrevistas": [
+    {
+      "avaliadorCpf": "85743658153",
+      "nota": 7.0,
+      "parecer": "sabe costurar",
+      "observacoes": "Ada",
+      "candidatoCpf": "04978456010",
+      "vagaId": "Tue Nov 25 00:03:38 BRT 2025"
+    },
+    {
+      "id": "ENT1764203847938",
+      "dataHora": "2025-11-27",
+      "avaliadorCpf": "04394245001",
+      "nota": 8.0,
+      "parecer": "Fala bem",
+      "observacoes": "",
+      "candidatoCpf": "00245924124",
+      "vagaId": "VID-f8d9bf11-e417-4358-992d-09eb2455522a"
+    }
+  ],
+  "contratacoes": [
+    {
+      "id": "CTR1764203913906",
+      "dataSolicitacao": "2025-11-26",
+      "dataAutorizacao": "Nov 26, 2025, 9:39:20 PM",
+      "status": "AUTORIZADA",
+      "candidatoCpf": "00245924124",
+      "vagaId": "VID-f8d9bf11-e417-4358-992d-09eb2455522a",
+      "gestorAutorizanteCpf": "78988944054",
+      "regimeContratacao": "CLT",
+      "observacoes": ""
+    }
+  ]
+}

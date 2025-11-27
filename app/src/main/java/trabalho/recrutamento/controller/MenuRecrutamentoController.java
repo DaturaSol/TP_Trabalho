@@ -96,7 +96,7 @@ public class MenuRecrutamentoController {
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("User Profile");
+            stage.setTitle("Recrutamento");
             stage.show();
 
         } catch (IOException e) {

@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
-import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Contratacao;
@@ -202,18 +201,17 @@ public class AutorizarContratacoesController {
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
             Parent root = loader.load();
 
-            ProfilePageController controller = loader.getController();
-            controller.initData(this.currentUser);
+            DashboardGestorController controller = loader.getController();
+            controller.initData(currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("User Profile");
+            stage.setTitle("Dashboard Gestor");
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

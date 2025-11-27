@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +25,6 @@ import javafx.stage.Stage;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.admin.model.Usuario;
@@ -30,6 +32,7 @@ import trabalho.financeiro.model.Funcionario;
 import trabalho.recrutamento.model.RegimeContratacao;
 import trabalho.recrutamento.model.Vaga;
 import trabalho.recrutamento.model.Vaga.StatusVaga;
+import trabalho.recrutamento.model.Recrutador;
 
 /**
  * Controller for the job vacancy management panel (AutorizarContratacoes.fxml).
@@ -47,6 +50,9 @@ public class PainelVagasController {
 
     @FXML
     private Button editarVagaButton;
+
+    @FXML
+    private Button excluirVagaButton;
 
     // --- Left Search/Filter Fields ---
     @FXML
@@ -108,6 +114,7 @@ public class PainelVagasController {
     private Usuario currentUser;
 
     public void initData(Usuario currentUser) {
+        System.out.println("Painel vaga controller initialized by user: " + currentUser.getCpfCnpj());
         this.currentUser = currentUser;
     }
 
@@ -157,8 +164,8 @@ public class PainelVagasController {
         });
 
         cpfRecrutadorColumn.setCellValueFactory(cellData -> {
-            String cpfRecrutador = cellData.getValue().getRecrutadorResponsavelCpf();
-            return new SimpleStringProperty(cpfRecrutador);
+            Recrutador recrutador = cellData.getValue().getRecrutadorResponsavel();
+            return new SimpleStringProperty(recrutador != null ? recrutador.toString() : "");
         });
 
         regimeColumn.setCellValueFactory(cellData -> {
@@ -188,8 +195,10 @@ public class PainelVagasController {
      */
     private void setupTableSelectionListener() {
         editarVagaButton.setDisable(true);
+        excluirVagaButton.setDisable(true);
         vagasTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             editarVagaButton.setDisable(newSelection == null);
+            excluirVagaButton.setDisable(newSelection == null);
         });
     }
 
@@ -252,16 +261,16 @@ public class PainelVagasController {
     private void handleBackButtonAction(ActionEvent event) {
         System.out.println("Back button clicked.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
             Parent root = loader.load();
 
-            ProfilePageController controller = loader.getController();
-            controller.initData(this.currentUser);
+            DashboardGestorController controller = loader.getController();
+            controller.initData(currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("User Profile");
+            stage.setTitle("Dashboard Gestor");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -277,6 +286,7 @@ public class PainelVagasController {
             Parent root = loader.load();
 
             EditVagaController controller = loader.getController();
+            System.out.println("Nova vaga clicked by user: " + this.currentUser.getCpfCnpj());
             controller.initData(this.currentUser);
 
             Stage stage = (Stage) novaVagaButton.getScene().getWindow();
@@ -310,6 +320,37 @@ public class PainelVagasController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    private void handleExcluirVagaButtonAction(ActionEvent event) {
+        Vaga selectedVaga = vagasTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedVaga != null) {
+            // Create the confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Exclusão");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                    "Tem certeza que deseja excluir a vaga selecionada?\nEssa ação não pode ser desfeita.");
+
+            // Show the dialog and wait for the user's response
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Only proceed if the user clicked "OK"
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                JsonDataManager dataManager = JsonDataManager.getInstance();
+                AppData appData = dataManager.getData();
+
+                System.out.println("Excluding Vaga...");
+                appData.removeVaga(selectedVaga);
+                dataManager.saveData();
+                loadVagas();
+            }
+        } else {
+            // Optional: Show a warning if nothing is selected
+            System.out.println("Nenhuma vaga selecionada para exclusão.");
         }
     }
 }
