@@ -22,7 +22,6 @@ import trabalho.admin.model.Administrador;
 import trabalho.admin.model.Gestor;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Pessoa;
-import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.exceptions.DuplicateDataException;
@@ -343,10 +342,10 @@ public class EditUsuarioController {
     private void handleBackButtonAction(ActionEvent event) {
         System.out.println("Back button clicked.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/painelUsuarios.fxml"));
             Parent root = loader.load();
 
-            ProfilePageController controller = loader.getController();
+            PainelUsuariosController controller = loader.getController();
             controller.initData(this.currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();

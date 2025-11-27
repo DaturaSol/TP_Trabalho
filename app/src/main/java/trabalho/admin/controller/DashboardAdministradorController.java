@@ -151,6 +151,7 @@ public class DashboardAdministradorController {
             Parent root = loader.load();
 
             DashboardGestorController controller = loader.getController();
+            System.out.println("Act as gestor clicked by user: " + this.currentUser.getCpfCnpj());
             controller.initData(this.currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();

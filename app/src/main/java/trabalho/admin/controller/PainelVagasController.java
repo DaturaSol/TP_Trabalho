@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
 import trabalho.admin.model.Usuario;
@@ -115,6 +114,7 @@ public class PainelVagasController {
     private Usuario currentUser;
 
     public void initData(Usuario currentUser) {
+        System.out.println("Painel vaga controller initialized by user: " + currentUser.getCpfCnpj());
         this.currentUser = currentUser;
     }
 
@@ -261,16 +261,16 @@ public class PainelVagasController {
     private void handleBackButtonAction(ActionEvent event) {
         System.out.println("Back button clicked.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
             Parent root = loader.load();
 
-            ProfilePageController controller = loader.getController();
-            controller.initData(this.currentUser);
+            DashboardGestorController controller = loader.getController();
+            controller.initData(currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("User Profile");
+            stage.setTitle("Dashboard Gestor");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -286,6 +286,7 @@ public class PainelVagasController {
             Parent root = loader.load();
 
             EditVagaController controller = loader.getController();
+            System.out.println("Nova vaga clicked by user: " + this.currentUser.getCpfCnpj());
             controller.initData(this.currentUser);
 
             Stage stage = (Stage) novaVagaButton.getScene().getWindow();

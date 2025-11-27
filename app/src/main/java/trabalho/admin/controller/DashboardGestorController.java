@@ -53,6 +53,7 @@ public class DashboardGestorController {
     private Usuario currentUser;
 
     public void initData(Usuario currentUser) {
+        System.out.println("Dashboard Gestor initialized by: " + currentUser.getCpfCnpj());
         this.currentUser = currentUser;
     }
 
@@ -138,6 +139,7 @@ public class DashboardGestorController {
             Parent root = loader.load();
 
             PainelVagasController controller = loader.getController();
+            System.out.println("Painel de vagas clicked by user: " + this.currentUser.getCpfCnpj());
             controller.initData(this.currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();

@@ -15,8 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import trabalho.admin.model.Usuario; // TODO: Import your actual User model
-import trabalho.candidatura.model.Pessoa; // TODO: Import your actual Pessoa model
+import trabalho.admin.model.Usuario;
+import trabalho.candidatura.model.Pessoa;
 import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
@@ -56,7 +56,8 @@ public class InfoPessoalController {
     private List<TextInputControl> requiredFields;
 
     private static final String STYLE_ERROR = "-fx-border-color: red; -fx-background-color: #ffdddd;";
-    // private static final String STYLE_SUCCESS = "-fx-border-color: green; -fx-background-color: #ddffdd;";
+    // private static final String STYLE_SUCCESS = "-fx-border-color: green;
+    // -fx-background-color: #ddffdd;";
 
     @FXML
     private void initialize() {
