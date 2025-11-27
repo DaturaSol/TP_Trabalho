@@ -25,12 +25,13 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.scene.layout.HBox;
 
 public class StatusCandidaturaController {
-
 
     @FXML
     private TableView<Candidatura> tabelaCandidaturas;
@@ -44,7 +45,6 @@ public class StatusCandidaturaController {
     private TableColumn<Candidatura, String> colStatus;
     @FXML
     private TableColumn<Candidatura, Void> colAcoes;
-
 
     @FXML
     private TextField txtNomeCandidato;
@@ -62,8 +62,6 @@ public class StatusCandidaturaController {
     @FXML
     public void initialize() {
         configurarColunas();
-        carregarCandidaturas();
-        configurarAcoes();
     }
 
     private void configurarColunas() {
@@ -150,12 +148,10 @@ public class StatusCandidaturaController {
         }
     }
 
-
     private void abrirDialogEditarStatus(Candidatura candidatura) {
 
-        ChoiceDialog<Candidatura.StatusCandidatura> dialog =
-                new ChoiceDialog<>(candidatura.getStatusEnum(),
-                        Candidatura.StatusCandidatura.values());
+        ChoiceDialog<Candidatura.StatusCandidatura> dialog = new ChoiceDialog<>(candidatura.getStatusEnum(),
+                Candidatura.StatusCandidatura.values());
 
         dialog.setTitle("Editar Status");
         dialog.setHeaderText("Editar status da candidatura");
@@ -259,7 +255,21 @@ public class StatusCandidaturaController {
         try {
             JsonDataManager dataManager = JsonDataManager.getInstance();
             AppData appData = dataManager.getData();
-            return appData.getCandidaturas();
+            List<Candidatura> candidaturas = new LinkedList<>();
+
+            for (Candidatura candidatura : appData.getCandidaturas()) {
+                String vagaId = candidatura.getVaga().getId();
+                Map<String, Vaga> vagasByID = appData.getVagasById();
+                if (!vagasByID.containsKey(vagaId)) {
+                    continue;
+                }
+                String recrutadorCpfCnpj = vagasByID.get(vagaId).getRecrutadorResponsavelCpf();
+                if (recrutadorCpfCnpj.equals(this.currentUser.getCpfCnpj())) {
+                    candidaturas.add(candidatura);
+                }
+
+            }
+            return candidaturas;
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -297,7 +307,6 @@ public class StatusCandidaturaController {
         tabelaCandidaturas.setItems(listaCandidaturas);
     }
 
-
     private Usuario currentUser;
 
     @FXML
@@ -322,8 +331,11 @@ public class StatusCandidaturaController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
         this.currentUser = user;
+        carregarCandidaturas();
+        configurarAcoes();
     }
 }

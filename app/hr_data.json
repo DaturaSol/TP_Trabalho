@@ -206,6 +206,14 @@
       "observacoes": "",
       "candidatoCpf": "00245924124",
       "vagaId": "VID-f8d9bf11-e417-4358-992d-09eb2455522a"
+    },
+    {
+      "id": "ENT1764210125412",
+      "dataHora": "2025-11-29",
+      "avaliadorCpf": "05720154108",
+      "observacoes": "",
+      "candidatoCpf": "04978456010",
+      "vagaId": "VID-5d3d7ef4-d63a-429e-9be2-c6071385797c"
     }
   ],
   "contratacoes": [
@@ -219,6 +227,15 @@
       "gestorAutorizanteCpf": "78988944054",
       "regimeContratacao": "CLT",
       "observacoes": ""
+    },
+    {
+      "id": "CTR1764210140172",
+      "dataSolicitacao": "2025-11-26",
+      "status": "PENDENTE_AUTORIZACAO",
+      "candidatoCpf": "04978456010",
+      "vagaId": "Tue Nov 25 00:03:38 BRT 2025",
+      "regimeContratacao": "ESTAGIO",
+      "observacoes": "AAA"
     }
   ]
 }

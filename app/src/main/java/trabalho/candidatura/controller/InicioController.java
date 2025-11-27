@@ -30,6 +30,8 @@ public class InicioController {
     @FXML
     private Button backButton;
 
+    private Usuario currentUser;
+
     @FXML
     public void initialize() {
         btnCadastrarCandidato
@@ -40,23 +42,23 @@ public class InicioController {
                 .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/consulta_candidato.fxml", e));
     }
 
-    private Usuario currentUser;
-
     private void abrirTela(String caminhoFXML, MouseEvent event) {
         try {
             System.out.println("Tentando carregar: " + caminhoFXML);
             System.out.println("Encontrado? " + (getClass().getResource(caminhoFXML) != null));
-
+            System.out.println(this.currentUser.getCpfCnpj());
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
 
             Object controller = loader.getController();
 
             if (caminhoFXML.contains("status_candidatura.fxml")) {
+                System.out.println("status_candidatura.fxml");
                 StatusCandidaturaController ctrl = (StatusCandidaturaController) controller;
                 ctrl.initData(this.currentUser);
 
             } else if (caminhoFXML.contains("nova_candidatura.fxml")) {
+                System.out.println("nova_candidatura.fxml");
                 NovaCandidaturaController ctrl = (NovaCandidaturaController) controller;
                 ctrl.initData(this.currentUser);
 
@@ -67,7 +69,7 @@ public class InicioController {
             } else if (caminhoFXML.contains("cadastro_candidato.fxml")) {
                 CadastroCandidatoController ctrl = (CadastroCandidatoController) controller;
                 ctrl.initData(this.currentUser);
-            } 
+            }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -83,7 +85,8 @@ public class InicioController {
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
             Parent root = loader.load();
 
             MenuRecrutamentoController controller = loader.getController();
@@ -101,6 +104,8 @@ public class InicioController {
     }
 
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
+
         this.currentUser = user;
     }
 }

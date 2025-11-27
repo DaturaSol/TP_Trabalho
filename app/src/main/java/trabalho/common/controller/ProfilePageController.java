@@ -29,6 +29,8 @@ public class ProfilePageController {
     private Usuario currentUser;
 
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
+
         this.currentUser = user;
         configureRoleButtons();
     }
@@ -78,7 +80,8 @@ public class ProfilePageController {
     @FXML
     private void handleAdminButtonAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/admin/dashboardAdministrador.fxml"));
             Parent root = loader.load();
 
             DashboardAdministradorController controller = loader.getController();
@@ -102,7 +105,7 @@ public class ProfilePageController {
 
             DashboardGestorController controller = loader.getController();
             controller.initData(this.currentUser);
-            
+
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -116,12 +119,13 @@ public class ProfilePageController {
     @FXML
     private void handleRecrutadorButtonAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
             Parent root = loader.load();
 
             MenuRecrutamentoController controller = loader.getController();
             controller.initData(this.currentUser);
-            
+
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

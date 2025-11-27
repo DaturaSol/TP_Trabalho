@@ -65,7 +65,7 @@ public class CadastroCandidatoController {
     @FXML
     private Button btnVoltar;
 
-    //Metodo de inicialização
+    // Metodo de inicialização
     @FXML
     public void initialize() {
         comboDisponibilidade.getItems().addAll(
@@ -181,7 +181,7 @@ public class CadastroCandidatoController {
     }
 
     private Usuario currentUser;
-    
+
     @FXML
     private Button backButton;
 
@@ -204,8 +204,10 @@ public class CadastroCandidatoController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
+
         this.currentUser = user;
     }
 

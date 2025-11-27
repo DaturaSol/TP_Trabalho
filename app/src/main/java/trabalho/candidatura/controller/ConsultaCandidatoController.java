@@ -112,8 +112,7 @@ public class ConsultaCandidatoController {
             Label lbl = new Label(
                     c.getPessoa().getNome() +
                             " — CPF: " + c.getPessoa().getCpfCnpj() +
-                            " — Email: " + c.getPessoa().getEmail()
-            );
+                            " — Email: " + c.getPessoa().getEmail());
             lbl.setPrefWidth(400);
 
             Button btnDetalhes = new Button("Detalhes");
@@ -141,8 +140,7 @@ public class ConsultaCandidatoController {
                 "CPF: " + c.getPessoa().getCpfCnpj() + "\n" +
                         "Email: " + c.getPessoa().getEmail() + "\n" +
                         "Formação: " + c.getFormacao() + "\n" +
-                        "Experiência: " + c.getExperiencia()
-        );
+                        "Experiência: " + c.getExperiencia());
 
         alerta.showAndWait();
     }
@@ -153,15 +151,14 @@ public class ConsultaCandidatoController {
         confirmar.setHeaderText("Excluir o candidato?");
         confirmar.setContentText("Isso removerá o candidato e suas informações.");
 
-        if (confirmar.showAndWait().get() != ButtonType.OK) return;
+        if (confirmar.showAndWait().get() != ButtonType.OK)
+            return;
 
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
 
-        appData.getCandidaturas().removeIf(c ->
-                c.getCandidato() != null &&
-                        c.getCandidato().getCpfCnpj().equals(candidato.getCpfCnpj())
-        );
+        appData.getCandidaturas().removeIf(c -> c.getCandidato() != null &&
+                c.getCandidato().getCpfCnpj().equals(candidato.getCpfCnpj()));
 
         appData.getCandidatos().remove(candidato.getCpfCnpj());
 
@@ -173,7 +170,7 @@ public class ConsultaCandidatoController {
     }
 
     private Usuario currentUser;
-    
+
     @FXML
     private Button backButton;
 
@@ -196,8 +193,10 @@ public class ConsultaCandidatoController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
+
         this.currentUser = user;
     }
 

@@ -18,8 +18,10 @@ import trabalho.common.database.JsonDataManager;
 import trabalho.recrutamento.model.Vaga;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NovaCandidaturaController {
 
@@ -39,37 +41,7 @@ public class NovaCandidaturaController {
 
     @FXML
     public void initialize() {
-        List<Candidato> candidatos = getListaCandidatos();
-        List<Vaga> vagas = getListaVagas();
 
-        comboCandidato.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Candidato c, boolean empty) {
-                super.updateItem(c, empty);
-                if (empty || c == null) {
-                    setText(null);
-                } else {
-                    setText(c.getPessoa().getNome()); // mostra só o nome
-                }
-            }
-        });
-        comboCandidato.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Candidato c, boolean empty) {
-                super.updateItem(c, empty);
-                if (empty || c == null) {
-                    setText(null);
-                } else {
-                    setText(c.getPessoa().getNome());
-                }
-            }
-        });
-        comboCandidato.getItems().addAll(candidatos);
-        comboVaga.getItems().addAll(vagas);
-        comboCandidato.setOnAction(e -> mostrarDadosCandidato());
-
-        btnConfirmar.setOnAction(e -> confirmarCandidatura());
-        btnLimpar.setOnAction(e -> limparSelecao());
     }
 
     private List<Candidato> getListaCandidatos() {
@@ -84,15 +56,15 @@ public class NovaCandidaturaController {
     }
 
     private List<Vaga> getListaVagas() {
-        try {
-            // use appData to get the list of vagas
-            JsonDataManager dataManager = JsonDataManager.getInstance();
-            AppData appData = dataManager.getData();
-            return appData.getVagasById().values().stream().filter(v -> v.getStatus() == Vaga.StatusVaga.ABERTA).toList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
-        }
+        JsonDataManager dataManager = JsonDataManager.getInstance();
+        AppData appData = dataManager.getData();
+        System.out.println(this.currentUser.getCpfCnpj());
+        if (this.currentUser == null)
+            return new ArrayList<>();
+        return appData.getVagasById().values().stream()
+                .filter(vagas -> vagas.getRecrutadorResponsavelCpf() != null &&
+                        vagas.getRecrutadorResponsavelCpf().equals(this.currentUser.getCpfCnpj()))
+                .collect(Collectors.toList());
     }
 
     private void mostrarDadosCandidato() {
@@ -143,9 +115,8 @@ public class NovaCandidaturaController {
         alerta.showAndWait();
     }
 
-
     private Usuario currentUser;
-    
+
     @FXML
     private Button backButton;
 
@@ -168,8 +139,40 @@ public class NovaCandidaturaController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
         this.currentUser = user;
+        List<Candidato> candidatos = getListaCandidatos();
+        List<Vaga> vagas = getListaVagas();
+
+        comboCandidato.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Candidato c, boolean empty) {
+                super.updateItem(c, empty);
+                if (empty || c == null) {
+                    setText(null);
+                } else {
+                    setText(c.getPessoa().getNome()); // mostra só o nome
+                }
+            }
+        });
+        comboCandidato.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Candidato c, boolean empty) {
+                super.updateItem(c, empty);
+                if (empty || c == null) {
+                    setText(null);
+                } else {
+                    setText(c.getPessoa().getNome());
+                }
+            }
+        });
+        comboCandidato.getItems().addAll(candidatos);
+        comboVaga.getItems().addAll(vagas);
+        comboCandidato.setOnAction(e -> mostrarDadosCandidato());
+
+        btnConfirmar.setOnAction(e -> confirmarCandidatura());
+        btnLimpar.setOnAction(e -> limparSelecao());
     }
 }
