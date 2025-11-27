@@ -60,6 +60,7 @@ public class EditVagaController {
     private static final String STYLE_ERROR = "-fx-border-color: red; -fx-background-color: #ffdddd;";
 
     public void initData(Usuario currentUser) {
+        System.out.println("Nova vaga initalized by user: " + currentUser.getCpfCnpj());
         this.currentUser = currentUser;
         title.setText("Criar Nova Vaga");
         // Set default text
@@ -247,8 +248,12 @@ public class EditVagaController {
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/painelVagas.fxml"));
             Parent root = loader.load();
+
+            PainelVagasController controller = loader.getController();
+            controller.initData(currentUser);
+
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
