@@ -46,6 +46,13 @@
       "email": "j@gmail.com",
       "endereco": "",
       "telefone": 0
+    },
+    "05720154108": {
+      "cpfCnpj": "05720154108",
+      "nome": "Gabriel",
+      "email": "",
+      "endereco": "",
+      "telefone": 0
     }
   },
   "usuariosByCpf": {
@@ -72,6 +79,10 @@
     "85743658153": {
       "cpfCnpj": "85743658153",
       "passHash": "$2a$12$pmRkjm8enA9Fah8bunLza.zo0bMSfVaKZYatj2QIgXqp9YScUS37C"
+    },
+    "05720154108": {
+      "cpfCnpj": "05720154108",
+      "passHash": "$2a$12$6.TsQC7h5B7pujNR0JeQ0uKFytqzNQUzyS2y4mDX9p3TSqBygY6TC"
     }
   },
   "funcionariosByCpf": {},
@@ -114,6 +125,13 @@
       "departamento": "RH",
       "salarioBase": 8000.0,
       "cpfCnpj": "04394245001"
+    },
+    "05720154108": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "Inferno",
+      "salarioBase": -4000.0,
+      "cpfCnpj": "05720154108"
     }
   },
   "candidatosByCpf": {
@@ -194,6 +212,30 @@
       "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
       "gestorCriadorCpf": "78988944054",
       "recrutadorResponsavelCpf": "04394245001"
+    },
+    "VID-5d3d7ef4-d63a-429e-9be2-c6071385797c": {
+      "id": "VID-5d3d7ef4-d63a-429e-9be2-c6071385797c",
+      "cargo": "BS",
+      "departamento": "AAA",
+      "salarioBase": -1900.0,
+      "requisitos": "A",
+      "status": "ABERTA",
+      "regimeContratacao": "CLT",
+      "dataAbertura": "Nov 19, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "78988944054",
+      "recrutadorResponsavelCpf": "05720154108"
+    },
+    "VID-12e0cee4-484f-4ba6-898c-fd102f9fdbbb": {
+      "id": "VID-12e0cee4-484f-4ba6-898c-fd102f9fdbbb",
+      "cargo": "aaa",
+      "departamento": "bbbb",
+      "salarioBase": -1900.0,
+      "requisitos": "Acccc",
+      "status": "ABERTA",
+      "regimeContratacao": "ESTAGIO",
+      "dataAbertura": "Nov 21, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "78988944054",
+      "recrutadorResponsavelCpf": "05720154108"
     }
   },
   "candidaturas": [
@@ -213,6 +255,23 @@
       },
       "dataCandidatura": "Nov 26, 2025, 9:37:04 PM",
       "status": "APROVADO"
+    },
+    {
+      "cpfCnpjCandidato": "04978456010",
+      "vaga": {
+        "id": "VID-5d3d7ef4-d63a-429e-9be2-c6071385797c",
+        "cargo": "BS",
+        "departamento": "AAA",
+        "salarioBase": -1900.0,
+        "requisitos": "A",
+        "status": "ABERTA",
+        "regimeContratacao": "CLT",
+        "dataAbertura": "Nov 19, 2025, 12:00:00 AM",
+        "gestorCriadorCpf": "78988944054",
+        "recrutadorResponsavelCpf": "05720154108"
+      },
+      "dataCandidatura": "Nov 26, 2025, 11:21:27 PM",
+      "status": "EM_ANALISE"
     }
   ],
   "entrevistas": [
@@ -233,6 +292,14 @@
       "observacoes": "",
       "candidatoCpf": "00245924124",
       "vagaId": "VID-f8d9bf11-e417-4358-992d-09eb2455522a"
+    },
+    {
+      "id": "ENT1764210125412",
+      "dataHora": "2025-11-29",
+      "avaliadorCpf": "05720154108",
+      "observacoes": "",
+      "candidatoCpf": "04978456010",
+      "vagaId": "VID-5d3d7ef4-d63a-429e-9be2-c6071385797c"
     }
   ],
   "contratacoes": [
@@ -246,6 +313,15 @@
       "gestorAutorizanteCpf": "78988944054",
       "regimeContratacao": "CLT",
       "observacoes": ""
+    },
+    {
+      "id": "CTR1764210140172",
+      "dataSolicitacao": "2025-11-26",
+      "status": "PENDENTE_AUTORIZACAO",
+      "candidatoCpf": "04978456010",
+      "vagaId": "Tue Nov 25 00:03:38 BRT 2025",
+      "regimeContratacao": "ESTAGIO",
+      "observacoes": "AAA"
     }
   ]
 }

@@ -37,9 +37,12 @@ public class MenuRecrutamentoController {
     @FXML
     public void initialize() {
         btnGerenciarVagas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/gerenciar_vagas.fxml", e));
-        btnAgendarEntrevistas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/agendar_entrevistas.fxml", e));
-        btnRealizarEntrevistas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/realizar_entrevista.fxml", e));
-        btnSolicitarContratacoes.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/solicitar_contratacoes.fxml", e));
+        btnAgendarEntrevistas
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/agendar_entrevistas.fxml", e));
+        btnRealizarEntrevistas
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/realizar_entrevista.fxml", e));
+        btnSolicitarContratacoes
+                .setOnMouseClicked(e -> abrirTela("/trabalho/fxml/recrutamento/solicitar_contratacoes.fxml", e));
         btnGerenciarCandidaturas.setOnMouseClicked(e -> abrirTela("/trabalho/fxml/candidatura/inicio.fxml", e));
     }
 
@@ -50,13 +53,13 @@ public class MenuRecrutamentoController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
 
-            //Inicializacao de usuario
+            // Inicializacao de usuario
             Object controller = loader.getController();
 
             if (caminhoFXML.contains("agendar_entrevistas.fxml")) {
                 AgendarEntrevistasController ctrl = (AgendarEntrevistasController) controller;
                 ctrl.initData(this.currentUser);
-                
+
             } else if (caminhoFXML.contains("gerenciar_vagas.fxml")) {
                 GerenciarVagasController ctrl = (GerenciarVagasController) controller;
                 ctrl.initData(this.currentUser);
@@ -103,8 +106,10 @@ public class MenuRecrutamentoController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
+        System.out.println(this.getClass().getName() + user.getCpfCnpj());
+
         this.currentUser = user;
     }
 }
