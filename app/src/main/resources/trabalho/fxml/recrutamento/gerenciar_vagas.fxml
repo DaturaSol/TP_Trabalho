@@ -42,7 +42,7 @@
    <left>
       <VBox prefWidth="350.0" spacing="10.0">
          <children>
-            <TitledPane animated="false" collapsible="false" text="Cadastrar/Editar Vaga">
+            <TitledPane animated="false" collapsible="false" text="Editar Vaga">
                <content>
                   <GridPane hgap="10.0" vgap="10.0">
                      <columnConstraints>
