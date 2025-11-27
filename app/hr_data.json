@@ -41,13 +41,6 @@
       "endereco": "",
       "telefone": 0
     },
-    "26570441078": {
-      "cpfCnpj": "26570441078",
-      "nome": "Gabriela Ribeiro Souza",
-      "email": "gabriela@gmail.com",
-      "endereco": "",
-      "telefone": 0
-    },
     "41053572042": {
       "cpfCnpj": "41053572042",
       "nome": "Geraldo Gonçalves Xavier",
@@ -65,6 +58,20 @@
       "cpfCnpj": "38918119003",
       "nome": "Thiago Gomes Tomé",
       "email": "thiago@gmail.com",
+      "telefone": 0
+    },
+    "48420705012": {
+      "cpfCnpj": "48420705012",
+      "nome": "Roberto Chaves Moura",
+      "email": "roberto@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "nome": "Gabriela Ribeiro Souza",
+      "email": "gabriela@gmail.com",
+      "endereco": "",
       "telefone": 0
     }
   },
@@ -97,13 +104,17 @@
       "cpfCnpj": "61045368083",
       "passHash": "$2a$12$FuqcvKdL2cjDX1txEXVk9OkAllgR4GOIoMoQfam1aXsw/5U/nKwSy"
     },
-    "26570441078": {
-      "cpfCnpj": "26570441078",
-      "passHash": "$2a$12$9D1pkRBc/8mMAaT4IZAJLOp9bN4B38aUNA3pEWPdCeliFPTJc1t3m"
-    },
     "41053572042": {
       "cpfCnpj": "41053572042",
       "passHash": "$2a$12$hTZOq.zz6/jKzjwAvQAxfe3QWvTrZ/QXQ0ut2jCzpf/hhrAsv3G8K"
+    },
+    "48420705012": {
+      "cpfCnpj": "48420705012",
+      "passHash": "$2a$12$VrYZuA/lJ8kbT8RNbvS6.eAe9Ki9K4RzoWiVNHKZ.6.UWImU4YtFC"
+    },
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "passHash": "$2a$12$9D1pkRBc/8mMAaT4IZAJLOp9bN4B38aUNA3pEWPdCeliFPTJc1t3m"
     }
   },
   "funcionariosByCpf": {},
@@ -123,13 +134,6 @@
       "departamento": "RH",
       "salarioBase": 12000.0,
       "cpfCnpj": "26570441078"
-    },
-    "41053572042": {
-      "cargo": "Gestor",
-      "status": "Ativo",
-      "departamento": "RH",
-      "salarioBase": 12000.0,
-      "cpfCnpj": "41053572042"
     }
   },
   "recrutadoresByCpf": {
@@ -139,6 +143,20 @@
       "departamento": "RH",
       "salarioBase": 8000.0,
       "cpfCnpj": "61045368083"
+    },
+    "48420705012": {
+      "cargo": "Recrutador do RH",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 1500.0,
+      "cpfCnpj": "48420705012"
+    },
+    "26570441078": {
+      "cargo": "Recrutador",
+      "status": "Ativo",
+      "departamento": "RH",
+      "salarioBase": 12000.0,
+      "cpfCnpj": "26570441078"
     }
   },
   "candidatosByCpf": {
@@ -185,6 +203,30 @@
       "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
       "gestorCriadorCpf": "98620725041",
       "recrutadorResponsavelCpf": "61045368083"
+    },
+    "VID-24abac88-92e0-4514-baec-fdb260d390e8": {
+      "id": "VID-24abac88-92e0-4514-baec-fdb260d390e8",
+      "cargo": "Arquiteto",
+      "departamento": "Arquitetura",
+      "salarioBase": 1900.0,
+      "requisitos": "Graduação em arquitetura",
+      "status": "ABERTA",
+      "regimeContratacao": "PJ",
+      "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "26570441078",
+      "recrutadorResponsavelCpf": "48420705012"
+    },
+    "VID-89c7940d-3f42-4194-a3a3-a6a020a6dcb1": {
+      "id": "VID-89c7940d-3f42-4194-a3a3-a6a020a6dcb1",
+      "cargo": "Engenheiro",
+      "departamento": "SA",
+      "salarioBase": 700.0,
+      "requisitos": "Saber ler e escrever",
+      "status": "ABERTA",
+      "regimeContratacao": "PJ",
+      "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
+      "gestorCriadorCpf": "26570441078",
+      "recrutadorResponsavelCpf": "26570441078"
     }
   },
   "candidaturas": [],
