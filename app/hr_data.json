@@ -21,30 +21,50 @@
       "endereco": "",
       "telefone": 0
     },
+    "85743658153": {
+      "cpfCnpj": "85743658153",
+      "nome": "Jason",
+      "email": "j@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
     "98620725041": {
       "cpfCnpj": "98620725041",
       "nome": "Ademir Barbosa Silva",
       "email": "ademir@gmail.com",
       "telefone": 0
     },
-    "04978456010": {
-      "cpfCnpj": "04978456010",
-      "nome": "Maria Julia",
-      "email": "maria@gmail.com",
-      "telefone": 0
-    },
-    "00245924124": {
-      "cpfCnpj": "00245924124",
-      "nome": "Ana",
-      "email": "a@gmail.com",
+    "61045368083": {
+      "cpfCnpj": "61045368083",
+      "nome": "Renata Machado Nunes",
+      "email": "renata@gmail.com",
       "endereco": "",
       "telefone": 0
     },
-    "85743658153": {
-      "cpfCnpj": "85743658153",
-      "nome": "Jason",
-      "email": "j@gmail.com",
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "nome": "Gabriela Ribeiro Souza",
+      "email": "gabriela@gmail.com",
       "endereco": "",
+      "telefone": 0
+    },
+    "41053572042": {
+      "cpfCnpj": "41053572042",
+      "nome": "Geraldo Gonçalves Xavier",
+      "email": "geraldo@gmail.com",
+      "endereco": "",
+      "telefone": 0
+    },
+    "39940241020": {
+      "cpfCnpj": "39940241020",
+      "nome": "Camila Martins de Melo",
+      "email": "camila@gmail.com",
+      "telefone": 0
+    },
+    "38918119003": {
+      "cpfCnpj": "38918119003",
+      "nome": "Thiago Gomes Tomé",
+      "email": "thiago@gmail.com",
       "telefone": 0
     }
   },
@@ -61,10 +81,6 @@
       "cpfCnpj": "78988944054",
       "passHash": "$2a$12$byb8jJudRmzURgrP9ydi3OFsj56uuE4Vt.so.qsjMh6Az/u38rf8m"
     },
-    "98620725041": {
-      "cpfCnpj": "98620725041",
-      "passHash": "$2a$12$aSBCXjH1lXE0QMem8AfC.eB3wv8zHcqy8LGhM0xGeWJdC.WMjkkHK"
-    },
     "00245924124": {
       "cpfCnpj": "00245924124",
       "passHash": "$2a$12$vzmqzpH6vWxRZj1wqFnAP..GKKkcAZGFb4qMH4o/KPDM7WyqW8LFC"
@@ -72,17 +88,26 @@
     "85743658153": {
       "cpfCnpj": "85743658153",
       "passHash": "$2a$12$pmRkjm8enA9Fah8bunLza.zo0bMSfVaKZYatj2QIgXqp9YScUS37C"
+    },
+    "98620725041": {
+      "cpfCnpj": "98620725041",
+      "passHash": "$2a$12$baCpkgTcYzMdSkbC5TzwPev/PAUvnciqfNxY7T9.QGFZ.NTCT.6UC"
+    },
+    "61045368083": {
+      "cpfCnpj": "61045368083",
+      "passHash": "$2a$12$FuqcvKdL2cjDX1txEXVk9OkAllgR4GOIoMoQfam1aXsw/5U/nKwSy"
+    },
+    "26570441078": {
+      "cpfCnpj": "26570441078",
+      "passHash": "$2a$12$9D1pkRBc/8mMAaT4IZAJLOp9bN4B38aUNA3pEWPdCeliFPTJc1t3m"
+    },
+    "41053572042": {
+      "cpfCnpj": "41053572042",
+      "passHash": "$2a$12$hTZOq.zz6/jKzjwAvQAxfe3QWvTrZ/QXQ0ut2jCzpf/hhrAsv3G8K"
     }
   },
   "funcionariosByCpf": {},
   "administradoresByCpf": {
-    "78988944054": {
-      "cargo": "Administrador",
-      "status": "Ativo",
-      "departamento": "RH",
-      "salarioBase": 15000.0,
-      "cpfCnpj": "78988944054"
-    },
     "98620725041": {
       "cargo": "Administrador do Sistema",
       "status": "Ativo",
@@ -92,129 +117,77 @@
     }
   },
   "gestoresByCpf": {
-    "17496508004": {
+    "26570441078": {
       "cargo": "Gestor",
       "status": "Ativo",
       "departamento": "RH",
-      "salarioBase": 15000.0,
-      "cpfCnpj": "17496508004"
+      "salarioBase": 12000.0,
+      "cpfCnpj": "26570441078"
     },
-    "78988944054": {
+    "41053572042": {
       "cargo": "Gestor",
       "status": "Ativo",
       "departamento": "RH",
-      "salarioBase": 15000.0,
-      "cpfCnpj": "78988944054"
+      "salarioBase": 12000.0,
+      "cpfCnpj": "41053572042"
     }
   },
   "recrutadoresByCpf": {
-    "04394245001": {
+    "61045368083": {
       "cargo": "Recrutador",
       "status": "Ativo",
       "departamento": "RH",
       "salarioBase": 8000.0,
-      "cpfCnpj": "04394245001"
+      "cpfCnpj": "61045368083"
     }
   },
   "candidatosByCpf": {
-    "04978456010": {
-      "formacao": "",
+    "39940241020": {
+      "formacao": "Contabilidade\n",
       "experiencia": "",
-      "pretensaoSalarial": 10000.0,
-      "disponibilidadeHorario": "Integral",
+      "pretensaoSalarial": 12000.0,
+      "disponibilidadeHorario": "Tarde",
       "documentosAdicionais": "",
-      "dataCadastro": "2025-11-24",
-      "cpfCnpj": "04978456010"
+      "dataCadastro": "2025-11-26",
+      "cpfCnpj": "39940241020"
     },
-    "00245924124": {
-      "formacao": "Aluno",
-      "experiencia": "Nenhuma",
-      "pretensaoSalarial": 500.0,
-      "disponibilidadeHorario": "Integral",
+    "38918119003": {
+      "formacao": "Arquitetura\n",
+      "experiencia": "",
+      "pretensaoSalarial": 7000.0,
+      "disponibilidadeHorario": "Noite",
       "documentosAdicionais": "",
-      "dataCadastro": "2025-11-24",
-      "cpfCnpj": "00245924124"
+      "dataCadastro": "2025-11-26",
+      "cpfCnpj": "38918119003"
     }
   },
   "vagasById": {
-    "VID-f8d9bf11-e417-4358-992d-09eb2455522a": {
-      "id": "VID-f8d9bf11-e417-4358-992d-09eb2455522a",
-      "cargo": "Jornalista",
-      "departamento": "Rua",
-      "salarioBase": 200.0,
-      "requisitos": "Falar muito",
-      "status": "ABERTA",
-      "regimeContratacao": "CLT",
-      "dataAbertura": "Nov 24, 2025, 12:00:00 AM",
-      "recrutadorResponsavelCpf": "04394245001"
-    },
-    "VAG1763996445641": {
-      "id": "VAG1763996445641",
-      "cargo": "Arquiteto",
-      "departamento": "Arquitetura",
-      "salarioBase": 5000.0,
-      "requisitos": "Ensino Superior",
-      "status": "ABERTA",
-      "regimeContratacao": "CLT",
-      "dataAbertura": "Nov 24, 2025, 12:00:00 AM",
-      "recrutadorResponsavelCpf": "04394245001"
-    },
-    "Tue Nov 25 00:03:38 BRT 2025": {
-      "id": "Tue Nov 25 00:03:38 BRT 2025",
-      "cargo": "Medico",
-      "departamento": "Saude",
-      "salarioBase": 230.0,
-      "requisitos": "saber ler",
-      "status": "EM_PROCESSO",
-      "regimeContratacao": "CLT",
-      "dataAbertura": "Dec 6, 2025, 12:00:00 AM",
-      "gestorCriadorCpf": "78988944054",
-      "recrutadorResponsavelCpf": "04394245001"
-    },
-    "VID-e30a4054-f5d2-4194-b8e6-f789e86b0f28": {
-      "id": "VID-e30a4054-f5d2-4194-b8e6-f789e86b0f28",
-      "cargo": "A",
-      "departamento": "A",
-      "salarioBase": 0.01,
-      "requisitos": "A",
+    "VID-a575dc46-d708-4160-9b68-9b025740a7ad": {
+      "id": "VID-a575dc46-d708-4160-9b68-9b025740a7ad",
+      "cargo": "Desenvolvedor",
+      "departamento": "TI",
+      "salarioBase": 15000.0,
+      "requisitos": "Graduação na área de tecnologia\n",
       "status": "ABERTA",
       "regimeContratacao": "CLT",
       "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
-      "gestorCriadorCpf": "78988944054",
-      "recrutadorResponsavelCpf": "04394245001"
+      "gestorCriadorCpf": "98620725041",
+      "recrutadorResponsavelCpf": "61045368083"
     },
-    "VID-461b0541-8f0f-47c3-be98-17b9531cabbf": {
-      "id": "VID-461b0541-8f0f-47c3-be98-17b9531cabbf",
-      "cargo": "A",
-      "departamento": "A",
-      "salarioBase": 0.01,
-      "requisitos": "A",
+    "VID-05615cf1-3774-4194-9a50-f9c96ce30406": {
+      "id": "VID-05615cf1-3774-4194-9a50-f9c96ce30406",
+      "cargo": "Contador",
+      "departamento": "Financeiro",
+      "salarioBase": 13000.0,
+      "requisitos": "Graduação em contabilidade",
       "status": "ABERTA",
       "regimeContratacao": "CLT",
       "dataAbertura": "Nov 26, 2025, 12:00:00 AM",
-      "gestorCriadorCpf": "78988944054",
-      "recrutadorResponsavelCpf": "04394245001"
+      "gestorCriadorCpf": "98620725041",
+      "recrutadorResponsavelCpf": "61045368083"
     }
   },
-  "candidaturas": [
-    {
-      "cpfCnpjCandidato": "00245924124",
-      "vaga": {
-        "id": "VID-f8d9bf11-e417-4358-992d-09eb2455522a",
-        "cargo": "Jornalista",
-        "departamento": "Rua",
-        "salarioBase": 200.0,
-        "requisitos": "Falar",
-        "status": "FECHADA",
-        "regimeContratacao": "CLT",
-        "dataAbertura": "Nov 28, 2025, 12:00:00 AM",
-        "gestorCriadorCpf": "78988944054",
-        "recrutadorResponsavelCpf": "04394245001"
-      },
-      "dataCandidatura": "Nov 26, 2025, 9:37:04 PM",
-      "status": "APROVADO"
-    }
-  ],
+  "candidaturas": [],
   "entrevistas": [
     {
       "avaliadorCpf": "85743658153",
