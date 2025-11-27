@@ -21,7 +21,9 @@ import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Candidatura;
 import trabalho.candidatura.model.Candidatura.StatusCandidatura;
+import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 
 public class PesquisarCandidaturasController {
 
@@ -73,6 +75,7 @@ public class PesquisarCandidaturasController {
     }
 
     private void setupTableColumns() {
+        AppData appData = JsonDataManager.getInstance().getData();
         // This is the simplest way to link columns to a model's properties.
         // It requires the Candidatura class to have public getter methods
         // like getVagaId(), getCandidatoCpfCnpj(), and getStatus().
@@ -82,7 +85,13 @@ public class PesquisarCandidaturasController {
         });
         cpfColumn.setCellValueFactory(cellData -> {
             String cpf = cellData.getValue().getCpfCnpjCandidato();
-            return new SimpleStringProperty(cpf != null ? cpf : "");
+            var pessoa = appData.getPessoas().get(cpf);
+            if (pessoa == null) {
+                return new SimpleStringProperty("Candidato não encontrado (CPF: " + cpf + ")");
+            }
+
+            String nome = pessoa.getNome();
+            return new SimpleStringProperty("Nome: " + nome + " CPF: " + CpfCnpjManager.format(cpf));
         });
         statusColumn.setCellValueFactory(cellData -> {
             StatusCandidatura status = cellData.getValue().getStatusEnum();

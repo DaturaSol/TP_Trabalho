@@ -30,22 +30,28 @@ import java.util.stream.Collectors;
  */
 public class SolicitarContratacoesController {
 
-    @FXML private ComboBox<Entrevista> comboEntrevista;
-    @FXML private ComboBox<String> comboRegime;
-    @FXML private TextArea txtObservacoes;
-    @FXML private TextArea txtDadosEntrevista;
-    @FXML private Button btnSolicitar;
-    @FXML private Button btnLimpar;
-    @FXML private Button backButton;
+    @FXML
+    private ComboBox<Entrevista> comboEntrevista;
+    @FXML
+    private ComboBox<String> comboRegime;
+    @FXML
+    private TextArea txtObservacoes;
+    @FXML
+    private TextArea txtDadosEntrevista;
+    @FXML
+    private Button btnSolicitar;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private Button backButton;
 
     @FXML
     public void initialize() {
         // Popular regime
         comboRegime.getItems().addAll("CLT", "ESTAGIO", "PJ");
-        
+
         // Carregar entrevistas aprovadas (nota >= 7)
-        List<Entrevista> entrevistas = getEntrevistasAprovadas();
-        
+
         comboEntrevista.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Entrevista e, boolean empty) {
@@ -60,7 +66,7 @@ public class SolicitarContratacoesController {
                 }
             }
         });
-        
+
         comboEntrevista.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Entrevista e, boolean empty) {
@@ -75,10 +81,9 @@ public class SolicitarContratacoesController {
                 }
             }
         });
-        
-        comboEntrevista.getItems().addAll(entrevistas);
+
         comboEntrevista.setOnAction(e -> mostrarDadosEntrevista());
-        
+
         btnSolicitar.setOnAction(e -> solicitar());
         btnLimpar.setOnAction(e -> limpar());
     }
@@ -89,16 +94,16 @@ public class SolicitarContratacoesController {
         try {
             Entrevista entrevista = comboEntrevista.getValue();
             String regime = comboRegime.getValue();
-            
+
             if (entrevista == null || regime == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Atenção", 
-                    "Selecione entrevista e regime de contratação.");
+                mostrarAlerta(Alert.AlertType.WARNING, "Atenção",
+                        "Selecione entrevista e regime de contratação.");
                 return;
             }
-            
+
             JsonDataManager dataManager = JsonDataManager.getInstance();
             AppData appData = dataManager.getData();
-            
+
             Contratacao contratacao = new Contratacao();
             contratacao.setId("CTR" + System.currentTimeMillis());
             contratacao.setCandidatoCpf(entrevista.getCandidatoCpf());
@@ -107,14 +112,14 @@ public class SolicitarContratacoesController {
             contratacao.setDataSolicitacao(LocalDate.now());
             contratacao.setStatus(Contratacao.StatusContratacao.PENDENTE_AUTORIZACAO);
             contratacao.setObservacoes(txtObservacoes.getText());
-            
+
             appData.addContratacao(contratacao);
             dataManager.saveData();
-            
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", 
-                "Solicitação de contratação enviada! Aguardando autorização do gestor.");
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso",
+                    "Solicitação de contratação enviada! Aguardando autorização do gestor.");
             limpar();
-            
+
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Erro ao solicitar: " + e.getMessage());
         }
@@ -126,13 +131,14 @@ public class SolicitarContratacoesController {
             Candidatura c = getCandidatura(e.getCandidatoCpf());
             if (c != null) {
                 txtDadosEntrevista.setText(
-                    "Candidato: " + c.getCandidato().getPessoa().getNome() + "\n" +
-                    "CPF: " + c.getCandidato().getCpfCnpj() + "\n" +
-                    "Vaga: " + (c.getVaga() != null ? c.getVaga().getCargo() : "N/A") + "\n" +
-                    "Data Entrevista: " + e.getDataHora() + "\n" +
-                    "Nota: " + e.getNota() + "\n" +
-                    "Avaliador: " + e.getAvaliadorCpf() + "\n" 
-                    // + "Observações: " + (e.getObservacoes() != null ? e.getObservacoes() : "Nenhuma")
+                        "Candidato: " + c.getCandidato().getPessoa().getNome() + "\n" +
+                                "CPF: " + c.getCandidato().getCpfCnpj() + "\n" +
+                                "Vaga: " + (c.getVaga() != null ? c.getVaga().getCargo() : "N/A") + "\n" +
+                                "Data Entrevista: " + e.getDataHora() + "\n" +
+                                "Nota: " + e.getNota() + "\n" +
+                                "Avaliador: " + e.getAvaliadorCpf() + "\n"
+                // + "Observações: " + (e.getObservacoes() != null ? e.getObservacoes() :
+                // "Nenhuma")
                 );
             }
         }
@@ -148,18 +154,28 @@ public class SolicitarContratacoesController {
     private List<Entrevista> getEntrevistasAprovadas() {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
+
+        // Proteção caso o usuário ainda não tenha sido carregado
+        if (this.currentUser == null) {
+            return List.of(); // Retorna lista vazia
+        }
+
         return appData.getEntrevistas().stream()
-            .filter(e -> e.getNota() != null && e.getNota() >= 7.0)
-            .collect(Collectors.toList());
+                // Filtro 1: Nota maior ou igual a 7 (aprovado)
+                .filter(e -> e.getNota() != null && e.getNota() >= 7.0)
+                // Filtro 2: O avaliador deve ser o usuário logado
+                .filter(e -> e.getAvaliadorCpf() != null &&
+                        e.getAvaliadorCpf().equals(this.currentUser.getCpfCnpj()))
+                .collect(Collectors.toList());
     }
 
     private Candidatura getCandidatura(String cpf) {
         JsonDataManager dataManager = JsonDataManager.getInstance();
         AppData appData = dataManager.getData();
         return appData.getCandidaturas().stream()
-            .filter(c -> c.getCpfCnpjCandidato().equals(cpf))
-            .findFirst()
-            .orElse(null);
+                .filter(c -> c.getCpfCnpjCandidato().equals(cpf))
+                .findFirst()
+                .orElse(null);
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
@@ -173,7 +189,8 @@ public class SolicitarContratacoesController {
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/trabalho/fxml/recrutamento/menu_recrutamento.fxml"));
             Parent root = loader.load();
 
             MenuRecrutamentoController controller = loader.getController();
@@ -189,8 +206,11 @@ public class SolicitarContratacoesController {
             e.printStackTrace();
         }
     }
-    
+
     public void initData(Usuario user) {
         this.currentUser = user;
+        List<Entrevista> entrevistas = getEntrevistasAprovadas();
+        comboEntrevista.getItems().clear();
+        comboEntrevista.getItems().addAll(entrevistas);
     }
 }

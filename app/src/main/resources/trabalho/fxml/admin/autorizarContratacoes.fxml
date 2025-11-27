@@ -13,19 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-   prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1"
-   xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="trabalho.admin.controller.AutorizarContratacoesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trabalho.admin.controller.AutorizarContratacoesController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0"
-         style="-fx-background-color: #bfcbd7;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #bfcbd7;" BorderPane.alignment="CENTER">
          <padding>
             <Insets left="5.0" />
          </padding>
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction"
-               prefHeight="30.0" prefWidth="70.0" text="&lt; Voltar">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="30.0" prefWidth="70.0" text="&lt; Voltar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -39,8 +34,7 @@
       </HBox>
    </top>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="420.0" prefWidth="140.0" spacing="20.0"
-         BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="420.0" prefWidth="140.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="idField" promptText="Id Vaga" />
             <ComboBox fx:id="regimeComboBox" prefWidth="150.0" promptText="Regime" />
@@ -55,11 +49,9 @@
       </VBox>
    </left>
    <bottom>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0"
-         BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="autorizarButton" mnemonicParsing="false"
-               onAction="#handleAutorizarButtonAction" text="Autorizar">
+            <Button fx:id="autorizarButton" mnemonicParsing="false" onAction="#handleAutorizarButtonAction" text="Autorizar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -71,16 +63,15 @@
       </HBox>
    </bottom>
    <center>
-      <TableView fx:id="contratacoesTableView" prefHeight="420.0" prefWidth="631.0"
-         BorderPane.alignment="CENTER">
+      <TableView fx:id="contratacoesTableView" prefHeight="420.0" prefWidth="631.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id Vaga" />
-            <TableColumn fx:id="regimeColumn" prefWidth="75.0" text="Regime" />
-            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="candidatoColumn" prefWidth="94.4000244140625" text="Candidato" />
-            <TableColumn fx:id="recrutadorColumn" prefWidth="110.4000244140625" text="Recrutador" />
-            <TableColumn fx:id="dataColumn" prefWidth="110.4000244140625" text="Data Solicitação" />
-            <TableColumn fx:id="dataColumn1" prefWidth="110.4000244140625" text="Data Autorização" />
+            <TableColumn fx:id="idColumn" prefWidth="52.00006103515625" text="Id Vaga" />
+            <TableColumn fx:id="statusColumn" prefWidth="120.00006103515625" text="Status" />
+            <TableColumn fx:id="candidatoColumn" prefWidth="158.39996337890625" text="Candidato" />
+            <TableColumn fx:id="recrutadorColumn" prefWidth="185.60003662109375" text="Recrutador" />
+            <TableColumn fx:id="dataColumn" prefWidth="136.0" text="Data Solicitação" />
+            <TableColumn fx:id="dataColumn1" minWidth="3.2000732421875" prefWidth="3.2000732421875" text="Data Autorização" />
+            <TableColumn fx:id="regimeColumn" minWidth="0.0" prefWidth="0.0" text="Regime" />
          </columns>
       </TableView>
    </center>

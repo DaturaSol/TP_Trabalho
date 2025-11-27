@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
 import trabalho.common.database.AppData;
 import trabalho.common.database.JsonDataManager;
+import trabalho.financeiro.utils.CpfCnpjManager;
 import trabalho.recrutamento.model.Contratacao;
 import trabalho.recrutamento.model.Contratacao.StatusContratacao;
 import trabalho.recrutamento.model.RegimeContratacao;
@@ -79,6 +80,7 @@ public class AutorizarContratacoesController {
     }
 
     private void setupTableColumns() {
+        AppData appData = JsonDataManager.getInstance().getData();
 
         idColumn.setCellValueFactory(cellData -> {
             String id = cellData.getValue().getId();
@@ -106,12 +108,42 @@ public class AutorizarContratacoesController {
 
         candidatoColumn.setCellValueFactory(cellData -> {
             String cpf = cellData.getValue().getCandidatoCpf();
-            return new SimpleStringProperty(cpf != null ? cpf : "");
+
+            if (cpf == null || cpf.isBlank()) {
+                return new SimpleStringProperty("CPF não informado");
+            }
+
+            var pessoa = appData.getPessoas().get(cpf);
+
+            if (pessoa == null) {
+                return new SimpleStringProperty("Candidato não encontrado (CPF: " + cpf + ")");
+            }
+
+            String nome = pessoa.getNome();
+            return new SimpleStringProperty("Nome: " + nome + " CPF: " + CpfCnpjManager.format(cpf));
         });
 
         recrutadorColumn.setCellValueFactory(cellData -> {
-            String cpf = cellData.getValue().getRecrutadorSolicitanteCpf();
-            return new SimpleStringProperty(cpf != null ? cpf : "");
+            String vagaId = cellData.getValue().getVagaId();
+
+            if (vagaId == null || !appData.getVagasById().containsKey(vagaId)) {
+                return new SimpleStringProperty("Vaga não encontrada");
+            }
+
+            String cpf = appData.getVagasById().get(vagaId).getRecrutadorResponsavelCpf();
+
+            if (cpf == null || cpf.isBlank()) {
+                return new SimpleStringProperty("Recrutador não vinculado");
+            }
+
+            var pessoa = appData.getPessoas().get(cpf);
+
+            if (pessoa == null) {
+                return new SimpleStringProperty("Recrutador não encontrado no sistema");
+            }
+
+            String nome = pessoa.getNome();
+            return new SimpleStringProperty("Nome: " + nome + " CPF: " + CpfCnpjManager.format(cpf));
         });
     }
 
