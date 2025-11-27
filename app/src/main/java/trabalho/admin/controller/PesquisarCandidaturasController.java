@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import trabalho.admin.model.Usuario;
 import trabalho.candidatura.model.Candidatura;
 import trabalho.candidatura.model.Candidatura.StatusCandidatura;
-import trabalho.common.controller.ProfilePageController;
 import trabalho.common.database.JsonDataManager;
 
 public class PesquisarCandidaturasController {
@@ -139,18 +138,17 @@ public class PesquisarCandidaturasController {
     private void handleBackButtonAction(ActionEvent event) {
         System.out.println("Back button to be implemented.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/common/profile_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/trabalho/fxml/admin/dashboardGestor.fxml"));
             Parent root = loader.load();
 
-            ProfilePageController controller = loader.getController();
-            controller.initData(this.currentUser);
+            DashboardGestorController controller = loader.getController();
+            controller.initData(currentUser);
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("User Profile");
+            stage.setTitle("Dashboard Gestor");
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
